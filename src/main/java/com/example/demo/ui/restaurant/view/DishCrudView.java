@@ -21,5 +21,8 @@ public class DishCrudView extends VerticalLayout {
                 new H1("Dishes"),
                 crud
         );
+
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 }
