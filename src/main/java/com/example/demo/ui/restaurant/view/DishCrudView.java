@@ -5,11 +5,9 @@ import com.example.demo.backend.dish.service.DishCrudService;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 @Route("restaurant/dishes")
-@AnonymousAllowed
 public class DishCrudView extends VerticalLayout {
 
     public DishCrudView(DishCrudService dishCrudService) {

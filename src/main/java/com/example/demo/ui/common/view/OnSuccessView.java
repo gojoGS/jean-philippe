@@ -11,10 +11,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.annotation.security.PermitAll;
-
 @Route("")
-@PermitAll
 public class OnSuccessView extends HorizontalLayout implements BeforeEnterObserver {
 
     public OnSuccessView() {
