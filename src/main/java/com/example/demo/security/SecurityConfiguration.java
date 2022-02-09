@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Allow all Vaadin internal requests.
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("/app/**").permitAll() // TODO you better remove this or we're gonna be in biiiig trouble
                 // Allow all requests by logged-in users.
                 .anyRequest().authenticated()
 

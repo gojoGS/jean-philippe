@@ -7,7 +7,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
-@Route("restaurant/dishes")
+@Route("app/restaurant/dishes")
 public class DishCrudView extends VerticalLayout {
 
     public DishCrudView(DishCrudService dishCrudService) {

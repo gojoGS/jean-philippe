@@ -1,5 +1,6 @@
 package com.example.demo.backend.restaurant.core;
 
+import com.example.demo.backend.dish.core.Dish;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -21,10 +23,14 @@ public class Restaurant {
     private Long id;
 
     private String name;
-//
-//    @OneToMany(targetEntity = Dish.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "restaurant_dish_fk", referencedColumnName = "id")
-//    private List<Dish> dishes;
+
+    @OneToMany(targetEntity = Dish.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_dish_fk", referencedColumnName = "id")
+    private List<Dish> dishes;
+
+    public void addDish(Dish dish) {
+        dishes.add(dish);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -43,7 +49,7 @@ public class Restaurant {
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
-//                ", dishes=" + dishes +
+                ", dishes=" + dishes +
                 '}';
     }
 }

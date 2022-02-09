@@ -1,6 +1,8 @@
 package com.example.demo.backend.restaurant.rest;
 
 
+import com.example.demo.backend.dish.core.Dish;
+import com.example.demo.backend.dish.core.DishType;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,11 @@ public class RestaurantController {
 
     @GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
     RestaurantDto get() {
-        return new RestaurantDto(12L, "asdasddas");
+        return new RestaurantDto(12L,
+                "asdasddas",
+                List.of(
+                        new Dish(1L, "asd", DishType.DESSERT, 1200, "")
+                ));
     }
 
     @GetMapping("/")

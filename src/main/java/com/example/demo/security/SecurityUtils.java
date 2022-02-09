@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.security;
 
 import com.vaadin.flow.server.HandlerHelper.RequestType;
 import com.vaadin.flow.shared.ApplicationConstants;
@@ -12,12 +12,9 @@ import java.util.stream.Stream;
 public final class SecurityUtils {
 
     private SecurityUtils() {
-        // Util methods only
     }
 
     static boolean isFrameworkInternalRequest(HttpServletRequest request) {
-
-
         final String parameterValue = request.getParameter(ApplicationConstants.REQUEST_TYPE_PARAMETER);
         return parameterValue != null
                 && Stream.of(RequestType.values())
@@ -25,8 +22,6 @@ public final class SecurityUtils {
     }
 
     static boolean isUserLoggedIn() {
-
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null
                 && !(authentication instanceof AnonymousAuthenticationToken)
