@@ -1,7 +1,8 @@
-package com.example.demo.backend.restaurant.service;
+package com.example.demo.backend.restaurant.service.restaurant;
 
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +15,10 @@ public class RestaurantServiceFactoryImpl implements RestaurantServiceFactory {
 
     @Override
     public RestaurantService getRestaurantService(long restaurantId) {
-        return null;
+        return new RestaurantServiceImpl(restaurantId);
     }
 
+    @AllArgsConstructor
     private class RestaurantServiceImpl implements RestaurantService {
         private long restaurantId;
 
@@ -59,6 +61,20 @@ public class RestaurantServiceFactoryImpl implements RestaurantServiceFactory {
 
             var restaurant = result.get();
             restaurant.setName(newName);
+            restaurantRepository.save(restaurant);
+        }
+
+        @Override
+        public void editDescription(String newDescription) {
+            var result = restaurantRepository.findById(restaurantId);
+
+            if (result.isEmpty()) {
+                // TODO should we throw?
+                return;
+            }
+
+            var restaurant = result.get();
+            restaurant.setDescription(newDescription);
             restaurantRepository.save(restaurant);
         }
     }

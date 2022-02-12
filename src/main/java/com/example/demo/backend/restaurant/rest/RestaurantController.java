@@ -26,7 +26,8 @@ public class RestaurantController {
                 "asdasddas",
                 List.of(
                         new Dish(1L, "asd", DishType.DESSERT, 1200, "")
-                ));
+                ),
+                "the finest dining in town");
     }
 
     @GetMapping("/")
