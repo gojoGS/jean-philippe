@@ -5,6 +5,8 @@ import com.example.demo.backend.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
+
 @Component
 public class RestaurantServiceFactoryImpl implements RestaurantServiceFactory {
     @Autowired
@@ -34,12 +36,30 @@ public class RestaurantServiceFactoryImpl implements RestaurantServiceFactory {
 
         @Override
         public void removeDish(Dish dish) {
+            var result = restaurantRepository.findById(restaurantId);
 
+            if (result.isEmpty()) {
+                // TODO should we throw?
+                return;
+            }
+
+            var restaurant = result.get();
+            restaurant.getDishes().removeIf(dish1 -> dish.getId() == dish1.getId());
+            restaurantRepository.save(restaurant);
         }
 
         @Override
-        public void renameRestaurant(String newName) {
+        public void renameRestaurant(@NotNull String newName) {
+            var result = restaurantRepository.findById(restaurantId);
 
+            if (result.isEmpty()) {
+                // TODO should we throw?
+                return;
+            }
+
+            var restaurant = result.get();
+            restaurant.setName(newName);
+            restaurantRepository.save(restaurant);
         }
     }
 }

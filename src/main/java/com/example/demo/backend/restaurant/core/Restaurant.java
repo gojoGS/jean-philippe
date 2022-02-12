@@ -28,6 +28,8 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_dish_fk", referencedColumnName = "id")
     private List<Dish> dishes;
 
+    private String description;
+
     public void addDish(Dish dish) {
         dishes.add(dish);
     }
