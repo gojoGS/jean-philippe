@@ -1,6 +1,9 @@
 package com.example.demo.backend.dish.core;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -21,6 +24,13 @@ public class Dish {
     private DishType type;
     private int priceInHuf;
     private String description;
+
+    public void update(Dish newState) {
+        this.name = newState.getName();
+        this.type = newState.getType();
+        this.priceInHuf = newState.getPriceInHuf();
+        this.description = newState.getDescription();
+    }
 
     @Override
     public boolean equals(Object o) {
