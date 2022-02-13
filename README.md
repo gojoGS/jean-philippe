@@ -22,5 +22,5 @@ mvn clean compile spring-boot:run -Pproduction
 
 ## Documentation
 
-- [Road plan](./documentation/requirements.md)
+- [Planned features](./documentation/requirements.md)
 - [Rest API](./documentation/rest.md)
