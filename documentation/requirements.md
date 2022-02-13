@@ -1,0 +1,30 @@
+- # anon
+	- rest api
+		- éttermek keresése
+		- éttermeken belül termékek keresése
+	- általános tájékoztató weboldal
+		- leírás a jp-ről
+		- éttermek böngészése
+		- éttermeken belül statikus étlap view
+	- regisztráció étteremként
+- # Éttermek
+	- regisztráció
+	- bejelentkezés
+	- kijelentkezés
+	- étterem adatok módosítása
+	- étterem törlése
+	- asztalok létrehozása és törlése
+	- menü létrehozása és szerkesztése
+	- rendelések elfogadása
+	- rendelés idejének becslése **opcionális**
+	- rendelések lezárása
+- # enduser
+	- új session indítása
+	- menü böngészése
+	- elemek hozzáadása a menüből
+	- elemek elvétele a kiválasztottak közül
+	- rendelés leadása
+	- újabb rendelés leadása
+	- fizetési igény jelzése
+	- fizetési mód jelzése
+	- ha az étterem lezárta a sessiont kilép
