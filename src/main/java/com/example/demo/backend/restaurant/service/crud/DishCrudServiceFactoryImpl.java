@@ -14,34 +14,39 @@ public class DishCrudServiceFactoryImpl implements DishCrudServiceFactory {
     @Autowired
     RestaurantServiceFactory serviceFactory;
 
-
     @Override
     public CrudListener<Dish> getDishCrudService(long restaurantId) {
-        return null;
+        return new DishCrudServiceImpl(restaurantId);
     }
 
     private class DishCrudServiceImpl implements CrudListener<Dish> {
 
-        private RestaurantService restaurantService;
+        private final RestaurantService restaurantService;
+
+        public DishCrudServiceImpl(long restaurantId) {
+            restaurantService = serviceFactory.getRestaurantService(restaurantId);
+        }
 
         @Override
         public Collection<Dish> findAll() {
-            return null;
+            return restaurantService.getAll();
         }
 
         @Override
         public Dish add(Dish dish) {
-            return null;
+            restaurantService.addDish(dish);
+            return dish;
         }
 
         @Override
         public Dish update(Dish dish) {
-            return null;
+            restaurantService.update(dish);
+            return dish;
         }
 
         @Override
         public void delete(Dish dish) {
-
+            restaurantService.removeDish(dish);
         }
     }
 }
