@@ -19,3 +19,8 @@ The intuitive, web-based menu and ordering management application for restaurant
 ```bash
 mvn clean compile spring-boot:run -Pproduction
 ```
+
+## Documentation
+
+- [Road plan](./documentation/requirements.md)
+- [Rest API](./documentation/rest.md)
