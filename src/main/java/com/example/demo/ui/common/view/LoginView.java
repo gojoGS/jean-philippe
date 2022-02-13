@@ -5,7 +5,7 @@ import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
 
-@Route("app/login")
+@Route("app/public/login")
 public class LoginView extends Composite<LoginOverlay> {
     public LoginView() {
         getContent().setOpened(true);
