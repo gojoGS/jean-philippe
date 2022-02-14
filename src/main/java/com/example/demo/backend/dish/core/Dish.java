@@ -1,6 +1,5 @@
 package com.example.demo.backend.dish.core;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -24,6 +22,13 @@ public class Dish {
     private DishType type;
     private int priceInHuf;
     private String description;
+
+    public Dish(String name, DishType type, int priceInHuf, String description) {
+        this.name = name;
+        this.type = type;
+        this.priceInHuf = priceInHuf;
+        this.description = description;
+    }
 
     public void update(Dish newState) {
         this.name = newState.getName();

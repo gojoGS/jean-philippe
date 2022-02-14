@@ -1,5 +1,11 @@
 package com.example.demo.ui.common.view;
 
+import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;
+import com.example.demo.security.user.email.EmailValidationrService;
+import com.example.demo.security.user.password.encryption.PasswordEncryptionService;
+import com.example.demo.security.user.password.validation.PasswordValidationService;
+import com.example.demo.security.user.restaurant.core.RestaurantUserDto;
+import com.example.demo.security.user.restaurant.service.RestaurantUserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
@@ -8,9 +14,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("/app/public/signup/restaurant")
 public class RestaurantSignupView extends VerticalLayout {
+    @Autowired
+    EmailValidationrService emailValidationrService;
+    @Autowired
+    PasswordValidationService passwordValidationService;
+    @Autowired
+    PasswordEncryptionService encryptionService;
+    @Autowired
+    RestaurantUserService userService;
+
     private H1 userHeader = new H1("User details");
     private TextField username = new TextField("Username");
     private TextField password = new TextField("Password");
@@ -19,12 +35,11 @@ public class RestaurantSignupView extends VerticalLayout {
     private TextField restaurantName = new TextField("Name");
     private TextArea restaurantDescription = new TextArea("Description");
 
-    private Button save = new Button("Save");
-    private Button delete = new Button("Delete");
+    private Button save = new Button("Sign up");
+    private Button delete = new Button("Cancel");
 
 
     public RestaurantSignupView() {
-
         var userDetails = new VerticalLayout(userHeader, username, password);
         userDetails.setAlignItems(Alignment.CENTER);
         userDetails.setJustifyContentMode(JustifyContentMode.CENTER);
@@ -37,13 +52,49 @@ public class RestaurantSignupView extends VerticalLayout {
         details.setAlignItems(Alignment.CENTER);
         details.setJustifyContentMode(JustifyContentMode.AROUND);
 
-
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        save.addClickListener(buttonClickEvent -> onSave());
 
         add(details, buttons);
 
         this.setAlignItems(Alignment.CENTER);
         this.setJustifyContentMode(JustifyContentMode.AROUND);
+    }
+
+    private void onSave() {
+        var email = username.getValue();
+        var pass = password.getValue();
+        var name = restaurantName.getValue();
+        var description = restaurantDescription.getValue();
+
+        if (!emailValidationrService.isValidEmail(email)) {
+            return;
+        }
+
+        if (!passwordValidationService.isValid(pass)) {
+            return;
+        }
+
+        if (name.isEmpty() || description.isEmpty()) {
+            return;
+        }
+
+        if (userService.isEmailInUse(email)) {
+            return;
+        }
+
+        userService.createNewRestaurantUser(
+                new RestaurantUserDto(
+                        encryptionService.encrypt(pass),
+                        email
+                ),
+                new RestaurantDetailsDto(
+                        name,
+                        description
+                )
+        );
+
     }
 }

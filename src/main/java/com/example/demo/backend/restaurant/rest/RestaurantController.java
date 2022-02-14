@@ -3,6 +3,7 @@ package com.example.demo.backend.restaurant.rest;
 
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.dish.core.DishType;
+import com.example.demo.backend.restaurant.core.RestaurantDto;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

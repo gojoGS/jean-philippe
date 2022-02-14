@@ -10,17 +10,20 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 @Route("app/restaurant/dishes")
 public class DishCrudView extends VerticalLayout {
 
+    private long restaurantId;
+
     public DishCrudView(DishCrudService dishCrudService) {
         var crud = new GridCrud<>(Dish.class, dishCrudService);
         crud.getGrid().setColumns("name", "type", "priceInHuf", "description");
         crud.getCrudFormFactory().setVisibleProperties("name", "type", "priceInHuf", "description");
 
         add(
-                new H1("Dishes"),
+                new H1(String.valueOf(restaurantId)),
                 crud
         );
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
     }
+    
 }

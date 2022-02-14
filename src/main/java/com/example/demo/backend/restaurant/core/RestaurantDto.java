@@ -1,7 +1,6 @@
-package com.example.demo.backend.restaurant.rest;
+package com.example.demo.backend.restaurant.core;
 
 import com.example.demo.backend.dish.core.Dish;
-import com.example.demo.backend.restaurant.core.Restaurant;
 import lombok.*;
 
 import java.util.List;
