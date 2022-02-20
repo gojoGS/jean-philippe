@@ -8,6 +8,8 @@ import com.example.demo.security.user.restaurant.repository.RestaurantUserReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RestaurantUserServiceImpl implements RestaurantUserService {
     @Autowired
@@ -28,5 +30,10 @@ public class RestaurantUserServiceImpl implements RestaurantUserService {
                 ));
 
         repository.save(user);
+    }
+
+    @Override
+    public Optional<RestaurantUser> getUser(String email) {
+        return repository.getByEmail(email);
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -66,12 +67,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Allow all Vaadin internal requests.
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/app/**").permitAll() // TODO you better remove this or we're gonna be in biiiig trouble
+                .antMatchers("/app/public/**").permitAll()
+                .antMatchers("/app/restaurant/**").hasRole("RESTAURANT") // TODO you better remove this or we're gonna be in biiiig trouble
                 // Allow all requests by logged-in users.
                 .anyRequest().authenticated()
-
-                // Configure the login page.
-                .and().formLogin()
-                .loginPage("/login").permitAll();
+                .and().csrf().disable().formLogin(Customizer.withDefaults());
     }
 }

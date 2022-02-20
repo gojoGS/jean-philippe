@@ -26,7 +26,7 @@ public class RestaurantController {
         return new RestaurantDto(12L,
                 "asdasddas",
                 List.of(
-                        new Dish(1L, "asd", DishType.DESSERT, 1200, "")
+                        new Dish("rák", DishType.DESSERT, 1200, "qutyaak")
                 ),
                 "the finest dining in town");
     }

@@ -14,9 +14,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.example.demo.ui.util.NotificationUtil.showError;
+import static com.example.demo.ui.util.NotificationUtil.showSuccess;
+
 @Route("/app/public/signup/restaurant")
+@Slf4j
 public class RestaurantSignupView extends VerticalLayout {
     @Autowired
     EmailValidationrService emailValidationrService;
@@ -28,7 +33,7 @@ public class RestaurantSignupView extends VerticalLayout {
     RestaurantUserService userService;
 
     private H1 userHeader = new H1("User details");
-    private TextField username = new TextField("Username");
+    private TextField username = new TextField("Email");
     private TextField password = new TextField("Password");
 
     private H1 restaurantHeader = new H1("Restaurant details");
@@ -64,27 +69,33 @@ public class RestaurantSignupView extends VerticalLayout {
     }
 
     private void onSave() {
+        log.info("attempting registration");
         var email = username.getValue();
         var pass = password.getValue();
         var name = restaurantName.getValue();
         var description = restaurantDescription.getValue();
 
         if (!emailValidationrService.isValidEmail(email)) {
+            showError("Invalid email");
             return;
         }
 
         if (!passwordValidationService.isValid(pass)) {
+            showError("Invalid password");
             return;
         }
 
         if (name.isEmpty() || description.isEmpty()) {
+            showError("Please fill every field");
             return;
         }
 
         if (userService.isEmailInUse(email)) {
+            showError("User already registered");
             return;
         }
 
+        log.info("creating user");
         userService.createNewRestaurantUser(
                 new RestaurantUserDto(
                         encryptionService.encrypt(pass),
@@ -96,5 +107,10 @@ public class RestaurantSignupView extends VerticalLayout {
                 )
         );
 
+        showSuccess("Successful signup");
+
+        getUI().ifPresent(ui -> {
+            ui.navigate("app/public/login");
+        });
     }
 }

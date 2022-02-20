@@ -14,5 +14,4 @@ public enum DishType {
     DESSERT("Dessert");
 
     private final String name;
-
 }
