@@ -2,7 +2,6 @@ package com.example.demo.ui.common.view;
 
 import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;
 import com.example.demo.security.user.email.EmailValidationrService;
-import com.example.demo.security.user.password.encryption.PasswordEncryptionService;
 import com.example.demo.security.user.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.core.RestaurantUserDto;
 import com.example.demo.security.user.restaurant.service.RestaurantUserService;
@@ -16,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.example.demo.ui.util.NotificationUtil.showError;
 import static com.example.demo.ui.util.NotificationUtil.showSuccess;
@@ -28,7 +28,7 @@ public class RestaurantSignupView extends VerticalLayout {
     @Autowired
     PasswordValidationService passwordValidationService;
     @Autowired
-    PasswordEncryptionService encryptionService;
+    PasswordEncoder encryptionService;
     @Autowired
     RestaurantUserService userService;
 
@@ -98,7 +98,7 @@ public class RestaurantSignupView extends VerticalLayout {
         log.info("creating user");
         userService.createNewRestaurantUser(
                 new RestaurantUserDto(
-                        encryptionService.encrypt(pass),
+                        encryptionService.encode(pass),
                         email
                 ),
                 new RestaurantDetailsDto(

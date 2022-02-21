@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.security.user.restaurant.repository.RestaurantUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AppUserDetailsService implements UserDetailsService {
     @Autowired
     RestaurantUserRepository restaurantUserRepository;
@@ -23,6 +25,7 @@ public class AppUserDetailsService implements UserDetailsService {
         var users = restaurantUserRepository.findByEmail(email);
 
         if (users.isEmpty()) {
+            log.info("USernanme");
             throw new UsernameNotFoundException("No user found with username: " + email);
         }
 
