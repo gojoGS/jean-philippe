@@ -23,7 +23,7 @@ public class Restaurant {
 
     private String name;
 
-    @OneToMany(targetEntity = Dish.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Dish.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_dish_fk", referencedColumnName = "id")
     private List<Dish> dishes;
 

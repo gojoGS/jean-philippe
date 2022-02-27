@@ -3,6 +3,7 @@ package com.example.demo.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -83,9 +84,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/restaurant/**").hasRole("RESTAURANT")
                 // Allow all requests by logged-in users.
                 .anyRequest().authenticated()
-                .and().csrf().disable().formLogin().loginPage(LOGIN_URL)
-                .loginProcessingUrl(LOGIN_PROCESSING_URL)
-                .defaultSuccessUrl("/app/restaurant/dishes", true)
-                .failureUrl(LOGIN_FAILURE_URL);
+                .and().csrf().disable().formLogin(Customizer.withDefaults());
+//                .loginPage(LOGIN_URL)
+//                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+//                .defaultSuccessUrl("/app/restaurant/dishes", true)
+//                .failureUrl(LOGIN_FAILURE_URL);
     }
 }

@@ -11,8 +11,12 @@ import java.util.Collection;
 
 @Component
 public class DishCrudServiceFactoryImpl implements DishCrudServiceFactory {
+    private final RestaurantServiceFactory serviceFactory;
+
     @Autowired
-    RestaurantServiceFactory serviceFactory;
+    public DishCrudServiceFactoryImpl(RestaurantServiceFactory serviceFactory) {
+        this.serviceFactory = serviceFactory;
+    }
 
     @Override
     public CrudListener<Dish> getDishCrudService(long restaurantId) {
