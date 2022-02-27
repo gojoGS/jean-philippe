@@ -1,0 +1,59 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{times}
+\usepackage{setspace}
+
+% TODO sorköz 1.5-esre biztos így állítok??
+\setstretch{1.5}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\bf\large}{\thechapter}{14px}{}
+
+\usepackage[a4paper,
+left=3cm,
+right=2cm,
+top=3cm,
+bottom=3cm]{geometry}
+
+\renewcommand*{\contentsname}{Tartalomjegyzék}
+
+\title{
+	{Rendeléskezelő applikáció Java SE-nel} \\
+	{\large Debreceni Egyetem} \\
+	{\includegraphics{ud-logo.png}}
+}
+
+\author{Bartha Zoltán}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	
+	\chapter*{Köszönetnyilvánítás}
+	Köszönetnyilvánítás
+	
+	\tableofcontents
+	
+	\chapter{Bevezetés}
+	
+	\input{chapters/bevezetes}
+	
+	\chapter{Tárgyalás}
+
+	\input{chapters/targyalas}
+	
+	\chapter{Összefoglaló}
+
+	\input{chapters/osszefoglalo}
+	
+	\chapter{Irodalomjegyzék}
+
+	Irodalomjegyzék
+	
+	\chapter{Függelék}
+	
+	\input{chapters/fuggelek}
+	
+\end{document}
