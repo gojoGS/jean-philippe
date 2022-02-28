@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static com.example.demo.ui.util.NotificationUtil.showError;
 import static com.example.demo.ui.util.NotificationUtil.showSuccess;
 
-@Route("/app/public/signup/restaurant")
+@Route("/app/public/signup")
 @Slf4j
 public class RestaurantSignupView extends VerticalLayout {
     @Autowired

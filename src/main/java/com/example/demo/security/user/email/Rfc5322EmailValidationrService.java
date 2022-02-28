@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Pattern;
 
 // TODO write unit test
+// TOPIC Regular Expression by RFC 5322 for Email Validation
 @Service
 public class Rfc5322EmailValidationrService implements EmailValidationrService {
 

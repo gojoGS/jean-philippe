@@ -1,8 +1,7 @@
 package com.example.demo.ui.common.view;
 
-import com.example.demo.ui.admin.view.AdminView;
-import com.example.demo.ui.enduser.view.UserView;
 import com.example.demo.ui.jeanphilippe.view.HomeView;
+import com.example.demo.ui.restaurant.view.RestaurantHomeView;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -11,7 +10,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@Route("")
+@Route("/onSuccess")
 public class OnSuccessView extends HorizontalLayout implements BeforeEnterObserver {
 
     public OnSuccessView() {
@@ -30,16 +29,10 @@ public class OnSuccessView extends HorizontalLayout implements BeforeEnterObserv
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        System.out.println(String.format("Authorities: %s", authorities));
 
-        if (authorities.contains("ROLE_ADMIN")) {
-            beforeEnterEvent.rerouteTo(AdminView.class);
-            System.out.println("admin");
-        } else if (authorities.contains("ROLE_USER")) {
-            System.out.println("enduser");
-            beforeEnterEvent.rerouteTo(UserView.class);
+        if (authorities.contains("ROLE_RESTAURANT")) {
+            beforeEnterEvent.rerouteTo(RestaurantHomeView.class);
         } else {
-            System.out.println("anon");
             beforeEnterEvent.rerouteTo(HomeView.class);
         }
     }
