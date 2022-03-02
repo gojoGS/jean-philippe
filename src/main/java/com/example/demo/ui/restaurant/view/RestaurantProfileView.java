@@ -4,6 +4,7 @@ import com.example.demo.backend.restaurant.service.details.DetailsService;
 import com.example.demo.backend.restaurant.service.details.DetailsServiceFactory;
 import com.example.demo.backend.restaurant.service.restaurant.RestaurantService;
 import com.example.demo.backend.restaurant.service.restaurant.RestaurantServiceFactory;
+import com.example.demo.security.service.AuthDetailsService;
 import com.example.demo.security.user.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.service.RestaurantUserService;
 import com.vaadin.flow.component.button.Button;
@@ -30,10 +31,8 @@ public class RestaurantProfileView extends RestaurantViewBase {
     private final DetailsService detailsService;
 
     @Autowired
-    public RestaurantProfileView(RestaurantUserService userService,
-                                 DetailsServiceFactory detailsServiceFactory) {
-        super("Profile", "Profile");
-        setRestaurantId(userService);
+    public RestaurantProfileView(DetailsServiceFactory detailsServiceFactory, AuthDetailsService authDetailsService) {
+        super("Profile", "Profile", authDetailsService.getUserId());
 
 
         this.detailsService = detailsServiceFactory.get(restaurantId);
@@ -58,27 +57,5 @@ public class RestaurantProfileView extends RestaurantViewBase {
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-
-    }
-
-    protected void setRestaurantId(RestaurantUserService userService) {
-        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        String email = "";
-
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails) principal).getUsername();
-        }
-
-        var user =
-                userService.getUser(email);
-
-        if (!user.isPresent()) {
-            log.error("fuck up m8");
-        } else {
-            this.restaurantId = user.get().getRestaurant().getId();
-        }
-
-        log.info(String.format("restaurantId is %d", restaurantId));
     }
 }

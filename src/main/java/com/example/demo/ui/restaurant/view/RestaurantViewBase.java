@@ -1,10 +1,12 @@
 package com.example.demo.ui.restaurant.view;
 
+import com.example.demo.security.service.AuthDetailsService;
 import com.example.demo.security.user.restaurant.service.RestaurantUserService;
 import com.example.demo.ui.common.component.NavBar;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
@@ -16,7 +18,7 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
     protected long restaurantId;
 
     // TOPIC subclass API
-    protected RestaurantViewBase(String title, String header) {
+    protected RestaurantViewBase(String title, String header, long restaurantId) {
         var navBar = new NavBar(
                 Optional.of("Label"),
                 NavBar.NavOption.builder().label("Profile").route(RestaurantProfileView.class).build(),
@@ -30,7 +32,7 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
         add(new H1(header));
 
         this.title = title;
-        this.restaurantId = -1;
+        this.restaurantId = restaurantId;
     }
 
     @Override
@@ -38,6 +40,4 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
         // TOPIC String.format performance benchmark study
         return String.format("JP | %s", title);
     }
-
-    protected abstract void setRestaurantId(RestaurantUserService userService);
 }
