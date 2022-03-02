@@ -34,6 +34,8 @@ public class RestaurantMenuView extends RestaurantViewBase {
             restaurantId = user.get().getRestaurant().getId();
         }
 
+        log.info(String.format("restaurantId is %d", restaurantId));
+
         add(
                 new DishCrudComponent(dishCrudServiceFactory.getDishCrudService(restaurantId))
         );

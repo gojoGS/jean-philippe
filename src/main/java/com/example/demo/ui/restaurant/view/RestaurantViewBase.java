@@ -4,6 +4,7 @@ import com.example.demo.ui.common.component.NavBar;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
