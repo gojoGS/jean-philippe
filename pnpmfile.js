@@ -2,7 +2,7 @@
  * NOTICE: this is an auto-generated file
  *
  * This file has been generated for `pnpm install` task.
- * It is used to pin user side dependencies.
+ * It is used to pin client side dependencies.
  * This file will be overwritten on every run.
  */
 
