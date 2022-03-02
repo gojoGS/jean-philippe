@@ -23,7 +23,7 @@ public class RestaurantServiceFactoryImpl implements RestaurantServiceFactory {
 
     @AllArgsConstructor
     private class RestaurantServiceImpl implements RestaurantService {
-        private long restaurantId;
+        private final long restaurantId;
 
         @Override
         public void addDish(Dish dish) {

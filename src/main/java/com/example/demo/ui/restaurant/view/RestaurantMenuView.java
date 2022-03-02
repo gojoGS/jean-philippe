@@ -15,6 +15,17 @@ public class RestaurantMenuView extends RestaurantViewBase {
     @Autowired
     public RestaurantMenuView(RestaurantUserService userService, DishCrudServiceFactory dishCrudServiceFactory) {
         super("Menu", "Menu");
+        setRestaurantId(userService);
+
+        add(
+                new DishCrudComponent(dishCrudServiceFactory.getDishCrudService(restaurantId))
+        );
+
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+    }
+
+    protected void setRestaurantId(RestaurantUserService userService) {
         var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String email = "";
@@ -23,24 +34,15 @@ public class RestaurantMenuView extends RestaurantViewBase {
             email = ((UserDetails) principal).getUsername();
         }
 
-        long restaurantId = -1;
-
         var user =
                 userService.getUser(email);
 
         if (!user.isPresent()) {
             log.error("fuck up m8");
         } else {
-            restaurantId = user.get().getRestaurant().getId();
+            this.restaurantId = user.get().getRestaurant().getId();
         }
 
         log.info(String.format("restaurantId is %d", restaurantId));
-
-        add(
-                new DishCrudComponent(dishCrudServiceFactory.getDishCrudService(restaurantId))
-        );
-
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 }

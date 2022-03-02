@@ -1,6 +1,8 @@
 package com.example.demo.backend.restaurant.service.crud;
 
 import com.example.demo.backend.dish.core.Dish;
+import com.example.demo.backend.restaurant.service.dish.DishService;
+import com.example.demo.backend.restaurant.service.dish.DishServiceFactory;
 import com.example.demo.backend.restaurant.service.restaurant.RestaurantService;
 import com.example.demo.backend.restaurant.service.restaurant.RestaurantServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,10 @@ import java.util.Collection;
 
 @Component
 public class DishCrudServiceFactoryImpl implements DishCrudServiceFactory {
-    private final RestaurantServiceFactory serviceFactory;
+    private final DishServiceFactory serviceFactory;
 
     @Autowired
-    public DishCrudServiceFactoryImpl(RestaurantServiceFactory serviceFactory) {
+    public DishCrudServiceFactoryImpl(DishServiceFactory serviceFactory) {
         this.serviceFactory = serviceFactory;
     }
 
@@ -25,32 +27,32 @@ public class DishCrudServiceFactoryImpl implements DishCrudServiceFactory {
 
     private class DishCrudServiceImpl implements CrudListener<Dish> {
 
-        private final RestaurantService restaurantService;
+        private final DishService dishService;
 
         public DishCrudServiceImpl(long restaurantId) {
-            restaurantService = serviceFactory.getRestaurantService(restaurantId);
+            dishService = serviceFactory.get(restaurantId);
         }
 
         @Override
         public Collection<Dish> findAll() {
-            return restaurantService.getAll();
+            return dishService.getAll();
         }
 
         @Override
         public Dish add(Dish dish) {
-            restaurantService.addDish(dish);
+            dishService.addDish(dish);
             return dish;
         }
 
         @Override
         public Dish update(Dish dish) {
-            restaurantService.update(dish);
+            dishService.update(dish);
             return dish;
         }
 
         @Override
         public void delete(Dish dish) {
-            restaurantService.removeDish(dish);
+            dishService.removeDish(dish);
         }
     }
 }
