@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/api/rest/restaurant")
@@ -25,9 +26,10 @@ public class RestaurantController {
     RestaurantDto get() {
         return new RestaurantDto(12L,
                 "asdasddas",
-                List.of(
+                Set.of(
                         new Dish("rák", DishType.DESSERT, 1200, "qutyaak")
                 ),
+                Set.of(),
                 "the finest dining in town");
     }
 
