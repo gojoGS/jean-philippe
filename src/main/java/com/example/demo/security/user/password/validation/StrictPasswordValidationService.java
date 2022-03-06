@@ -9,9 +9,13 @@ public class StrictPasswordValidationService implements PasswordValidationServic
         if (password.length() < 8) {
             return false;
         }
-
         // TODO implement real logic
 
         return true;
+    }
+
+    @Override
+    public String getValidPasswordRegex() {
+        return "^$";
     }
 }

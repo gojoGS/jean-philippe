@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RestaurantTablesView extends RestaurantViewBase {
     @Autowired
     public RestaurantTablesView(AuthDetailsService authDetailsService) {
-        super("Tables", "Tables", authDetailsService.getUserId());
+        super("Tables", "Tables", authDetailsService.getRestaurantId());
     }
 }

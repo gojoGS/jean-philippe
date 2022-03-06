@@ -15,7 +15,7 @@ public class AuthDetailsServiceImpl implements AuthDetailsService {
     RestaurantUserService userService;
 
     @Override
-    public long getUserId() {
+    public long getRestaurantId() {
         var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String email = "";
@@ -33,6 +33,28 @@ public class AuthDetailsServiceImpl implements AuthDetailsService {
             throw new RuntimeException(String.format("User with email %s was not found", email));
         } else {
             return user.get().getRestaurant().getId();
+        }
+    }
+
+    @Override
+    public long getUserId() {
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = "";
+
+        // TOPIC pattern matching
+        if (principal instanceof UserDetails userDetails) {
+            email = userDetails.getUsername();
+        }
+
+        var user =
+                userService.getUser(email);
+
+        if (user.isEmpty()) {
+            log.error("fuck up m8");
+            throw new RuntimeException(String.format("User with email %s was not found", email));
+        } else {
+            return user.get().getId();
         }
     }
 }

@@ -9,6 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RestaurantStaffView extends RestaurantViewBase {
     @Autowired
     public RestaurantStaffView(AuthDetailsService authDetailsService) {
-        super("Staff", "Staff", authDetailsService.getUserId());
+        super("Staff", "Staff", authDetailsService.getRestaurantId());
     }
 }

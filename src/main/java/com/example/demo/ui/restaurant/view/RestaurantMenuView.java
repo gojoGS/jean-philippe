@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RestaurantMenuView extends RestaurantViewBase {
     @Autowired
     public RestaurantMenuView(DishCrudServiceFactory dishCrudServiceFactory, AuthDetailsService authDetailsService) {
-        super("Menu", "Menu", authDetailsService.getUserId());
+        super("Menu", "Menu", authDetailsService.getRestaurantId());
 
         add(
                 new DishCrudComponent(dishCrudServiceFactory.getDishCrudService(restaurantId))

@@ -3,8 +3,6 @@ package com.example.demo.backend.restaurant.service.crud;
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.restaurant.service.dish.DishService;
 import com.example.demo.backend.restaurant.service.dish.DishServiceFactory;
-import com.example.demo.backend.restaurant.service.restaurant.RestaurantService;
-import com.example.demo.backend.restaurant.service.restaurant.RestaurantServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.vaadin.crudui.crud.CrudListener;
