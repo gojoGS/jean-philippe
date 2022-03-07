@@ -1,6 +1,6 @@
 package com.example.demo.ui.restaurant.view;
 
-import com.example.demo.backend.restaurant.service.crud.DishCrudServiceFactory;
+import com.example.demo.backend.restaurant.service.crud.dish.DishCrudServiceFactory;
 import com.example.demo.backend.restaurant.service.crud.beverage.BeverageCrudServiceFactory;
 import com.example.demo.security.service.AuthDetailsService;
 import com.example.demo.ui.restaurant.component.BeverageCrudComponent;
@@ -18,9 +18,8 @@ public class RestaurantMenuView extends RestaurantViewBase {
 
     @Autowired
     public RestaurantMenuView(DishCrudServiceFactory dishCrudServiceFactory,
-                              BeverageCrudServiceFactory beverageCrudServiceFactory,
-                              AuthDetailsService authDetailsService) {
-        super("Menu", "Menu", authDetailsService.getRestaurantId());
+                              BeverageCrudServiceFactory beverageCrudServiceFactory) {
+        super("Menu", "Menu");
 
         var container = new VerticalLayout();
         var tabs = new PagedTabs(container);

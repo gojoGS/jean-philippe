@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("app/restaurant")
 public class RestaurantHomeView extends RestaurantViewBase {
-    @Autowired
-    public RestaurantHomeView(AuthDetailsService authDetailsService) {
-        super("Home", "TODO restaurant name", authDetailsService.getRestaurantId());
+    public RestaurantHomeView() {
+        super("Home", "");
+        this.setTitle(this.restaurantName);
     }
 }

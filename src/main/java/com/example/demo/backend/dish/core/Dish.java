@@ -21,6 +21,7 @@ public class Dish {
     private String name;
     private DishType type;
     private int priceInHuf;
+    @Lob
     private String description;
 
     public Dish(String name, DishType type, int priceInHuf, String description) {

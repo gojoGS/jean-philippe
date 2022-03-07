@@ -1,4 +1,4 @@
-package com.example.demo.backend.restaurant.service.crud;
+package com.example.demo.backend.restaurant.service.crud.dish;
 
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.restaurant.service.dish.DishService;

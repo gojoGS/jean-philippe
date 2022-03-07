@@ -30,6 +30,12 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_beverage_fk", referencedColumnName = "id")
     private Set<Beverage> beverages;
 
+    @OneToMany(targetEntity = com.example.demo.backend.table.core.Table.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_table_fk", referencedColumnName = "id")
+    private Set<com.example.demo.backend.table.core.Table> tables;
+
+    // TOPIC ez miez
+    @Lob
     private String description;
 
     public Restaurant(String name, String description) {
@@ -37,10 +43,33 @@ public class Restaurant {
         this.description = description;
         this.dishes = new HashSet<>();
         this.beverages = new HashSet<>();
+        this.tables = new HashSet<>();
     }
 
     public void addDish(Dish dish) {
         dishes.add(dish);
+    }
+
+    public void addTable(com.example.demo.backend.table.core.Table table) {
+        tables.add(table);
+    }
+
+    public void removeTable(com.example.demo.backend.table.core.Table table) {
+        tables.removeIf(table1 -> Objects.equals(table.getId(), table1.getId()));
+    }
+
+    public void updateTable(com.example.demo.backend.table.core.Table table) {
+        var resultTable = tables
+                .stream()
+                .filter(table1 -> Objects.equals(table1.getId(), table.getId()))
+                .findFirst();
+
+        if (resultTable.isEmpty()) {
+            // TODO should we throw?
+            return;
+        }
+
+        resultTable.get().update(table);
     }
 
     public void addBeverage(Beverage beverage) {

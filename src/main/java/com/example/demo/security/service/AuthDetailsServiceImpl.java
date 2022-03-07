@@ -57,4 +57,26 @@ public class AuthDetailsServiceImpl implements AuthDetailsService {
             return user.get().getId();
         }
     }
+
+    @Override
+    public String getRestaurantName() {
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = "";
+
+        // TOPIC pattern matching
+        if (principal instanceof UserDetails userDetails) {
+            email = userDetails.getUsername();
+        }
+
+        var user =
+                userService.getUser(email);
+
+        if (user.isEmpty()) {
+            log.error("fuck up m8");
+            throw new RuntimeException(String.format("User with email %s was not found", email));
+        } else {
+            return user.get().getRestaurant().getName();
+        }
+    }
 }

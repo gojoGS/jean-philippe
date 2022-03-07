@@ -7,7 +7,7 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 public class BeverageCrudComponent extends GridCrud<Beverage> {
     public BeverageCrudComponent(CrudListener<Beverage> listener) {
         super(Beverage.class, listener);
-        getGrid().setColumns("name", "alcoholic", "diet", "priceInHuf", "volumeInMililiters");
-        getCrudFormFactory().setVisibleProperties("name", "alcoholic", "diet", "priceInHuf", "volumeInMililiters");
+        getGrid().setColumns("name", "priceInHuf", "volumeInMililiters", "alcoholic", "diet");
+        getCrudFormFactory().setVisibleProperties("name", "priceInHuf", "volumeInMililiters", "alcoholic", "diet");
     }
 }

@@ -36,7 +36,7 @@ public class RestaurantProfileView extends RestaurantViewBase {
                                  AuthDetailsService authDetailsService,
                                  PasswordValidationService passwordValidationService,
                                  PasswordChangeServiceFactory passwordChangeServiceFactory) {
-        super("Profile", "Profile", authDetailsService.getRestaurantId());
+        super("Profile", "Profile");
 
         this.passwordValidationService = passwordValidationService;
         this.detailsService = detailsServiceFactory.get(restaurantId);

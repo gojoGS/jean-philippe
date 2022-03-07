@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("app/restaurant/orders")
 public class RestaurantOrdersView extends RestaurantViewBase {
-    @Autowired
-    public RestaurantOrdersView(AuthDetailsService authDetailsService) {
-        super("Orders", "Orders", authDetailsService.getRestaurantId());
+    public RestaurantOrdersView() {
+        super("Orders", "Orders");
     }
 }
