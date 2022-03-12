@@ -32,16 +32,16 @@ public class RestaurantSignupView extends VerticalLayout {
     @Autowired
     RestaurantUserService userService;
 
-    private H1 userHeader = new H1("User details");
-    private TextField username = new TextField("Email");
-    private TextField password = new TextField("Password");
+    private final H1 userHeader = new H1("User details");
+    private final TextField username = new TextField("Email");
+    private final TextField password = new TextField("Password");
 
-    private H1 restaurantHeader = new H1("Restaurant details");
-    private TextField restaurantName = new TextField("Name");
-    private TextArea restaurantDescription = new TextArea("Description");
+    private final H1 restaurantHeader = new H1("Restaurant details");
+    private final TextField restaurantName = new TextField("Name");
+    private final TextArea restaurantDescription = new TextArea("Description");
 
-    private Button save = new Button("Sign up");
-    private Button delete = new Button("Cancel");
+    private final Button save = new Button("Sign up");
+    private final Button delete = new Button("Cancel");
 
 
     public RestaurantSignupView() {

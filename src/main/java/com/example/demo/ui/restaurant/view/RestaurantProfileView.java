@@ -20,12 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route("app/restaurant/profile")
 @Slf4j
 public class RestaurantProfileView extends RestaurantViewBase {
-    private TextField restaurantName = new TextField();
-    private TextArea restaurantDescription = new TextArea();
-    private PasswordField newPassword;
-    private PasswordField currentPassword;
-    private Button saveButton = new Button("Save");
-    private Button resetButton = new Button("Reset");
+    private final TextField restaurantName = new TextField();
+    private final TextArea restaurantDescription = new TextArea();
+    private final PasswordField newPassword;
+    private final PasswordField currentPassword;
+    private final Button saveButton = new Button("Save");
+    private final Button resetButton = new Button("Reset");
 
     private final PasswordValidationService passwordValidationService;
     private final DetailsService detailsService;

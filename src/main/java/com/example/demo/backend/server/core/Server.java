@@ -20,4 +20,8 @@ public class Server {
     private Long id;
     private String name;
 
+    public void update(Server update) {
+        this.name = update.getName();
+    }
+
 }

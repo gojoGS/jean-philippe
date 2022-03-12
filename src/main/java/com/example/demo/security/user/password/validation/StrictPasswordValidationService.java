@@ -6,12 +6,8 @@ import org.springframework.stereotype.Service;
 public class StrictPasswordValidationService implements PasswordValidationService {
     @Override
     public boolean isValid(String password) {
-        if (password.length() < 8) {
-            return false;
-        }
+        return password.length() >= 8;
         // TODO implement real logic
-
-        return true;
     }
 
     @Override

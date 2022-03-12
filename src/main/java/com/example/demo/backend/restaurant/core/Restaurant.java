@@ -55,6 +55,28 @@ public class Restaurant {
         dishes.add(dish);
     }
 
+    public void addServer(Server server) {
+        servers.add(server);
+    }
+
+    public void removeServer(Server server) {
+        servers.removeIf(server1 -> Objects.equals(server.getId(), server1.getId()));
+    }
+
+    public void updateServer(Server server) {
+        var resultServer = servers
+                .stream()
+                .filter(server1 -> Objects.equals(server.getId(), server1.getId()))
+                .findFirst();
+
+        if (resultServer.isEmpty()) {
+            // TODO should we throw?
+            return;
+        }
+
+        resultServer.get().update(server);
+    }
+
     public void addTable(com.example.demo.backend.table.core.Table table) {
         tables.add(table);
     }
