@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class PasswordChangeServiceFactoryImpl implements  PasswordChangeServiceFactory {
+public class PasswordChangeServiceFactoryImpl implements PasswordChangeServiceFactory {
 
     @Autowired
     RestaurantUserRepository userRepository;
@@ -29,9 +29,9 @@ public class PasswordChangeServiceFactoryImpl implements  PasswordChangeServiceF
 
         @Override
         public void changePassword(String password) {
-            var result  = userRepository.findById(userId);
+            var result = userRepository.findById(userId);
 
-            if(result.isEmpty()) {
+            if (result.isEmpty()) {
                 log.error(String.format("User with id %d was not found", userId));
                 throw new RuntimeException(String.format("User with id %d was not found", userId));
             }
@@ -45,9 +45,9 @@ public class PasswordChangeServiceFactoryImpl implements  PasswordChangeServiceF
 
         @Override
         public boolean isCurrentPasswordConfirmationValid(String providedCurrentPassword) {
-            var result  = userRepository.findById(userId);
+            var result = userRepository.findById(userId);
 
-            if(result.isEmpty()) {
+            if (result.isEmpty()) {
                 log.error(String.format("User with id %d was not found", userId));
                 throw new RuntimeException(String.format("User with id %d was not found", userId));
             }

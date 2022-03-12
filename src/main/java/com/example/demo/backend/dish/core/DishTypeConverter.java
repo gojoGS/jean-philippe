@@ -17,11 +17,11 @@ public class DishTypeConverter implements AttributeConverter<DishType, String> {
 
     @Override
     public DishType convertToEntityAttribute(String s) {
-        if(s == null) {
+        if (s == null) {
             return null;
         }
 
-         return Stream.of(DishType.values())
+        return Stream.of(DishType.values())
                 .filter(c -> c.getName().equals(s))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);

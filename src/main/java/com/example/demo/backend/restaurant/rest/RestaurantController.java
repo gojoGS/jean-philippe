@@ -51,7 +51,7 @@ public class RestaurantController {
 
         var result = repository.findById(restaurantId);
 
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return List.of();
         }
 
@@ -68,7 +68,7 @@ public class RestaurantController {
 
         var result = repository.findById(restaurantId);
 
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return List.of();
         }
 

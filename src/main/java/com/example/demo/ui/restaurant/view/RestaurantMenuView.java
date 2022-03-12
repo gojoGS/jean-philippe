@@ -4,8 +4,7 @@ import com.example.demo.backend.beverage.core.Beverage;
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.restaurant.service.base.EntityServiceAdapter;
 import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
-import com.example.demo.ui.restaurant.component.BeverageCrudComponent;
-import com.example.demo.ui.restaurant.component.DishCrudComponent;
+import com.example.demo.ui.restaurant.component.CrudComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,9 @@ import org.vaadin.tabs.PagedTabs;
 @Route("app/restaurant/menu")
 @Slf4j
 public class RestaurantMenuView extends RestaurantViewBase {
+    private final String[] dishCrudProperties = {"name", "type", "priceInHuf", "description"};
+    private final String[] beverageCrudProperties = {"name", "priceInHuf", "volumeInMililiters", "alcoholic", "diet"};
+
 
     @Autowired
     public RestaurantMenuView(EntityServiceFactory<Dish> dishEntityServiceFactory,
@@ -24,22 +26,25 @@ public class RestaurantMenuView extends RestaurantViewBase {
 
         var container = new VerticalLayout();
         var tabs = new PagedTabs(container);
-        tabs.add("Dishes", new DishCrudComponent(
-                new EntityServiceAdapter<>(dishEntityServiceFactory.get(restaurantId))),
-                false
+
+        var dishCrud = new CrudComponent<>(
+                new EntityServiceAdapter<>(dishEntityServiceFactory.get(restaurantId)),
+                Dish.class,
+                dishCrudProperties
         );
-        tabs.add("Beverages", new BeverageCrudComponent(
-                new EntityServiceAdapter<>(beverageEntityServiceFactory.get(restaurantId))),
-                false
+        var beverageCrud = new CrudComponent<>(
+                new EntityServiceAdapter<>(beverageEntityServiceFactory.get(restaurantId)),
+                Beverage.class,
+                beverageCrudProperties
         );
+
+        tabs.add("Dishes", beverageCrud, false);
+        tabs.add("Beverages", dishCrud, false);
 
         this.add(
                 tabs,
                 container
         );
-
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 
 }

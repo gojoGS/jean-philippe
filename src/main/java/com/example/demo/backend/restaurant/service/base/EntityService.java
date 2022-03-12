@@ -1,7 +1,5 @@
 package com.example.demo.backend.restaurant.service.base;
 
-import com.example.demo.backend.beverage.core.Beverage;
-
 import java.util.Collection;
 
 public interface EntityService<T> {

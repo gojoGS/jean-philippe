@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class DetailsServiceFactoryImpl implements DetailsServiceFactory{
+public class DetailsServiceFactoryImpl implements DetailsServiceFactory {
     @Autowired
     private RestaurantRepository restaurantRepository;
 

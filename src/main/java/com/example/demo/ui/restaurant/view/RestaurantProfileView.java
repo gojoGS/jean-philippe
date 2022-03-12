@@ -46,7 +46,7 @@ public class RestaurantProfileView extends RestaurantViewBase {
         restaurantName.setValue(detailsService.getName());
 
         restaurantDescription.setLabel("Description");
-        restaurantDescription.setValue(detailsService   .getDescription());
+        restaurantDescription.setValue(detailsService.getDescription());
 
         newPassword = new PasswordFieldBuilder()
                 .setLabel("New password")
@@ -75,9 +75,6 @@ public class RestaurantProfileView extends RestaurantViewBase {
                         resetButton
                 )
         );
-
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 
     private void onReset() {
@@ -95,7 +92,7 @@ public class RestaurantProfileView extends RestaurantViewBase {
 
     private void onSave() {
 
-        if(restaurantName.isEmpty()) {
+        if (restaurantName.isEmpty()) {
             this.restaurantName.setInvalid(true);
             NotificationUtil.showError("Please provide a name for your restaurant");
             return;
@@ -111,22 +108,22 @@ public class RestaurantProfileView extends RestaurantViewBase {
 
         detailsService.setDescription(restaurantDescription.getValue());
 
-        if(!newPassword.isEmpty() && currentPassword.isEmpty()) {
+        if (!newPassword.isEmpty() && currentPassword.isEmpty()) {
             this.currentPassword.setInvalid(true);
             this.newPassword.setInvalid(true);
             NotificationUtil.showError("Please confirm your current password");
             return;
         }
 
-        if(!newPassword.isEmpty() && !currentPassword.isEmpty()) {
-            if(!passwordValidationService.isValid(newPassword.getValue())) {
+        if (!newPassword.isEmpty() && !currentPassword.isEmpty()) {
+            if (!passwordValidationService.isValid(newPassword.getValue())) {
                 this.newPassword.setInvalid(true);
                 NotificationUtil.showError("Your new password must comply with the general password requirements");
                 return;
             }
 
 
-            if(!passwordChangeService.isCurrentPasswordConfirmationValid(currentPassword.getValue())) {
+            if (!passwordChangeService.isCurrentPasswordConfirmationValid(currentPassword.getValue())) {
                 this.currentPassword.setInvalid(true);
                 NotificationUtil.showError("The password you provided was incorrect");
                 return;
@@ -136,7 +133,7 @@ public class RestaurantProfileView extends RestaurantViewBase {
             passwordChangeService.changePassword(newPassword.getValue());
         }
 
-        if(newPassword.isEmpty() && !currentPassword.isEmpty()) {
+        if (newPassword.isEmpty() && !currentPassword.isEmpty()) {
             currentPassword.setValue("");
         }
 

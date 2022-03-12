@@ -38,6 +38,9 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
 
         add(navBar);
         add(new H1(header));
+
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 
     @Override

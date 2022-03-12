@@ -6,7 +6,6 @@ public class NavBarBuilderImpl implements NavBarBuilder {
     private DetailsService detailsService;
 
 
-
     @Override
     public void addOption(NavBar.NavOption option) {
 
