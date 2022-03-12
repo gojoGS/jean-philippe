@@ -2,6 +2,7 @@ package com.example.demo.backend.restaurant.core;
 
 import com.example.demo.backend.beverage.core.Beverage;
 import com.example.demo.backend.dish.core.Dish;
+import com.example.demo.backend.server.core.Server;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,6 +34,10 @@ public class Restaurant {
     @OneToMany(targetEntity = com.example.demo.backend.table.core.Table.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_table_fk", referencedColumnName = "id")
     private Set<com.example.demo.backend.table.core.Table> tables;
+
+    @OneToMany(targetEntity = Server.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_server_fk", referencedColumnName = "id")
+    private Set<Server> servers;
 
     // TOPIC ez miez
     @Lob
