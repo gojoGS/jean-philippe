@@ -2,6 +2,8 @@ package com.example.demo.backend.restaurant.service.table;
 
 import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
+import com.example.demo.backend.restaurant.service.base.EntityService;
+import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
 import com.example.demo.backend.table.core.Table;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +14,17 @@ import java.util.Collection;
 
 @Component
 @Slf4j
-public class TableServiceFactoryImpl implements TableServiceFactory {
+public class TableServiceFactoryImpl implements EntityServiceFactory<Table> {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
     @Override
-    public TableService get(long restaurantId) {
+    public EntityService<Table> get(long restaurantId) {
         return new TableServiceImpl(restaurantId);
     }
 
     @AllArgsConstructor
-    private class TableServiceImpl implements TableService {
+    private class TableServiceImpl implements EntityService<Table> {
         private final long restaurantId;
 
         private Restaurant getRestaurant() {
@@ -37,7 +39,7 @@ public class TableServiceFactoryImpl implements TableServiceFactory {
         }
 
         @Override
-        public void addTable(Table table) {
+        public void add(Table table) {
             var restaurant = getRestaurant();
             restaurant.addTable(table);
             restaurantRepository.save(restaurant);
@@ -56,7 +58,7 @@ public class TableServiceFactoryImpl implements TableServiceFactory {
         }
 
         @Override
-        public void removeTable(Table table) {
+        public void remove(Table table) {
             var restaurant = getRestaurant();
             restaurant.removeTable(table);
             restaurantRepository.save(restaurant);

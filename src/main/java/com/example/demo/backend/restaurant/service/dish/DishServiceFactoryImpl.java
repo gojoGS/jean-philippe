@@ -3,6 +3,8 @@ package com.example.demo.backend.restaurant.service.dish;
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
+import com.example.demo.backend.restaurant.service.base.EntityService;
+import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +16,18 @@ import java.util.Objects;
 
 @Component
 @Slf4j
-public class DishServiceFactoryImpl implements DishServiceFactory {
+public class DishServiceFactoryImpl implements EntityServiceFactory<Dish> {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
 
     @Override
-    public DishService get(long restaurantId) {
+    public EntityService<Dish> get(long restaurantId) {
         return new DishServiceImpl(restaurantId);
     }
 
     @AllArgsConstructor
-    private class DishServiceImpl implements DishService {
+    private class DishServiceImpl implements EntityService<Dish> {
         private final long id;
 
         private Restaurant getRestaurant() {
@@ -41,7 +43,7 @@ public class DishServiceFactoryImpl implements DishServiceFactory {
 
 
         @Override
-        public void addDish(Dish dish) {
+        public void add(Dish dish) {
             var restaurant = getRestaurant();
             restaurant.getDishes().add(dish);
             restaurantRepository.save(restaurant);
@@ -71,7 +73,7 @@ public class DishServiceFactoryImpl implements DishServiceFactory {
         }
 
         @Override
-        public void removeDish(Dish dish) {
+        public void remove(Dish dish) {
             var restaurant = getRestaurant();
             restaurant.getDishes().removeIf(dish1 -> Objects.equals(dish.getId(), dish1.getId()));
             restaurantRepository.save(restaurant);

@@ -3,6 +3,8 @@ package com.example.demo.backend.restaurant.service.beverage;
 import com.example.demo.backend.beverage.core.Beverage;
 import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
+import com.example.demo.backend.restaurant.service.base.EntityService;
+import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,17 @@ import java.util.Collection;
 
 @Component
 @Slf4j
-public class BeverageServiceFactoryImpl implements BeverageServiceFactory{
+public class BeverageServiceFactoryImpl implements EntityServiceFactory<Beverage> {
     @Autowired
     RestaurantRepository restaurantRepository;
 
     @Override
-    public BeverageService get(long restaurantId) {
+    public EntityService<Beverage> get(long restaurantId) {
         return new BeverageServiceImpl(restaurantId);
     }
 
     @AllArgsConstructor
-    private class BeverageServiceImpl implements BeverageService {
+    private class BeverageServiceImpl implements EntityService<Beverage> {
         private final long restaurantId;
 
         private Restaurant getRestaurant() {
@@ -37,7 +39,7 @@ public class BeverageServiceFactoryImpl implements BeverageServiceFactory{
         }
 
         @Override
-        public void addBeverage(Beverage beverage) {
+        public void add(Beverage beverage) {
             var restaurant = getRestaurant();
             restaurant.addBeverage(beverage);
             restaurantRepository.save(restaurant);
@@ -56,7 +58,7 @@ public class BeverageServiceFactoryImpl implements BeverageServiceFactory{
         }
 
         @Override
-        public void removeBeverage(Beverage beverage) {
+        public void remove(Beverage beverage) {
             var restaurant = getRestaurant();
             restaurant.removeBeverage(beverage);
             restaurantRepository.save(restaurant);

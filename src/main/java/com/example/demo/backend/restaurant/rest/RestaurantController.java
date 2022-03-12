@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+// TOPIC REST API
 @RestController
 @RequestMapping(path = "/api/rest/restaurant")
 public class RestaurantController {
