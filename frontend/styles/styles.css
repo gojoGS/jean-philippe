@@ -1,0 +1,7 @@
+.nav-bar {
+    background-color: #3A99FC;
+}
+
+.nav-bar > h1 {
+    color: white;
+}

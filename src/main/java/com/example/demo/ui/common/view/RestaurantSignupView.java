@@ -1,8 +1,8 @@
 package com.example.demo.ui.common.view;
 
 import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;
-import com.example.demo.security.user.email.EmailValidationrService;
-import com.example.demo.security.user.password.validation.PasswordValidationService;
+import com.example.demo.security.service.email.EmailValidationrService;
+import com.example.demo.security.service.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.core.RestaurantUserDto;
 import com.example.demo.security.user.restaurant.service.RestaurantUserService;
 import com.vaadin.flow.component.button.Button;

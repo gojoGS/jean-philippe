@@ -1,4 +1,4 @@
-package com.example.demo.security.user.password.encryption;
+package com.example.demo.security.service.password.encryption;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;

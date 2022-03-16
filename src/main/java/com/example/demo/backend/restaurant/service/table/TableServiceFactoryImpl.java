@@ -4,7 +4,10 @@ import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
 import com.example.demo.backend.restaurant.service.base.EntityService;
 import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
-import com.example.demo.backend.table.core.Table;
+import com.example.demo.backend.table.core.RestaurantTable;
+import com.example.demo.security.service.id.IdGenerationService;
+import com.example.demo.security.service.password.generation.PasswordGenerationService;
+import com.example.demo.security.user.enduser.core.EndUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +17,23 @@ import java.util.Collection;
 
 @Component
 @Slf4j
-public class TableServiceFactoryImpl implements EntityServiceFactory<Table> {
+public class TableServiceFactoryImpl implements EntityServiceFactory<RestaurantTable> {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    @Autowired
+    private IdGenerationService idGenerationService;
+
+    @Autowired
+    private PasswordGenerationService passwordGenerationService;
+
     @Override
-    public EntityService<Table> get(long restaurantId) {
+    public EntityService<RestaurantTable> get(long restaurantId) {
         return new TableServiceImpl(restaurantId);
     }
 
     @AllArgsConstructor
-    private class TableServiceImpl implements EntityService<Table> {
+    private class TableServiceImpl implements EntityService<RestaurantTable> {
         private final long restaurantId;
 
         private Restaurant getRestaurant() {
@@ -39,28 +48,33 @@ public class TableServiceFactoryImpl implements EntityServiceFactory<Table> {
         }
 
         @Override
-        public void add(Table table) {
+        public void add(RestaurantTable restaurantTable) {
             var restaurant = getRestaurant();
-            restaurant.addTable(table);
+
+            restaurantTable.setUser(
+                    new EndUser(idGenerationService.get(), passwordGenerationService.get())
+            );
+
+            restaurant.addTable(restaurantTable);
             restaurantRepository.save(restaurant);
         }
 
         @Override
-        public Collection<Table> getAll() {
-            return getRestaurant().getTables();
+        public Collection<RestaurantTable> getAll() {
+            return getRestaurant().getRestaurantTables();
         }
 
         @Override
-        public void update(Table table) {
+        public void update(RestaurantTable restaurantTable) {
             var restaurant = getRestaurant();
-            restaurant.updateTable(table);
+            restaurant.updateTable(restaurantTable);
             restaurantRepository.save(restaurant);
         }
 
         @Override
-        public void remove(Table table) {
+        public void remove(RestaurantTable restaurantTable) {
             var restaurant = getRestaurant();
-            restaurant.removeTable(table);
+            restaurant.removeTable(restaurantTable);
             restaurantRepository.save(restaurant);
         }
     }

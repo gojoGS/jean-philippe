@@ -3,7 +3,7 @@ package com.example.demo.ui.restaurant.view;
 import com.example.demo.backend.restaurant.service.details.DetailsService;
 import com.example.demo.backend.restaurant.service.details.DetailsServiceFactory;
 import com.example.demo.security.service.AuthDetailsService;
-import com.example.demo.security.user.password.validation.PasswordValidationService;
+import com.example.demo.security.service.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.service.change.PasswordChangeService;
 import com.example.demo.security.user.restaurant.service.change.PasswordChangeServiceFactory;
 import com.example.demo.ui.common.component.PasswordFieldBuilder;

@@ -3,6 +3,7 @@ package com.example.demo.backend.restaurant.core;
 import com.example.demo.backend.beverage.core.Beverage;
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.server.core.Server;
+import com.example.demo.backend.table.core.RestaurantTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,9 +34,9 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_beverage_fk", referencedColumnName = "id")
     private Set<Beverage> beverages;
 
-    @OneToMany(targetEntity = com.example.demo.backend.table.core.Table.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = RestaurantTable.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_table_fk", referencedColumnName = "id")
-    private Set<com.example.demo.backend.table.core.Table> tables;
+    private Set<RestaurantTable> restaurantTables;
 
     @OneToMany(targetEntity = Server.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_server_fk", referencedColumnName = "id")
@@ -50,7 +51,7 @@ public class Restaurant {
         this.description = description;
         this.dishes = new HashSet<>();
         this.beverages = new HashSet<>();
-        this.tables = new HashSet<>();
+        this.restaurantTables = new HashSet<>();
     }
 
     public void addDish(Dish dish) {
@@ -79,18 +80,18 @@ public class Restaurant {
         resultServer.get().update(server);
     }
 
-    public void addTable(com.example.demo.backend.table.core.Table table) {
-        tables.add(table);
+    public void addTable(RestaurantTable restaurantTable) {
+        restaurantTables.add(restaurantTable);
     }
 
-    public void removeTable(com.example.demo.backend.table.core.Table table) {
-        tables.removeIf(table1 -> Objects.equals(table.getId(), table1.getId()));
+    public void removeTable(RestaurantTable restaurantTable) {
+        restaurantTables.removeIf(restaurantTable1 -> Objects.equals(restaurantTable.getId(), restaurantTable1.getId()));
     }
 
-    public void updateTable(com.example.demo.backend.table.core.Table table) {
-        var resultTable = tables
+    public void updateTable(RestaurantTable restaurantTable) {
+        var resultTable = restaurantTables
                 .stream()
-                .filter(table1 -> Objects.equals(table1.getId(), table.getId()))
+                .filter(restaurantTable1 -> Objects.equals(restaurantTable1.getId(), restaurantTable.getId()))
                 .findFirst();
 
         if (resultTable.isEmpty()) {
@@ -98,7 +99,7 @@ public class Restaurant {
             return;
         }
 
-        resultTable.get().update(table);
+        resultTable.get().update(restaurantTable);
     }
 
     public void addBeverage(Beverage beverage) {

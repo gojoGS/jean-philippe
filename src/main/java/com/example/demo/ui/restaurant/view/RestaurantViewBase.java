@@ -3,6 +3,7 @@ package com.example.demo.ui.restaurant.view;
 import com.example.demo.security.service.AuthDetailsService;
 import com.example.demo.ui.common.component.NavBar;
 import com.example.demo.ui.util.BeanUtil;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 
 // TOPIC abstract class
+@CssImport("./styles/styles.css")
 public abstract class RestaurantViewBase extends VerticalLayout implements HasDynamicTitle {
     // TOPIC why private
     @Setter
@@ -32,13 +34,14 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
                 NavBar.NavOption.builder().label("Profile").route(RestaurantProfileView.class).build(),
                 NavBar.NavOption.builder().label("Menu").route(RestaurantMenuView.class).build(),
                 NavBar.NavOption.builder().label("Tables").route(RestaurantTablesView.class).build(),
+                NavBar.NavOption.builder().label("End user").route(RestaurantEndUserView.class).build(),
                 NavBar.NavOption.builder().label("Staff").route(RestaurantStaffView.class).build(),
                 NavBar.NavOption.builder().label("Orders").route(RestaurantOrdersView.class).build()
         );
 
         add(navBar);
         add(new H1(header));
-
+        setPadding(false);
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
     }

@@ -1,4 +1,4 @@
-package com.example.demo.security.user.email;
+package com.example.demo.security.service.email;
 
 
 public interface EmailValidationrService {

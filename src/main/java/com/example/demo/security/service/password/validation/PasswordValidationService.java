@@ -1,4 +1,4 @@
-package com.example.demo.security.user.password.validation;
+package com.example.demo.security.service.password.validation;
 
 public interface PasswordValidationService {
     boolean isValid(String password);
