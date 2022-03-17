@@ -3,22 +3,29 @@ package com.example.demo.ui.restaurant.view;
 import com.example.demo.backend.restaurant.service.base.EntityService;
 import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
 import com.example.demo.backend.table.core.RestaurantTable;
+import com.example.demo.backend.table.repository.RestaurantTableRepository;
 import com.example.demo.security.service.password.generation.PasswordGenerationService;
-import com.example.demo.ui.util.NotificationUtil;
+import com.example.demo.security.user.enduser.core.EndUser;
+import com.example.demo.security.user.enduser.repository.EnduserRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.vaadin.crudui.crud.impl.GridCrud;
 
 @Route("app/restaurant/enduser")
+@Slf4j
 public class RestaurantEndUserView extends RestaurantViewBase{
     private final EntityService<RestaurantTable> restaurantTableEntityService;
+
+    @Autowired
+    EnduserRepository enduserRepository;
+
+    @Autowired
+    RestaurantTableRepository restaurantTableRepository;
 
     @Autowired
     PasswordGenerationService passwordGenerationService;
@@ -45,8 +52,11 @@ public class RestaurantEndUserView extends RestaurantViewBase{
                 var user = restaurantTable.getUser();
                 user.setEncryptedPassword(passwordEncoder.encode(newPassword));
 
-                restaurantTable.setUser(user);
-                restaurantTableEntityService.update(restaurantTable);
+                log.info(user.getEncryptedPassword());
+
+                enduserRepository.save(user);
+//                restaurantTable.setUser(user);
+//                restaurantTableEntityService.update(restaurantTable);
 
                 new Dialog(
                         new H1(String.format("New password is: %s", newPassword))

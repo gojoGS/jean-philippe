@@ -22,7 +22,7 @@ public class RestaurantUser {
     private String encryptedPassword;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     public RestaurantUser(String email, String encryptedPassword, Restaurant restaurant) {

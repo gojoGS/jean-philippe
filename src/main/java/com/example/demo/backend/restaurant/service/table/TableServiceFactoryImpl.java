@@ -11,8 +11,10 @@ import com.example.demo.security.user.enduser.core.EndUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Component
@@ -20,6 +22,9 @@ import java.util.Collection;
 public class TableServiceFactoryImpl implements EntityServiceFactory<RestaurantTable> {
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private IdGenerationService idGenerationService;
@@ -52,7 +57,7 @@ public class TableServiceFactoryImpl implements EntityServiceFactory<RestaurantT
             var restaurant = getRestaurant();
 
             restaurantTable.setUser(
-                    new EndUser(idGenerationService.get(), passwordGenerationService.get())
+                    new EndUser(idGenerationService.get(), passwordEncoder.encode(passwordGenerationService.get()))
             );
 
             restaurant.addTable(restaurantTable);

@@ -1,5 +1,6 @@
 package com.example.demo.security.user.enduser.core;
 
+import com.example.demo.backend.table.core.RestaurantTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

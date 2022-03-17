@@ -82,6 +82,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/app/public/**").permitAll()
                 .antMatchers("/app/restaurant/**").hasRole("RESTAURANT")
+                // TOPIC hyphen vs underscore
+                .antMatchers("/app/end-user/**").hasRole("END_USER")
                 // Allow all requests by logged-in users.
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin(Customizer.withDefaults());

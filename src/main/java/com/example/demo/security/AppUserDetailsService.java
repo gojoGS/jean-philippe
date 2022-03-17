@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.example.demo.security.user.enduser.repository.EnduserRepository;
 import com.example.demo.security.user.restaurant.repository.RestaurantUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,27 @@ public class AppUserDetailsService implements UserDetailsService {
     @Autowired
     RestaurantUserRepository restaurantUserRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var users = restaurantUserRepository.findByEmail(email);
+    @Autowired
+    EnduserRepository enduserRepository;
 
-        if (users.isEmpty()) {
-            log.info("USernanme");
-            throw new UsernameNotFoundException("No user found with username: " + email);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var result = restaurantUserRepository.getByEmail(username);
+
+        if(result.isPresent()) {
+            var user = result.get();
+            return new User(user.getEmail(), user.getEncryptedPassword(), getAuthorities(List.of("ROLE_RESTAURANT")));
         }
 
-        var user = users.get(0);
+        var result2 = enduserRepository.getEndUserByUserId(username);
 
-        return new User(user.getEmail(), user.getEncryptedPassword(), getAuthorities(List.of("ROLE_RESTAURANT")));
+        if(result2.isPresent()) {
+            var user = result2.get();
+            log.info(String.format("username is %s password is %s", user.getUserId(), user.getEncryptedPassword()));
+            return new User(user.getUserId(), user.getEncryptedPassword(), getAuthorities(List.of("ROLE_END_USER")));
+        }
+
+        throw new UsernameNotFoundException("No user found with username: " + username);
     }
 
     private static List<GrantedAuthority> getAuthorities(List<String> roles) {

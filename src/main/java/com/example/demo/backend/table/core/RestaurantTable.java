@@ -25,6 +25,7 @@ public class RestaurantTable {
 
     // TOPIC Bidirectional one-to-one
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_table_id")
     private EndUser user;
 
     public void update(RestaurantTable restaurantTable) {
