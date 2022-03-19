@@ -1,5 +1,6 @@
 package com.example.demo.backend.beverage.core;
 
+import com.example.demo.backend.order.Payable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "beverages")
-public class Beverage {
+public class Beverage implements Payable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -63,5 +64,10 @@ public class Beverage {
                 ", priceInHuf=" + priceInHuf +
                 ", volumeInMililiters=" + volumeInMililiters +
                 '}';
+    }
+
+    @Override
+    public long getPrice() {
+        return priceInHuf;
     }
 }
