@@ -1,6 +1,6 @@
 package com.example.demo.backend.dish.core;
 
-import com.example.demo.backend.order.Payable;
+import com.example.demo.backend.item.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,18 +14,12 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "dishes")
-public class Dish implements Payable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String name;
+public class Dish extends Item {
     private DishType type;
-    private int priceInHuf;
     @Lob
     private String description;
 
-    public Dish(String name, DishType type, int priceInHuf, String description) {
+    public Dish(String name, DishType type, Long priceInHuf, String description) {
         this.name = name;
         this.type = type;
         this.priceInHuf = priceInHuf;
@@ -59,10 +53,5 @@ public class Dish implements Payable {
                 "name = " + name + ", " +
                 "type = " + type + ", " +
                 "priceInHuf = " + priceInHuf + ")";
-    }
-
-    @Override
-    public long getPrice() {
-        return priceInHuf;
     }
 }

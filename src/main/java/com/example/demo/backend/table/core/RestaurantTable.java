@@ -1,5 +1,6 @@
 package com.example.demo.backend.table.core;
 
+import com.example.demo.backend.order.core.Order;
 import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.security.user.enduser.core.EndUser;
 import lombok.Getter;
@@ -27,6 +28,10 @@ public class RestaurantTable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_table_id")
     private EndUser user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "table_order_id")
+    private Order order;
 
     public void update(RestaurantTable restaurantTable) {
         this.size = restaurantTable.getSize();

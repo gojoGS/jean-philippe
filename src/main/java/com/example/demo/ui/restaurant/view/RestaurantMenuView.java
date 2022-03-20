@@ -38,8 +38,8 @@ public class RestaurantMenuView extends RestaurantViewBase {
                 beverageCrudProperties
         );
 
-        tabs.add("Dishes", beverageCrud, false);
-        tabs.add("Beverages", dishCrud, false);
+        tabs.add("Dishes", dishCrud, false);
+        tabs.add("Beverages", beverageCrud, false);
 
         this.add(
                 tabs,
