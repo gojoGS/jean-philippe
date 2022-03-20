@@ -1,31 +1,26 @@
 package com.example.demo.ui.restaurant.view;
 
 import com.example.demo.security.service.AuthDetailsService;
-import com.example.demo.ui.common.component.NavBar;
+import com.example.demo.ui.common.component.nav.NavBar;
+import com.example.demo.ui.common.view.ViewBase;
 import com.example.demo.ui.util.BeanUtil;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HasDynamicTitle;
-import lombok.Setter;
 
 import java.util.Optional;
 
 
 // TOPIC abstract class
-@CssImport("./styles/styles.css")
-public abstract class RestaurantViewBase extends VerticalLayout implements HasDynamicTitle {
+public abstract class RestaurantViewBase extends ViewBase {
     // TOPIC why private
-    @Setter
-    protected String title;
-    protected final long restaurantId;
+
     protected final String restaurantName;
+    protected final long restaurantId;
 
     // TOPIC subclass API
     protected RestaurantViewBase(String title, String header) {
+        super(title);
         AuthDetailsService detailsService = BeanUtil.getBean(AuthDetailsService.class);
 
-        this.title = title;
         this.restaurantId = detailsService.getRestaurantId();
         this.restaurantName = detailsService.getRestaurantName();
 
@@ -41,14 +36,7 @@ public abstract class RestaurantViewBase extends VerticalLayout implements HasDy
 
         add(navBar);
         add(new H1(header));
-        setPadding(false);
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-    }
-
-    @Override
-    public String getPageTitle() {
-        // TOPIC String.format performance benchmark study
-        return String.format("JP | %s", title);
     }
 }

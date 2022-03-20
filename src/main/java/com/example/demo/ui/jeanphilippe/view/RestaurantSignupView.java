@@ -1,10 +1,11 @@
-package com.example.demo.ui.common.view;
+package com.example.demo.ui.jeanphilippe.view;
 
 import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;
 import com.example.demo.security.service.email.EmailValidationrService;
 import com.example.demo.security.service.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.core.RestaurantUserDto;
 import com.example.demo.security.user.restaurant.service.RestaurantUserService;
+import com.example.demo.ui.jeanphilippe.view.JeanPhilippeViewBase;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
@@ -22,7 +23,7 @@ import static com.example.demo.ui.util.NotificationUtil.showSuccess;
 
 @Route("/app/public/signup")
 @Slf4j
-public class RestaurantSignupView extends VerticalLayout {
+public class RestaurantSignupView extends JeanPhilippeViewBase {
     @Autowired
     EmailValidationrService emailValidationrService;
     @Autowired
@@ -45,6 +46,8 @@ public class RestaurantSignupView extends VerticalLayout {
 
 
     public RestaurantSignupView() {
+        super("Registration");
+
         var userDetails = new VerticalLayout(userHeader, username, password);
         userDetails.setAlignItems(Alignment.CENTER);
         userDetails.setJustifyContentMode(JustifyContentMode.CENTER);

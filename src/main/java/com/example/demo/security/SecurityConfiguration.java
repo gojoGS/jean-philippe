@@ -79,6 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // Allow all Vaadin internal requests.
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/app/public/**").permitAll()
                 .antMatchers("/app/restaurant/**").hasRole("RESTAURANT")

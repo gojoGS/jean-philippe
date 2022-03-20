@@ -11,13 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.tabs.PagedTabs;
 
-
 @Route("app/restaurant/menu")
 @Slf4j
 public class RestaurantMenuView extends RestaurantViewBase {
     private final String[] dishCrudProperties = {"name", "type", "priceInHuf", "description"};
     private final String[] beverageCrudProperties = {"name", "priceInHuf", "volumeInMililiters", "alcoholic", "diet"};
-
 
     @Autowired
     public RestaurantMenuView(EntityServiceFactory<Dish> dishEntityServiceFactory,
