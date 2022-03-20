@@ -55,8 +55,6 @@ public class RestaurantEndUserView extends RestaurantViewBase{
                 log.info(user.getEncryptedPassword());
 
                 enduserRepository.save(user);
-//                restaurantTable.setUser(user);
-//                restaurantTableEntityService.update(restaurantTable);
 
                 new Dialog(
                         new H1(String.format("New password is: %s", newPassword))

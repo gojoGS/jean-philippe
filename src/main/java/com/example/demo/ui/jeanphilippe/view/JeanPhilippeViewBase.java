@@ -19,5 +19,8 @@ public abstract class JeanPhilippeViewBase extends ViewBase {
         add(
                 navBar
         );
+
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 }
