@@ -25,4 +25,7 @@ public class EndUser {
     private Long id;
     private String userId;
     private String encryptedPassword;
+
+    @OneToOne(mappedBy = "user")
+    private RestaurantTable table;
 }

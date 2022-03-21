@@ -1,9 +1,8 @@
 package com.example.demo.backend.order.core;
 
-import com.example.demo.backend.item.Item;
+import com.example.demo.backend.item.core.Item;
 import com.example.demo.backend.server.core.Server;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;

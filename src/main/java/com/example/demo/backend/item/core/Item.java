@@ -1,4 +1,4 @@
-package com.example.demo.backend.item;
+package com.example.demo.backend.item.core;
 
 import com.example.demo.backend.order.core.Order;
 import lombok.Getter;

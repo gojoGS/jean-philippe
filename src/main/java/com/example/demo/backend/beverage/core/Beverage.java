@@ -1,6 +1,6 @@
 package com.example.demo.backend.beverage.core;
 
-import com.example.demo.backend.item.Item;
+import com.example.demo.backend.item.core.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
