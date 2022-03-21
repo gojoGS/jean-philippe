@@ -3,6 +3,7 @@ package com.example.demo.backend.session.core;
 import com.example.demo.backend.order.core.Order;
 import com.example.demo.backend.order.core.OrderStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor
 public class OrderSession {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
