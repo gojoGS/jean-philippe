@@ -1,4 +1,4 @@
-package com.example.demo.security.user.restaurant.service;
+package com.example.demo.security.user.restaurant.service.user;
 
 import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;

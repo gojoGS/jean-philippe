@@ -1,6 +1,6 @@
 package com.example.demo.ui.restaurant.view;
 
-import com.example.demo.security.service.AuthDetailsService;
+import com.example.demo.security.user.restaurant.service.details.RestaurantAuthDetailsService;
 import com.example.demo.ui.common.component.nav.NavBar;
 import com.example.demo.ui.common.view.ViewBase;
 import com.example.demo.ui.util.BeanUtil;
@@ -19,10 +19,10 @@ public abstract class RestaurantViewBase extends ViewBase {
     // TOPIC subclass API
     protected RestaurantViewBase(String title, String header) {
         super(title);
-        AuthDetailsService detailsService = BeanUtil.getBean(AuthDetailsService.class);
+        RestaurantAuthDetailsService detailsService = BeanUtil.getBean(RestaurantAuthDetailsService.class);
 
-        this.restaurantId = detailsService.getRestaurantId();
-        this.restaurantName = detailsService.getRestaurantName();
+        this.restaurantId = detailsService.getUser().getRestaurant().getId();
+        this.restaurantName = detailsService.getUser().getRestaurant().getName();
 
         var navBar = new NavBar(
                 Optional.of(restaurantName),

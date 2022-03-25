@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.security.user.enduser.repository.EnduserRepository;
+import com.example.demo.security.user.enduser.repository.EndUserRepository;
 import com.example.demo.security.user.restaurant.repository.RestaurantUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AppUserDetailsService implements UserDetailsService {
     RestaurantUserRepository restaurantUserRepository;
 
     @Autowired
-    EnduserRepository enduserRepository;
+    EndUserRepository enduserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

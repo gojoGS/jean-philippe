@@ -2,7 +2,7 @@ package com.example.demo.ui.restaurant.view;
 
 import com.example.demo.backend.restaurant.service.details.DetailsService;
 import com.example.demo.backend.restaurant.service.details.DetailsServiceFactory;
-import com.example.demo.security.service.AuthDetailsService;
+import com.example.demo.security.user.restaurant.service.details.RestaurantAuthDetailsService;
 import com.example.demo.security.service.password.validation.PasswordValidationService;
 import com.example.demo.security.user.restaurant.service.change.PasswordChangeService;
 import com.example.demo.security.user.restaurant.service.change.PasswordChangeServiceFactory;
@@ -33,14 +33,14 @@ public class RestaurantProfileView extends RestaurantViewBase {
 
     @Autowired
     public RestaurantProfileView(DetailsServiceFactory detailsServiceFactory,
-                                 AuthDetailsService authDetailsService,
+                                 RestaurantAuthDetailsService restaurantAuthDetailsService,
                                  PasswordValidationService passwordValidationService,
                                  PasswordChangeServiceFactory passwordChangeServiceFactory) {
         super("Profile", "Profile");
 
         this.passwordValidationService = passwordValidationService;
         this.detailsService = detailsServiceFactory.get(restaurantId);
-        this.passwordChangeService = passwordChangeServiceFactory.get(authDetailsService.getUserId());
+        this.passwordChangeService = passwordChangeServiceFactory.get(restaurantAuthDetailsService.getUser().getId());
 
         restaurantName.setLabel("Restaurant name");
         restaurantName.setValue(detailsService.getName());

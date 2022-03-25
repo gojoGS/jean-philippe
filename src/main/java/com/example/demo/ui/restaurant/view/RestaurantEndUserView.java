@@ -5,8 +5,7 @@ import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
 import com.example.demo.backend.table.core.RestaurantTable;
 import com.example.demo.backend.table.repository.RestaurantTableRepository;
 import com.example.demo.security.service.password.generation.PasswordGenerationService;
-import com.example.demo.security.user.enduser.core.EndUser;
-import com.example.demo.security.user.enduser.repository.EnduserRepository;
+import com.example.demo.security.user.enduser.repository.EndUserRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -22,7 +21,7 @@ public class RestaurantEndUserView extends RestaurantViewBase{
     private final EntityService<RestaurantTable> restaurantTableEntityService;
 
     @Autowired
-    EnduserRepository enduserRepository;
+    EndUserRepository enduserRepository;
 
     @Autowired
     RestaurantTableRepository restaurantTableRepository;

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EnduserRepository extends JpaRepository<EndUser, Long> {
+public interface EndUserRepository extends JpaRepository<EndUser, Long> {
     Optional<EndUser> getEndUserByUserId(String userId);
 }

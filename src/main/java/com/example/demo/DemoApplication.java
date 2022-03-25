@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.backend.restaurant.core.RestaurantDetailsDto;
 import com.example.demo.security.user.restaurant.core.RestaurantUserDto;
-import com.example.demo.security.user.restaurant.service.RestaurantUserService;
+import com.example.demo.security.user.restaurant.service.user.RestaurantUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
