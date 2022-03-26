@@ -4,6 +4,7 @@ import com.example.demo.backend.restaurant.core.Restaurant;
 import com.example.demo.backend.restaurant.repository.RestaurantRepository;
 import com.example.demo.backend.restaurant.service.base.EntityService;
 import com.example.demo.backend.restaurant.service.base.EntityServiceFactory;
+import com.example.demo.backend.session.core.OrderSession;
 import com.example.demo.backend.table.core.RestaurantTable;
 import com.example.demo.security.service.id.IdGenerationService;
 import com.example.demo.security.service.password.generation.PasswordGenerationService;
@@ -56,10 +57,16 @@ public class TableServiceFactoryImpl implements EntityServiceFactory<RestaurantT
         public void add(RestaurantTable restaurantTable) {
             var restaurant = getRestaurant();
 
+            var userId = idGenerationService.get();
+            var password = passwordGenerationService.get();
+
+            log.info(String.format("%s -> %s", userId, password));
+
             restaurantTable.setUser(
-                    new EndUser(idGenerationService.get(), passwordEncoder.encode(passwordGenerationService.get()))
+                    new EndUser(userId, passwordEncoder.encode(password))
             );
 
+            restaurantTable.setOrderSession(new OrderSession());
             restaurant.addTable(restaurantTable);
             restaurantRepository.save(restaurant);
         }

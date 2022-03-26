@@ -25,6 +25,10 @@ public class RestaurantTable {
     @Lob
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_table_fk", insertable = false, updatable = false)
+    private Restaurant restaurant;
+
     // TOPIC Bidirectional one-to-one
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_table_id")

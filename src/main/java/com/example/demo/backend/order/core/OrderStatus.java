@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum OrderStatus {
-    OPEN("Open"),
+    WAITING("Waiting"),
     IN_PROGRESS("In progress"),
     CLOSED("Closed");
 

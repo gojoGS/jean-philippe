@@ -2,6 +2,7 @@ package com.example.demo.backend.session.core;
 
 import com.example.demo.backend.order.core.Order;
 import com.example.demo.backend.order.core.OrderStatus;
+import com.example.demo.backend.table.core.RestaurantTable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "orders")
+@Table(name = "order_sessions")
 @NoArgsConstructor
 public class OrderSession {
     @Id
@@ -22,6 +23,9 @@ public class OrderSession {
     @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "session_order_fk", referencedColumnName = "id")
     private List<Order> orders;
+
+    @OneToOne(mappedBy = "orderSession")
+    private RestaurantTable restaurantTable;
 
     public void addOrder(Order order) {
         if (!orders.isEmpty()) {
@@ -33,15 +37,19 @@ public class OrderSession {
         } else {
             orders.add(order);
         }
-
     }
 
-    public OrderStatus getSessionStatus() {
+    public OrderSessionStatus getSessionStatus() {
         if(orders.isEmpty()) {
-            return OrderStatus.OPEN;
-        } else {
-            var lastOrder = orders.get(orders.size() - 1);
-            return lastOrder.getOrderStatus();
+            return OrderSessionStatus.CAN_ORDER;
         }
+
+        var lastOrder = orders.get(orders.size() - 1);
+
+        return switch (lastOrder.getOrderStatus()) {
+            case WAITING -> OrderSessionStatus.SENT_TO_RESTAURANT;
+            case IN_PROGRESS -> OrderSessionStatus.IN_THE_MAKING;
+            case CLOSED -> OrderSessionStatus.CAN_ORDER;
+        };
     }
 }
