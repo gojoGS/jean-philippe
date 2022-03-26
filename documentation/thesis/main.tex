@@ -1,15 +1,23 @@
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\def\magyarOptions{chapterhead=unchanged}
+\usepackage[magyar]{babel}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage{times}
 \usepackage{setspace}
+\usepackage{biblatex} 
+\addbibresource{refs.bib}
+\usepackage{paracol}
+\usepackage{parcolumns}
 
 % TODO sorköz 1.5-esre biztos így állítok??
 \setstretch{1.5}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]{\bf\large}{\thechapter}{14px}{}
+
 
 \usepackage[a4paper,
 left=3cm,
@@ -26,10 +34,15 @@ bottom=3cm]{geometry}
 }
 
 \author{Bartha Zoltán}
+
 \date{\today}
 
 \begin{document}
-	\maketitle
+%	\maketitle
+
+	\input{chapters/outerTitle}
+	
+	\input{chapters/innerTitle}
 	
 	\chapter*{Köszönetnyilvánítás}
 	Köszönetnyilvánítás
@@ -48,9 +61,8 @@ bottom=3cm]{geometry}
 
 	\input{chapters/osszefoglalo}
 	
-	\chapter{Irodalomjegyzék}
-
-	Irodalomjegyzék
+	\printbibliography[
+	heading=bibnumbered, title={Irodalomjegyzék}]
 	
 	\chapter{Függelék}
 	
