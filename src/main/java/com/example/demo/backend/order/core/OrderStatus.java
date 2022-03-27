@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum OrderStatus {
     WAITING("Waiting"),
     IN_PROGRESS("In progress"),
+    REFUSED("Refused"),
     CLOSED("Closed");
 
     private final String status;

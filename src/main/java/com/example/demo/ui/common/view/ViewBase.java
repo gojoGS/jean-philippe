@@ -13,6 +13,8 @@ public abstract class ViewBase extends VerticalLayout implements HasDynamicTitle
 
     protected ViewBase(String title) {
         setPadding(false);
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
         this.title = title;
     }
 

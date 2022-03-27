@@ -28,10 +28,10 @@ public class NavBar extends HorizontalLayout {
             navButton.addClickListener(buttonClickEvent -> UI.getCurrent().navigate(option.getRoute()));
 
             add(navButton);
-            setWidthFull();
-            setAlignItems(Alignment.CENTER);
-            setJustifyContentMode(JustifyContentMode.AROUND);
         }
+        setWidthFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.AROUND);
     }
 
     @Getter

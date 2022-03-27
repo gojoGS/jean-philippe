@@ -27,9 +27,13 @@ public class OrderSession {
     @OneToOne(mappedBy = "orderSession")
     private RestaurantTable restaurantTable;
 
+    public Order getLastOrder() {
+        return orders.get(orders.size() - 1);
+    }
+
     public void addOrder(Order order) {
         if (!orders.isEmpty()) {
-            var lastOrder = orders.get(orders.size() - 1);
+            var lastOrder = getLastOrder();
 
             if (lastOrder.getOrderStatus() != OrderStatus.CLOSED) {
                 throw new RuntimeException("An order is already in progress");
@@ -44,12 +48,12 @@ public class OrderSession {
             return OrderSessionStatus.CAN_ORDER;
         }
 
-        var lastOrder = orders.get(orders.size() - 1);
+        var lastOrder = getLastOrder();
 
         return switch (lastOrder.getOrderStatus()) {
+            case REFUSED, CLOSED -> OrderSessionStatus.CAN_ORDER;
             case WAITING -> OrderSessionStatus.SENT_TO_RESTAURANT;
             case IN_PROGRESS -> OrderSessionStatus.IN_THE_MAKING;
-            case CLOSED -> OrderSessionStatus.CAN_ORDER;
         };
     }
 }

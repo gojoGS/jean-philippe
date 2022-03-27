@@ -36,7 +36,5 @@ public abstract class RestaurantViewBase extends ViewBase {
 
         add(navBar);
         add(new H1(header));
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
     }
 }

@@ -23,6 +23,7 @@ public class Order {
     private Long id;
 
     private OrderStatus orderStatus;
+    private long estimatedTimeOfDoingInMinutes;
 
     @ManyToOne
     @JoinColumn(name = "session_order_fk")

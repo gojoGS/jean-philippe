@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route("app/end-user")
+@Route("app/end-user/")
 @Slf4j
 public class UserView extends VerticalLayout implements BeforeEnterObserver {
     private OrderSessionStatus orderStatus;
