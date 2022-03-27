@@ -33,6 +33,8 @@ public class OrderView extends EndUserViewBase {
     private final EntityService<Dish> dishEntityService;
     private final SessionService sessionService;
     private final OrderRepository orderRepository;
+    private final EndUserDetailsService endUserDetailsService;
+
 
     @Autowired
     public OrderView(EntityServiceFactory<Dish> dishEntityServiceFactory,
@@ -47,6 +49,7 @@ public class OrderView extends EndUserViewBase {
         this.sessionService = sessionServiceFactory.get(sessionTable.getOrderSession().getId());
         this.orderRepository = orderRepository;
         this.dishes = new ArrayList<>();
+        this.endUserDetailsService = endUserDetailsService;
 
         var dishGrid = new Grid<Dish>(Dish.class, false);
 
@@ -143,9 +146,12 @@ public class OrderView extends EndUserViewBase {
 
 
         order.setOrderStatus(OrderStatus.WAITING);
+        order.setOrderSession(
+                endUserDetailsService.getUser().getTable().getOrderSession()
+        );
 
         orderRepository.save(order);
-        sessionService.addOrder(order);
+
         NotificationUtil.showSuccess("Your order has been sent");
         UI.getCurrent().navigate(SentToRestaurantView.class);
     }

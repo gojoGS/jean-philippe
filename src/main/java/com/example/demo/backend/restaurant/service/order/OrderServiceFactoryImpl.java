@@ -50,8 +50,8 @@ public class OrderServiceFactoryImpl implements OrderServiceFactory {
         public List<Order> getOrdersByStatus(OrderStatus status) {
             return orderRepository.findAll()
                     .stream()
-                    .filter(order -> order.getOrderSession().getRestaurantTable().getRestaurant().getId() == id)
                     .filter(order -> order.getOrderStatus() == status)
+                    .filter(order -> order.getOrderSession().getRestaurantTable().getRestaurant().getId() == id)
                     .toList();
         }
     }

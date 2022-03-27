@@ -10,6 +10,7 @@ import com.example.demo.backend.order.core.OrderStatus;
 import com.example.demo.backend.order.repository.OrderRepository;
 import com.example.demo.backend.server.core.Server;
 import com.example.demo.ui.util.NotificationUtil;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -48,7 +49,6 @@ public class OrderDialog extends Dialog {
         minSuffix.setText("min(s)");
 
         estimateInput.setSuffixComponent(minSuffix);
-
 
         var closeButton = new Button("Close");
         closeButton.addClickListener(buttonClickEvent -> close());
@@ -100,5 +100,6 @@ public class OrderDialog extends Dialog {
                 )
         );
         this.close();
+        UI.getCurrent().getPage().reload();
     }
 }

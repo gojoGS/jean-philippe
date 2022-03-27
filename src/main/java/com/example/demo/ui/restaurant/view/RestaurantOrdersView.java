@@ -1,10 +1,15 @@
 package com.example.demo.ui.restaurant.view;
 
+import com.example.demo.backend.broadcast.Broadcaster;
+import com.example.demo.backend.broadcast.Event;
+import com.example.demo.backend.broadcast.EventType;
 import com.example.demo.backend.order.core.Order;
 import com.example.demo.backend.order.core.OrderStatus;
 import com.example.demo.backend.order.repository.OrderRepository;
 import com.example.demo.backend.restaurant.service.order.OrderServiceFactory;
 import com.example.demo.ui.restaurant.component.OrderDialog;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
@@ -14,23 +19,46 @@ import org.vaadin.tabs.PagedTabs;
 
 @Route("app/restaurant/orders")
 public class RestaurantOrdersView extends RestaurantViewBase {
-    private static final OrderStatus defaultStatus = OrderStatus.WAITING;
+    private final OrderRepository orderRepository;
 
     @Autowired
     public RestaurantOrdersView(OrderServiceFactory orderServiceFactory, OrderRepository orderRepository) {
         super("Orders", "Orders");
 
         var ordersService = orderServiceFactory.get(this.restaurantId);
-        var ordersGrid = new Grid<>(Order.class, false);
+        this.orderRepository = orderRepository;
+        var container = new VerticalLayout();
+        var tabs = new PagedTabs(container);
 
-        ordersGrid.addColumn(order -> order.getOrderSession().getRestaurantTable().getNumber()).setHeader("Table number");
-        ordersGrid.addColumn(order -> order.getOrderStatus().getStatus()).setHeader("Status");
+        var waitingGrid = new Grid<>(Order.class, false);
 
-        ordersGrid.addItemClickListener(orderItemClickEvent -> new OrderDialog(orderItemClickEvent.getItem(), orderRepository).open());
-        ordersGrid.setItems(ordersService.getOrdersByStatus(defaultStatus));
+        waitingGrid.addColumn(order -> order.getOrderSession().getRestaurantTable().getNumber()).setHeader("Table number");
+        waitingGrid.addColumn(order -> order.getOrderStatus().getStatus()).setHeader("Status");
+
+        waitingGrid.addItemClickListener(orderItemClickEvent -> new OrderDialog(orderItemClickEvent.getItem(), orderRepository).open());
+        waitingGrid.setItems(ordersService.getOrdersByStatus(OrderStatus.WAITING));
+
+        tabs.add(OrderStatus.WAITING.getStatus(), waitingGrid, false);
+
+        var inProgressGrid = new Grid<>(Order.class, false);
+
+        inProgressGrid.addColumn(order -> order.getOrderSession().getRestaurantTable().getNumber()).setHeader("Table number");
+        inProgressGrid.addColumn(order -> order.getOrderStatus().getStatus()).setHeader("Status");
+        inProgressGrid.addComponentColumn(order -> new Button("Close", buttonClickEvent -> closeOrder(order))).setHeader("Close order");
+        inProgressGrid.setItems(ordersService.getOrdersByStatus(OrderStatus.IN_PROGRESS));
+
+        tabs.add(OrderStatus.IN_PROGRESS.getStatus(), inProgressGrid, false);
 
         add(
-                ordersGrid
+                tabs,
+                container
         );
+    }
+
+    private void closeOrder(Order order) {
+        order.setOrderStatus(OrderStatus.CLOSED);
+        orderRepository.save(order);
+        Broadcaster.broadcast(new Event(EventType.ORDER_READY, order.getOrderSession().getId()));
+        UI.getCurrent().getPage().reload();
     }
 }
