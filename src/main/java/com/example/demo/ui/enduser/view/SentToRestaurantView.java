@@ -6,6 +6,7 @@ import com.example.demo.security.user.enduser.service.details.EndUserDetailsServ
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.router.Route;
@@ -37,16 +38,19 @@ public class SentToRestaurantView extends EndUserViewBase {
     protected void onAttach(AttachEvent attachEvent) {
         UI ui = attachEvent.getUI();
         broadcasterRegistration = Broadcaster.register(event -> {
-            if(event.getType() != EventType.ORDER_ACCEPTED) {
-                return;
-            }
-
             if (event.getSessionId() != this.sessionId) {
                 return;
             }
 
+            if(event.getType() != EventType.ORDER_ACCEPTED) {
+                return;
+            }
+
             ui.access(() -> {
-                ui.navigate(InTheMakingView.class);
+                add(
+                        new H1("The staff has updated your order with an estimate. Proceed to view."),
+                        new Button("Proceed", buttonClickEvent -> UI.getCurrent().navigate(InTheMakingView.class))
+                );
             });
         });
     }

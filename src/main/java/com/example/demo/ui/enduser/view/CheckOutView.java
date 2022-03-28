@@ -1,6 +1,9 @@
 package com.example.demo.ui.enduser.view;
 
 import com.example.demo.backend.broadcast.Broadcaster;
+import com.example.demo.backend.broadcast.Event;
+import com.example.demo.backend.broadcast.EventType;
+import com.example.demo.backend.broadcast.ReadyToCheckoutEvent;
 import com.example.demo.backend.order.core.Order;
 import com.example.demo.backend.payment.PaymentMethod;
 import com.example.demo.backend.session.core.OrderSession;
@@ -32,13 +35,13 @@ public class CheckOutView extends EndUserViewBase{
                 .map(Order::getTotalPrice)
                 .reduce(0L, Long::sum);
 
-        var select = new Select<PaymentMethod>();
+        var select = new Select<>(
+                PaymentMethod.values()
+        );
 
         add(
                 new H1(String.format("Your total is: %d", total)),
-                new H2("Please select your payment method!"),
                 select,
-                new H2("If you selected a payment method, finalize your session, and one of our college will soon deliver your bill."),
                 new Button("Check out", buttonClickEvent -> {
                     var table = endUserDetailsService.getUser().getTable();
                     var newSession = new OrderSession();
@@ -47,8 +50,17 @@ public class CheckOutView extends EndUserViewBase{
                     table.setOrderSession(newSession);
                     repository.save(table);
 
-                    UI.getCurrent().navigate(StartView.class);
+                    Broadcaster.broadcast(
+                            new ReadyToCheckoutEvent(
+                                    EventType.READY_TO_CHECKOUT,
+                                    0L,
+                                    table.getId(),
+                                    table.getNumber(),
+                                    select.getValue()
+                            )
+                    );
 
+                    UI.getCurrent().navigate(StartView.class);
                 })
         );
     }

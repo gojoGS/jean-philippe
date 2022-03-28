@@ -2,6 +2,7 @@ package com.example.demo.ui.enduser.view;
 
 import com.example.demo.backend.broadcast.Broadcaster;
 import com.example.demo.backend.broadcast.EventType;
+import com.example.demo.backend.order.core.Order;
 import com.example.demo.security.user.enduser.service.details.EndUserDetailsService;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
@@ -24,8 +25,9 @@ public class InTheMakingView extends EndUserViewBase {
     @Autowired
     public InTheMakingView(EndUserDetailsService endUserDetailsService) {
         super("In the making");
-        log.info("after super init");
-        var order = endUserDetailsService.getUser().getTable().getOrderSession().getLastOrder();
+
+        Order order  = endUserDetailsService.getUser().getTable().getOrderSession().getLastOrder();
+
         this.sessionId = endUserDetailsService.getUser().getTable().getOrderSession().getId();
 
 

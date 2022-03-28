@@ -1,5 +1,8 @@
 package com.example.demo.ui.enduser.view;
 
+import com.example.demo.backend.broadcast.Broadcaster;
+import com.example.demo.backend.broadcast.Event;
+import com.example.demo.backend.broadcast.EventType;
 import com.example.demo.backend.dish.core.Dish;
 import com.example.demo.backend.item.core.Item;
 import com.example.demo.backend.order.core.Order;
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 public class OrderView extends EndUserViewBase {
     private ArrayList<Dish> dishes;
     private Grid<Dish> dishGrid;
+    private final long sessionId;
     private final H2 orderTotal = new H2("");
     private final EntityService<Dish> dishEntityService;
     private final SessionService sessionService;
@@ -45,6 +49,7 @@ public class OrderView extends EndUserViewBase {
 
         var sessionTable = endUserDetailsService.getUser().getTable();
         var restaurantId = sessionTable.getRestaurant().getId();
+        this.sessionId = sessionTable.getOrderSession().getId();
         this.dishEntityService = dishEntityServiceFactory.get(restaurantId);
         this.sessionService = sessionServiceFactory.get(sessionTable.getOrderSession().getId());
         this.orderRepository = orderRepository;
@@ -135,7 +140,7 @@ public class OrderView extends EndUserViewBase {
 
     private void sendOrder() {
         if(this.dishes.isEmpty()) {
-            NotificationUtil.showInfo("You must select at eleast one item");
+            NotificationUtil.showInfo("You must select at least one item");
         }
 
         var order = new Order();
@@ -151,6 +156,10 @@ public class OrderView extends EndUserViewBase {
         );
 
         orderRepository.save(order);
+
+        Broadcaster.broadcast(
+                new Event(EventType.ORDER_NEW, sessionId)
+        );
 
         NotificationUtil.showSuccess("Your order has been sent");
         UI.getCurrent().navigate(SentToRestaurantView.class);
