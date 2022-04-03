@@ -25,17 +25,40 @@ right=2cm,
 top=3cm,
 bottom=3cm]{geometry}
 
-\renewcommand*{\contentsname}{Tartalomjegyzék}
+\usepackage{listings}
+\usepackage{xcolor}
 
-\title{
-	{Rendeléskezelő applikáció Java SE-nel} \\
-	{\large Debreceni Egyetem} \\
-	{\includegraphics{ud-logo.png}}
+\definecolor{color-bg}{HTML}{282828}
+\definecolor{color-comment}{HTML}{746f60}
+\definecolor{color-keyword}{HTML}{fb4934}
+\definecolor{color-string}{HTML}{FABD2F}
+\definecolor{color-text}{HTML}{FBF1C1}
+\definecolor{color-identifier}{HTML}{458588}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{color-bg},   
+	commentstyle=\color{color-comment},
+	keywordstyle=\color{color-keyword},
+	numberstyle=\color{color-bg},
+	stringstyle=\color{color-string},
+	basicstyle=\ttfamily\color{color-text},
+	identifierstyle=\color{color-identifier},
+	otherkeywords={var},
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                 
+	tabsize=4
 }
 
-\author{Bartha Zoltán}
+\lstset{style=mystyle}
 
-\date{\today}
+\renewcommand*{\contentsname}{Tartalomjegyzék}
 
 \begin{document}
 %	\maketitle
