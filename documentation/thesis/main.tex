@@ -56,7 +56,13 @@ bottom=3cm]{geometry}
 	tabsize=4
 }
 
+\newcommand{\code}[1]{\lstinline|#1|}
+\newcommand{\snippet}[2]{
+		\lstinputlisting[language=Java, caption={#2}]{code/#1.java}
+}
+
 \lstset{style=mystyle}
+\renewcommand*{\lstlistingname}{Kódcsipet}
 
 \renewcommand*{\contentsname}{Tartalomjegyzék}
 
