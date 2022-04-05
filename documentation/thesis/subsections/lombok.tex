@@ -17,12 +17,12 @@ A \lstinline|@NoArgsConstructor|-t egy osztályra helyezve egy argomentumok nél
 A project elkészítése során Spring Data JPA entitás osztályokat láttunk el \lstinline|@NoArgsConstructor| annotációval, mivel a JPA megköveteli egy ilyen konstruktor létezését. \par
 
 
-A \lstinline|@AllArgsConstructor| egy konstruktort generál egy osztálynak, mezőinként egy paraméterrel. Amennyiben egy mező el van látva a \lstinline|@NonNull| annotációval, a generált konstruktor egy null check-et fog végezni azon a mezőn.
+A \lstinline|@AllArgsConstructor| egy konstruktort generál egy osztálynak, annak egy-egy mezőjéhez tartozó egy paraméterrel. Amennyiben egy mező el van látva a \lstinline|@NonNull| annotációval, a generált konstruktor egy null check-et fog végezni azon a mezőn.
 
 \snippet{AllArgsConstructorBefore}{@AllArgsConstructor}
 \snippet{AllArgsConstructorAfter}{@AllArgsConstructor delombok után}
 
-Az \code{@AllArgsConstructor} hátránya, hogy csak azok a mezők szerepelnek a kosntruktor paraméterei között, amelyeket az osztályban deklaráltunk, azaz a szülő osztály mezőihez tartozó argomentumok nem szerepelnek a gyermek osztály generált konstruktorában.
+Az \code{@AllArgsConstructor} hátránya, hogy csak azok a mezők szerepelnek a konstruktor paraméterei között, amelyeket az osztályban deklaráltunk, azaz a szülő osztály mezőihez tartozó argomentumok nem szerepelnek a gyermek osztály generált konstruktorában. Ennek ellenére használata eredményes volt a projectben, például DTO-k és adattagokkal rendelkező enumok definniálásánál.
 
 
 \subsubsection{@Getter, @Setter}
@@ -42,7 +42,7 @@ Ezeket az annotációkat nemcsak mezőkön, hanem osztályokon is alkalmazhatjuk
 
 Bármely osztály annotálható \code{@ToString}-el, amely felülírja az osztály \code{toString} metódusát, egy, a lombok által generált implementációval. Alapértelmezetten, ezen implementáció által visszaadott string tartalmazza az osztály nevét, követve a az osztály nem statikus mezőinek nevével és ezek értékeivel, a deklarálásuk sorrendjében. \par
 
- Amenability nem akarjuk, hogy minden mező megjelenjen a metódus output-jában, jelezhetjük a nem kívánt mezőket a \code{@ToString.Exclude} annotációval, felsorolhatjuk a tartalmazni kívánt mezők nevét a \code{@ToString} metódus \code{includeFieldNames} paraméterében, vagy a \code{onlyExplicitlyIncluded} paraméternek megadott \code{true} értékkel és a tartalmazni kívánt mezőkön elhelyezett \code{@ToString.Include} annotációval. Amennyiben a \code{callSuper} praméternek \code{true} értéket adunk, a visszaadott string tartalmazni fogja a szülő osztály \code{toString} metódusának output-ját \par
+Amenability nem akarjuk, hogy minden mező megjelenjen a metódus output-jában, jelezhetjük a nem kívánt mezőket a \code{@ToString.Exclude} annotációval, felsorolhatjuk a tartalmazni kívánt mezők nevét a \code{@ToString} metódus \code{includeFieldNames} paraméterében, vagy a \code{onlyExplicitlyIncluded} paraméternek megadott \code{true} értékkel és a tartalmazni kívánt mezőkön elhelyezett \code{@ToString.Include} annotációval. Amennyiben a \code{callSuper} praméternek \code{true} értéket adunk, a visszaadott string tartalmazni fogja a szülő osztály \code{toString} metódusának output-ját \par
 
 \subsubsection{@Builder}
 
@@ -52,9 +52,14 @@ A builder osztály tartalmaz target egy-egy paraméteréhez vagy mezőjéhez tar
 
 A target-et tartalmazó osztályban (amennyiben target osztály, ez target)  generálódik egy \code{builder} metódus, ami builder egy új példányát hozza létre. \par
 
+\snippet{BuilderBefore}{@Builder}
+\snippet{BuilderAfter}{@Builder delombok után}
+
 \subsubsection{@Slf4j}
 
 A \code{@Log} annotáció számos variánssal rendelkezik. Ezen variánsok egy-egy log kezelő megoldáshoz készülnek, mivel számos ilyen megoldás van a JVM platformon, egy annotáció családról beszéhetünk. Közös tulajdonsága a család tagjainak, hogy az annotáció elhelyezése után elérhető egy \code{log} nevű objektum, ami az adott logolási megoldás logger példánya. Az \code{@Slf4j} az azonos nevű loggert teszi elérhetővé. \par
+
+A fejlesztés során hasznosnak bizonyult, mivel a kódbázis tisztább és kisebb lett, a kód kevesebb zajt tartalmaz.
 
 \snippet{Slf4jBefore}{@Slf4j}
 \snippet{Slf4jAfter}{@Slf4j delombok után}
