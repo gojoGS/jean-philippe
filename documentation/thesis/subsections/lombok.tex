@@ -1,10 +1,10 @@
-A lombok könyvtár, aminek célja a repetatív kódrészletek (úgynevezett boilerplate kód) írásának elkerülése, a fejlesztői élmény javítása. A legtöbb esetben nem terjeszti ki a Java funkcióit, hanem már meglévő funkciók használatát teszi kényelmesebbé. \par
+A Lombok könyvtár, aminek célja a repetatív kódrészletek (úgynevezett boilerplate kód) írásának elkerülése, a fejlesztői élmény javítása. A legtöbb esetben nem terjeszti ki a Java funkcióit, hanem már meglévő funkciók használatát teszi kényelmesebbé. \par
 
-Bizonyos keretrendszerek disziplínái megkövetelik például a getter-ek és setter-ek, bizonyos contructor-ok definiálását. Ilyen esetben hasznlhatjuk a lombokot, ami a build folyamatunkba beépülve, valid Java bytecode-ot generál automatikusan azokban az osztályokban, ahol bevezettük az annotációit.\par
+Bizonyos keretrendszerek disziplínái megkövetelik például a getter-ek és setter-ek, bizonyos contructor-ok definiálását. Ilyen esetben hasznlhatjuk a Lombok, ami a build folyamatunkba beépülve, valid Java bytecode-ot generál automatikusan azokban az osztályokban, ahol bevezettük az annotációit.\par
 
-Amennyiben kíváncsiak vagyunk arra, hogy a lombok milyen transzformációkat hajt végre a kódunkon, vagy egyszerűen csak meg akarunk válni tőle, és eltávolítani a függőségink közül, a kódbázisunkat pedig megtisztítani a lombok annotációktól, abban az esetben erre is van lehetőség. \par
+Amennyiben kíváncsiak vagyunk arra, hogy a Lombok milyen transzformációkat hajt végre a kódunkon, vagy egyszerűen csak meg akarunk válni tőle, és eltávolítani a függőségink közül, a kódbázisunkat pedig megtisztítani a Lombok annotációktól, abban az esetben erre is van lehetőség. \par
 
-A delombok nevű eszköz előállítja azokat az osztályok forráskódját, amikben lombok annotációt használtunk, eltávolítva az annotációkat és helyükre a velük ekvivalens kód kerül, amelyet eddig a lombok generált. \par
+A delombok nevű eszköz előállítja azokat az osztályok forráskódját, amikben Lombok annotációt használtunk, eltávolítva az annotációkat és helyükre a velük ekvivalens kód kerül, amelyet eddig a Lombok generált. \par
 
 
 \subsubsection{@NoArgsConstructor, @AllArgsConstructor}
@@ -27,7 +27,7 @@ Az \code{@AllArgsConstructor} hátránya, hogy csak azok a mezők szerepelnek a 
 
 \subsubsection{@Getter, @Setter}
 
-Egy osztály bármilyen mezőjét annotálhatjuk a  \lstinline|@Getter|-rel vagy \lstinline|@Setter|-rel, a lombok automatikusan generálni fog egy alapértelmezett getter/setter metódust. \par
+Egy osztály bármilyen mezőjét annotálhatjuk a  \lstinline|@Getter|-rel vagy \lstinline|@Setter|-rel, a Lombok automatikusan generálni fog egy alapértelmezett getter/setter metódust. \par
 
 A \code{foo} mező alapértelmezett getter-je a \code{getFoo} nevű metódus, illetve \code{boolean} típusú mező esetében \code{isFoo}, ami a \code{foo} mezőt téríti vissza. Ezen mező alapértelmezett setter-je egy \code{setFoo} nevű, egy paraméteres metódus, amely paraméter típusa azonos a mező típusával. \par
 
@@ -40,7 +40,7 @@ Ezeket az annotációkat nemcsak mezőkön, hanem osztályokon is alkalmazhatjuk
 
 \subsubsection{@ToString}
 
-Bármely osztály annotálható \code{@ToString}-el, amely felülírja az osztály \code{toString} metódusát, egy, a lombok által generált implementációval. Alapértelmezetten, ezen implementáció által visszaadott string tartalmazza az osztály nevét, követve a az osztály nem statikus mezőinek nevével és ezek értékeivel, a deklarálásuk sorrendjében. \par
+Bármely osztály annotálható \code{@ToString}-el, amely felülírja az osztály \code{toString} metódusát, egy, a Lombok által generált implementációval. Alapértelmezetten, ezen implementáció által visszaadott string tartalmazza az osztály nevét, követve a az osztály nem statikus mezőinek nevével és ezek értékeivel, a deklarálásuk sorrendjében. \par
 
 Amenability nem akarjuk, hogy minden mező megjelenjen a metódus output-jában, jelezhetjük a nem kívánt mezőket a \code{@ToString.Exclude} annotációval, felsorolhatjuk a tartalmazni kívánt mezők nevét a \code{@ToString} metódus \code{includeFieldNames} paraméterében, vagy a \code{onlyExplicitlyIncluded} paraméternek megadott \code{true} értékkel és a tartalmazni kívánt mezőkön elhelyezett \code{@ToString.Include} annotációval. Amennyiben a \code{callSuper} praméternek \code{true} értéket adunk, a visszaadott string tartalmazni fogja a szülő osztály \code{toString} metódusának output-ját \par
 
