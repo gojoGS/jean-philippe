@@ -45,11 +45,60 @@ A project elkészítése során \code{enum} értékek konvertálására használ
 \snippet{DishType}{DishType}
 \snippet{DishTypeConverter}{DishTypeConverter}
 
+\subsubsection{JPA kapcsolatok}
+
+A JPA kapcsolatoknak két fajtája van:
+\begin{listing}
+	\item egyirányú (\emph{unidirectional})
+	\item kétirányú (\emph{bidirectional})
+\end{listing}
+
+Két entitás közötti kapcsolat definiálásának nincs hatása az entitások adatbázisra való leképezésének, csupán azt definiálja, hogy milyen irányban tudjuk használni a kapcsolatot a domain modellünkben. \par
+
+Objektumok esetében a kétirányú kapcsolat egy definiált fogalom, szemantikája jól meghatározható, a relációs adatbázisok esetében azonban ez a fogalom nem létezik, csupán egyirányú kapcsolatok vannak (foreign key-ek formájában). Így a Hibernate, ami az objektumok relációkra való leképzést végzi, két egyirányú kapcsolattal modellezi a kétirányú kapcsolatot. A Hibernate a kapcsolat mindkét oldalának változásait követi, így például ha a kapcsolat pontosan egy résztvevője megváltozik, az az adatbázisban is meg fog változni, de ez a változás nem fog manifesztálódni a kapcsolat másik oldalán, azaz inkonzisztencia lép fel az adatbázisban. Ezt a problémát oldja meg a birtokló oldal, birtoklott oldal meghatározása. \par
+
+Ha Hibernate csupán a birtokló oldal változásait követi nyomon, így ha a birtokló oldalon bármilyen változás történik a kapcsolatban, azt képes leképezni a kapcsolat másik felére, a kapcsolat birtokolt oldalán történő változtatásokat pedig nem követi. Ez a megoldás megoldja a kétirányú kapcsolatokból eredő inkonzisztenciákat. A birtokolt oldal könnyen felismerhető onnan, hogy értéket adunk a kapcsolatot jelző annotáció \code{mappedBy} paraméterének. \par
+
 \subsubsection{@OneToOne}
 
+Amennyiben egy mezőt a \code{@OneToOne} annotációval látunk el, egy egy-az-egyhez leképezést tudunk létrehozni két entitás között, azaz egy olyan leképezést, amelyben egy entitás egy példányához egy másik entitás legfeljebb egy példányát rendeljük. Az egy-az-egyhez leképezést több módon implementálhatjuk:
+
+\begin{listing}
+	\item \emph{foreign key} használatával
+	\item \emph{közös primary key} használatával
+	\item \emph{join table} használatával
+\end{listing}
+
+A project elkészítése során foreign key használatával implementáltuk a kapcsolatot. Ebben az implementációban a \code{@OneToOne}-nal annotált mezőt a \code{@JoinColumn} annotációval is el kell látni, amelynek \code{name} paraméterével adjuk meg a foreign key-t tartalmazó oszlop nevét. Ez az oszlop a kapcsolatban szereplő birtokló fél táblájában fog szerepelni. \par
+
+Amennyiben a kapcsolat egyirányú, a birtokló fél egyértelműen meghatározható: az az entitás, amely a \code{@OneToOne}-nal annotált mezőt tartalmazza.\par
+
+Ha a kapcsolatot kétirányúvá szeretnénk bővíteni, a egy-az-egyhez kapcsolat másik felét képző entitásban el kell látnunk a kapcsolat másik felének mezőjét a \code{@OneToOne} annotációval, amelynek \code{mappedBy} paraméterével adjuk meg, hogy a másik oldal melyik mezője hivatkozik rá. \par
+
+\snippet{OneToOne}{RestaurantTable mint birtokló, EndUser, mint birtokolt}
+
 \subsubsection{@OneToMany, @ManyToOne}
+A \code{@OneToMany} és a \code{@ManyToOne} annotációkkal egy-a-többhöz és több-az-egyhez kapcsolatokat tudunk definiálni. Amennyiben külön-külön alkalmazzuk őket, ezek egyirányú kapcsolatokat határoznak meg, azonban ha egymással párban, két entitáson, akkor egy darab, kétirányú kapcsolatot definiál az entitások között. \par
+
+A projectben ezzel a két annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
+
+\snippet{OneToMany}{}
 
 \subsubsection{@ManyToMany}
+
+A project során a rendelések és a rendelésekben szereplő termékek közötti kapcsolatot több-a-többhoz kapcsolattal írtuk le, mivel egy rendeléshez több termék tartozik, illetve egy termék több rendeléshez is hozzárendelhető. \par
+
+Több féle módon implementálhatjuk: 
+
+\begin{listing}
+	\item \emph{join table} használatával
+	\item egy új, közvetítő entitás létrehozásával, ami enkapszulálja a kapcsolatban résztvevő feleket (például egy ItemsOfOrder entitás, ami tartalmazná hogy melyik rendelés mely termékkel van asszociálva)
+	\item \emph{composite key} használatával
+\end{listing}
+
+A project során \emph{join table}-t felhasználva implementáltuk. A birtokló oldalon definiálni kell a kapcsolatokat tartalmazó tábla nevét, illetve hogy a kapcsolatban résztvevő felek id-jai ennek a táblának mely oszlopaiban szerepelnek \par
+
+\snippet{ManyToMany}{Order, mint birtokló, Item, mint birtokolt}
 
 \subsubsection{JpaRepository, @Repository}
 
