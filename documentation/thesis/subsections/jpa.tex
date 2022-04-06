@@ -2,9 +2,48 @@ A Spring Boot Starter Data JPA egyszerűbbé teszi az adatbázisokkal való komm
 
 \subsubsection{Perzisztens entitások}
 
-Ahhoz, hogy perzisztálhassuk egy osztály egy példányát egy adatbázisban, annotálnunk kell a \code{@Entity} annotációval.
+Ahhoz, hogy perzisztálhassuk egy osztály egy példányát egy adatbázisban 
 
-\subsubsection{@Converter}
+\begin{listing}
+	\item annotálnunk kell a \code{@Entity} annotációval
+	\item rendelkeznie kell egy argomentumok nélküli konstruktorral
+	\item minden perzisztálni kívánt mezőjének rendelkeznie kell publikus getter-el és setter-el
+	\item egy mezőt meg kell jelölnünk az \code{@Id} annotációval, ami az adatbázisbeli azonosítója lesz
+\end{listing}
+
+Opcionálisan annotálhatjuk az entitás osztályt a \code{@Table} annotációval, amelynek \code{name} paramétereként megadott string lesz az entitásokat tartalmazó tábla neve. \par
+
+Az entitás egy-egy mezőjéhez tartozó oszlop neve a mező nevével ekvivalens, amennyiben ezt nem írjuk felül a mezőn elhelyezett \code{@Column} annotáció \code{name} paraméterének adott string-gel. \par
+
+Ügyeljünk arra, hogy semmiképen sem használjunk SQL kulcsszavakat táblák vagy mezők neveként.
+
+\subsubsection{@Converter, AttributeConverter}
+
+Amennyiben egy olyan értéket akarunk perzisztálni, ami nem
+
+\begin{listing}
+	\item JPA entitás
+	\item JPA entitások kollekciója
+	\item primitív Java típusok és ezek wrapper osztályai, illetve \code{String}
+\end{listing}
+
+\noindent biztosítanunk kell egy osztályt, ami definiál egy kölcsönös leképezést egy perzisztálható és a jelenlegi perzisztálni kívánt típus között. \par
+
+Ennek eléréséhez definiálnunk kell egy osztályt, ami annotálva van a \code{@Converter} annotációval, illetve implementálja a \code{AttributeConverter<A, C>} generikus interfészt, ahol A az az entitás attribútum típus, amiből kiindulunk, és perzisztálni kívánjuk, C pedig az, amit valóban el tud tárolni az adatbázis. \par
+
+Az \code{AttributeConverter<S, T>} interfésznek két definiált metódusa van:
+
+\begin{listing}
+	\item \code{C convertToDatabaseColumn(A attribute)}, ez konvertálja az entitásból kapott attribútumot egy, adatbázis által tárolható értékké
+	\item \code{A convertToEntityAttribute(C column)}, ez konvertálja az adatbázis egy oszlopában szereplő értéket entitás attribútummá.
+\end{listing}
+
+Az interfészt implementáló osztályt annotálnunk kell a \code{@Converter} annotációval annak érdekében, hogy alkalmazható legyen az átváltás. Ammenyiben az annotáció \code{autoApply} paraméterének igaz értéket adunk, a perzisztancia ellátójának (angolul \emph{persistence provider}) muszály automatikusan alkalmazni a konvertert minden entitás minden perzisztált attribútumára, amire alkalmazható, kivéve, ahol az attribútumon elhelyezett \code{@Convert} annotáció ezt felülírja \cite{converterDocumentation}.
+
+A project elkészítése során \code{enum} értékek konvertálására használtuk.
+
+\snippet{DishType}{DishType}
+\snippet{DishTypeConverter}{DishTypeConverter}
 
 \subsubsection{@OneToOne}
 
@@ -12,4 +51,11 @@ Ahhoz, hogy perzisztálhassuk egy osztály egy példányát egy adatbázisban, a
 
 \subsubsection{@ManyToMany}
 
-\subsubsection{JpaRepository}
+\subsubsection{JpaRepository, @Repository}
+
+A Spring Data JPA által biztosított \code{JpaRepository} egyszerű, könnyen használható és kibővíthető megoldást nyújt az adatelérési réteg létrehozására. Csupán egy interface-t kell létrehoznunk, ami kiterjeszti a \code{JpaRepository<T, ID>} generikus interfészt, ahol a T a perzisztált entitás típusa, ID pedig ezen entitás azonosító mezőjének típusa \cite{jpaRepositoryDocumentation}. A \code{JpaRepository} által definiált metódusok lehetővé teszik az alapvető  DUCS adatbázis műveletek (azaz Delete, Update, Create, Select) használatát perzisztált entitásokra. \par
+
+Amennyiben az alap műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok az \ref{tab:JpaRepository} táblázatban találhatóak. \par
+
+A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésésre. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz imlpementációi automatikusan detektálódnak.
+

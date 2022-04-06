@@ -11,6 +11,8 @@
 \addbibresource{refs.bib}
 \usepackage{paracol}
 \usepackage{parcolumns}
+\usepackage{enumitem}
+\usepackage{longtable}
 
 % TODO sorköz 1.5-esre biztos így állítok??
 \setstretch{1.5}
@@ -59,6 +61,12 @@ bottom=3cm]{geometry}
 \newcommand{\code}[1]{\lstinline|#1|}
 \newcommand{\snippet}[2]{
 		\lstinputlisting[language=Java, caption={#2}]{code/#1.java}
+}
+
+\newenvironment{listing}{
+	\begin{itemize}[noitemsep,topsep=0pt]
+}{
+	\end{itemize}
 }
 
 \lstset{style=mystyle}
