@@ -1,0 +1,17 @@
+\subsection{UUID}
+
+Az univerzálisan egyedi azonosító (angolul \emph{Universally unique identifier}) vagy UUID egy ITF szabvány, amit az RFC 4122 definiált. A fő motiváció használatára az, hogy nem szükséges egy központi szerv bevonása a létrejövő azonosítók adminisztrálására, így generálásuk teljes mértékben automatizálható. A UUID-k fix mérete miatt, ami 128 bit, jelentősen kisebb, mint a legtöb alternatív megoldás. Kompakt méretéből következik, hogy használata optimálisabb teljesítményt eredményez rendező és hasító algoritmusok, illetve adatbázisban való tárolás esetében. Az említett RFC-ben leírt generáló algoritmus akár másodpercenként 10 milló allokációt tud elvégezni gépenként, melyből kifolyólag a UUID-t tranzakciók azonosítójaként is használható. \par
+
+A UUID azonosítók valójában nem \emph{teljesen} egyediek, azaz van esély arra, hogy két generált azonosító ugyanazzal az értékkel fog rendelkezni, ütközni fognak. Azonban ennek a valószínűsége elenyésző. A UUID ütközést tekinthetjük a születésnap probléma egy speciális esetének. Annak az esélye, hogy egy populációban, egymástól függetlenül kiosztott $x$ azonosító közül $n$-et kiválasztva $p$ valószínűséggel legyen köztük legalább kettő egyező az
+
+\begin{equation*}
+	n = 0.5 + \sqrt{0.25 - 2\times(\ln q)\times x}
+\end{equation*}
+
+formulával kiválóan lehet közelíteni \cite{mathis1991generalized}, ahol $q = 1 - p$. Ebből adódóan ahhoz, hogy legalább 50\%-os eséllyel generálódjon legalább két UUID,
+
+\begin{equation*}
+	n \approx 0.5 + \sqrt{0.25 + 2\times(\ln 2)\times2^{122}} \approx 2.71 \times 10^{18}
+\end{equation*}
+
+azonosítót kellene generálnunk. Ehhez, a másodpercenkénti 10 milló generált azonosítóból kiindulva megközelítóleg 8587 év szükséges, azaz ennyi idő suükséges ahhoz, hogy 50\%-os valószínűséggel előidézzükn egy UUID ütközést.

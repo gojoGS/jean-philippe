@@ -1,0 +1,42 @@
+\subsection{REST API}
+
+Az állapotreprezentáció-transzfer (angolul \emph{representational state transfer}) vagy REST nem egy konkrét, jól definiált standard, sokkal inkább egy architektúrális stílus, ami elterjedt technológiákat és szabványokat használ fel web alapú szolgáltatások tervezésére és implementálására \cite{richards2006representational}. \par
+
+\emph{Roy Thomas Fielding} doktori disszertációban számos megkötést tett arra, hogy hogyan definiálható egy REST szolgáltatás architektúrája \cite{fielding2000architectural}. 
+
+\subsubsection{Kliens-szerver architektúra}
+Emögött a \emph{separation-of-concerns} elv áll. Azzal, hogy elválasztjuk a felhasználói interfészt az adattárolás szerepkörétől, skálázhatóbbá és szélesebb körben portolhatóvá a felhasználói interfész. Emellett ez az elkülönülés megengedi, hogy külön a szerverkomponensek egymástól elkülönülve fejlődjenek.
+
+\subsubsection{Állapotmentes}
+A kliens és szerver közti kommunikációnak állapotmentesnek kell lennie, oly módon, hogy a klienstől érkező minden kérése tartalmazza az összes, a kérés feldolgozásához szükséges információt, nem hagyatkozhat bármilyen, a szerveren tárolt kontextusra. \par
+
+Ez a döntés növelte a 
+\begin{listing}
+	\item láthatóságot, egy megfigyelő (vagy \emph{monitoring}) rendszernek csupán egy kérés alapján meg tudja határozni a kérés teljes természetét
+	\item megbízhatóságot, mivel a rendszer könnyebben helyreáll egy részleges hiba után
+	\item skálázhatóságot, mivel azzal, hogy nem tárol a szerver kérések között semmilyen állapotot, gyorsabban fel tudja szabadítani használt erőforrásait, illetve nem kell menedzselnie az erőforrásokat akár több kérésen keresztül
+\end{listing}
+
+Ezzekkel szemben negatívumként említhetjük a romlott hálózati teljesítményt.
+
+\subsubsection{Gyorsítótár}
+
+Az előbb említett hátrányra válaszul vezessük be a modellünkbe gyprsítótárazhatóság fogalmát. Ez megköveteli hogy egy válaszban szereplő adat implicit vagy explicit módon meg legyen jelölve hogy gyorsítótárazható-e. Ha egy válasz gyorsítótárazható, akkor egy kliens oldali gyorsítótárnak módjában áll újra felhasználni azt az adatot későbbi, az eredeti kéréssel ekvivalens kérésekhez.
+
+\subsubsection{Egységes interfész}
+Azzal, hogy a REST szolgáltatások egy egységes interfészen kommunikálnka a klienssel, függetlenítjuk a klienset a szolgáltatás implementációjától. Annak érdekében, hogy egy interenet szintű REST szolgáltatásoknak egy egységes interfészt határozzunk meg, (azaz egy egyezményt kliens és a szolgáltatás között, ami definiálja kommunkációjuk formáját), ezt szabványok felhasználásával kell megtennünk.
+
+\begin{listing}
+	\item Erőforrás azonosítás: URI standard
+	\item Erőforrás manipuláció: HTTP standard
+	\item Önleíró üzenetek: MIME típusok
+	\item HATEOAS: hyperlink-ek és URI template-ek
+\end{listing}
+
+\subsubsection{Réteg alapú rendszer}
+
+Hierarchikus rétegeket alakítunk ki azáltal, hogy az adott rétegek csak a velük közvetlenül kapcsolatban lévő rétegekről tudnak, csak ezekkel tudnak kommunikálni. Azzal, hogy limitáljuk az egyes rétegek tudását a rendszerről, csökken az egész rendszer komplexitása. A rétegek alapú architektúra adta lehetőségeket használhatjuk legacy szolgáltatások, komponensek szeparálására, illetve megkönnyíti az ezekről való átállást.
+
+\subsubsection{REST és HTTP}
+
+A REST szolgáltatások HTTP kérések fogadása és válaszok küldése útján bonyolítják le a kliens és szerver közti kommunikációt. A HTTP kérések és válaszok szemantikai jelentését az \ref{tab:restAndHttp} ábrán láthatjuk.

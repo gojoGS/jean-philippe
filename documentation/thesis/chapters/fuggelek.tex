@@ -55,3 +55,42 @@
 			IgnoreCase &	findByFirstnameIgnoreCase	& … where UPPER(x.firstame) = UPPER(?1) \\
 			\hline
 	\end{longtable}
+
+	\begin{longtable}{| p{.20\linewidth} | p{.50\linewidth} | p{.30\linewidth } |}		
+					\caption{HTTP kérések és szerepük REST szolgáltatásokban}
+		\label{tab:restAndHttp} \\
+		\hline
+		HTTP kérés & Szerepe & HTTP válasz kód \\
+		\hline
+		
+		\multirow{3}{*}{GET} & \multirow{3}{*}{erőforrás reprezentációnak kinyerése} & 
+		 200: az erőforrás megtalálható a szerveren \\
+		 \cline{3-3}
+		  & & 404: az erőforrás nem található meg \\
+		  		 \cline{3-3}
+		  & & 400: a kérés formázása nem megfelelő \\
+		\hline
+		
+		\multirow{2}{*}{POST} & \multirow{2}{*}{új erőforrás létrehozása} & 
+		201: az erőforrás létrejött a szerveren\\
+		\cline{3-3}
+		& & 200, 204: a létrejött erőforrás nem azonosítható URI-val \\
+		\hline
+		
+		\multirow{2}{*}{PUT} & \multirow{2}{*}{\parbox{\linewidth}{létező erőforrás állapotának frissítése; ha na nem létezik a  szolgáltatás dönthet létrehozásáról}} & 
+		201: új erőforrás jött létre \\
+		\cline{3-3}
+		& & 200, 204: egy létező erőforrás frissítése sikeres volt \\
+		\hline
+		
+		\multirow{3}{*}{DELETE} & \multirow{3}{*}{erőforrás törlése} & 
+		200: az erőforrás törölve lett \\
+		\cline{3-3}
+		& & 202: a kérés elfogadásra került, feldolgozásra vár \\
+		\cline{3-3}
+		& & 204: az erőforrás törölve lett, státuszáról nem érkezett információ a válaszban \\
+		\hline
+		
+		PATCH & egy erőforrás részleges frissítése & nincs ajánlás\\
+		\hline
+	\end{longtable}

@@ -1,3 +1,5 @@
+\subsection{Spring Boot Starter Data JPA}
+
 A Spring Boot Starter Data JPA egyszerűbbé teszi az adatbázisokkal való kommunikációt, egyszerűbbé teszi az adatelérési réteg kialakítását, mindezt oly módon, hogy a megoldás átlátható, könnyen búvíthető legyen. Amennyiben úgy döntünk, hogy nem kívánunk mi magunk adatbázis sémákat, entitásokat, lekéréseket létrehozni, hanem ezt a feladatot a Spring Data JPA-nak delegáljuk, lehetőségünk van arra, hogy a JPA hozza létre az adattáblákat, lekérdezéseket és egyéb SQL parancsokat, és ezek eredményét kezelje.
 
 \subsubsection{Perzisztens entitások}
@@ -80,9 +82,9 @@ Ha a kapcsolatot kétirányúvá szeretnénk bővíteni, a egy-az-egyhez kapcsol
 \subsubsection{@OneToMany, @ManyToOne}
 A \code{@OneToMany} és a \code{@ManyToOne} annotációkkal egy-a-többhöz és több-az-egyhez kapcsolatokat tudunk definiálni. Amennyiben külön-külön alkalmazzuk őket, ezek egyirányú kapcsolatokat határoznak meg, azonban ha egymással párban, két entitáson, akkor egy darab, kétirányú kapcsolatot definiál az entitások között. \par
 
-A projectben ezzel a két annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
+A projectben például a \code{@ManyToOne} annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
 
-\snippet{OneToMany}{}
+\snippet{OneToMany}{Az Order entitás több-az-egyhez kapcsolatban van a Server-rel}
 
 \subsubsection{@ManyToMany}
 
@@ -106,5 +108,5 @@ A Spring Data JPA által biztosított \code{JpaRepository} egyszerű, könnyen h
 
 Amennyiben az alap műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok az \ref{tab:JpaRepository} táblázatban találhatóak. \par
 
-A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésésre. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz imlpementációi automatikusan detektálódnak.
+A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésésre. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz imlpementációi automatikusan detektálódnak \cite{repositoryDocumentation}.
 
