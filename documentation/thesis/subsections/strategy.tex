@@ -1,0 +1,33 @@
+\subsection{Strategy}
+
+A \emph{Strategy} viselkedési minta lehetővé teszi, hogy definiálva egy általános algoritmus interfészét, algoritmusok egész családját vagyunk képesek létrehozni, melyek mindegyike egy lehetséges, érvényes implementációját enkapszulálja az algoritmusnak, és kölcsönösen felcserélhetővé teszi őket. A minta lehetővé teszi az algoritmus interfészének és valós implementációinak elválasztását, ami azt eredményezi, hogy ezek bármikor különbözhetnek kliensektől, amelyek felhasználják, anélkül, hogy a külvilág számára észlelhető viselkedésük inkonzisztens lenne. \par
+
+\image{Általános példa a \emph{Strategy} mintára}{strategy}
+
+Az alkalmazás fejlesztése során a publikus funkcióként elérhető keresés funkció implementálásában használtuk fel. Az általános algoritmus kívánt működése az, hogy termékek egy halmazából, előre meghatározott keresési szempontok alapján meghatározza azokat a termékeket, amelyek a keresési szempontok szerint megfelelnek bizonyos kritériumoknak. \par
+
+Ezen algoritmus köré kiépíthünk egy strategy mintát, ahol a mintában szereplő általános algoritmust a következő interfészben definiáljuk: 
+
+\snippet{Strategy}{Egységes interface az algoritmus elérésére}
+
+Láthatjuk, hogy egy egységes interface mellett, amelyen keresztül elérjük az algoritmus éppen aktuális implementációját, definiáljuk azt is, hogy milyen szempontok szerint történik a keresés. Alternatív megoldás lehetett volna, ha a \code{filterSearch} nem kéri ezeket paraméterként, hanem az egyes implementáló osztályok saját maguk definiálják az általuk vizsgált szempontokat, de ez a megoldás nem lenne rugalmas. \par
+
+ Bár így lehetséges, hogy egy implementáció olyan keresési szempontot is kap, amely számára irreleváns, az egyes implementációk egymás között teljesen felcserélhetőek. \par
+ 
+ Jelen formájában az alkalmazás csak egyfajta keresést támogat. Akkor fogadunk el egy terméket találatként, ha
+ 
+ \begin{listing}
+ 	\item \code{name} mezőjének rész-string-je a \code{properties} \code{name} mezője
+ 	\item \code{priceInHuf} mezőjének értéke nagyobb vagy egyenlő a \code{properties} minPrice mezőjénél
+ 	\item \code{priceInHuf} mezőjének értéke kisebb vagy egyenlő a \code{properties} maxPrice mezőjénél
+ \end{listing}
+
+Ezen definíció mentén a következő képpen definiáltuk az algoritmus implementációját: 
+
+\snippet{FilterStrategy}{A SearchStrategy egy lehetséges implementációja}
+
+Mivel a keresési szempontok is egységesítésre kerültek, így a felhasználói felület tervezésekor hagyazhatunk ezekre a szempontokra, egységesen vagyunk képesek validálni őket. \par
+
+Amennyiben más fajta keresési algoritmus szeretnénk implementálni, például egy olyan megoldást, amiben a éppen vizsgált elem \code{name} mezője illeszkedik-e az erre vonatkozó keresési feltételre valamilyen \emph{fuzzy search}-ön \cite{hall1980approximate} alapuló algoritmussal vizsgáljuk.  
+
+

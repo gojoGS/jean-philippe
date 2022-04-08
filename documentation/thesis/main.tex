@@ -52,7 +52,7 @@ bottom=3cm]{geometry}
 	breakatwhitespace=false,         
 	breaklines=true,                 
 	captionpos=b,                    
-	keepspaces=true,                 
+	keepspaces=true,                	 
 	numbers=left,                    
 	numbersep=5pt,
 	showspaces=false,                
@@ -65,12 +65,20 @@ bottom=3cm]{geometry}
 \newcommand{\snippet}[2]{
 		\lstinputlisting[language=Java, caption={#2}]{code/#1.java}
 }
+\newcommand{\image}[2]{
+	\begin{figure}
+		\caption{#1}
+		\label{#2}
+		\includegraphics[width=\linewidth]{figures/#2.drawio.png}
+	\end{figure}
+}
 
 \newenvironment{listing}{
 	\begin{itemize}[noitemsep,topsep=0pt]
 }{
 	\end{itemize}
 }
+
 
 \lstset{style=mystyle}
 \renewcommand*{\lstlistingname}{Kódcsipet}
