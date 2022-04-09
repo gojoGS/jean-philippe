@@ -14,4 +14,6 @@ formulával kiválóan lehet közelíteni \cite{mathis1991generalized}, ahol $q 
 	n \approx 0.5 + \sqrt{0.25 + 2\times(\ln 2)\times2^{122}} \approx 2.71 \times 10^{18}
 \end{equation*}
 
-azonosítót kellene generálnunk. Ehhez, a másodpercenkénti 10 milló generált azonosítóból kiindulva megközelítóleg 8587 év szükséges, azaz ennyi idő suükséges ahhoz, hogy 50\%-os valószínűséggel előidézzükn egy UUID ütközést.
+azonosítót kellene generálnunk. Ehhez, a másodpercenkénti 10 milló generált azonosítóból kiindulva megközelítóleg 8587 év szükséges, azaz ennyi idő suükséges ahhoz, hogy 50\%-os valószínűséggel előidézzükn egy UUID ütközést. \par
+
+Egy étterem egy, a rendszerbe felvett asztalához tartozó, automatikusan létrehozott végfelhasználói fiók "felhasználóneve" egy UUID, amit az említett fiók létrehozásakor generálunk. Ez egy optimális megoldás, hiszen az étteremnek nem kell "kitalálni" valamilyen egyedi azonosítót a végfelhasználói fióknak, így gyorsabb és felhasználóbarátabb az asztalok a rendszerbe való felvezetésének folyamata. A UUID tulajdonságaiból kiindulva ezek az azonosítók ésszerú keretek között valóban egyediek lesznek.

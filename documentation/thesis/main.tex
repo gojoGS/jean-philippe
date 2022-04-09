@@ -16,8 +16,8 @@
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{indentfirst}
+\usepackage{color}
 
-% TODO sorköz 1.5-esre biztos így állítok??
 \setstretch{1.5}
 
 \usepackage{titlesec}
@@ -33,18 +33,22 @@ bottom=3cm]{geometry}
 \usepackage{listings}
 \usepackage{xcolor}
 
-\definecolor{color-bg}{HTML}{282828}
+\definecolor{color-number}{HTML}{1D2021}
+\definecolor{color-bg}{HTML}{f9f5d7}
 \definecolor{color-comment}{HTML}{746f60}
 \definecolor{color-keyword}{HTML}{fb4934}
+%\definecolor{color-keyword}{HTML}{9d0006}
 \definecolor{color-string}{HTML}{FABD2F}
-\definecolor{color-text}{HTML}{FBF1C1}
-\definecolor{color-identifier}{HTML}{458588}
+%\definecolor{color-text}{HTML}{FBF1C1}
+\definecolor{color-text}{HTML}{af3a03}
+
+\definecolor{color-identifier}{HTML}{076678}
 
 \lstdefinestyle{mystyle}{
 	backgroundcolor=\color{color-bg},   
 	commentstyle=\color{color-comment},
 	keywordstyle=\color{color-keyword},
-	numberstyle=\color{color-bg},
+	numberstyle=\color{color-number},
 	stringstyle=\color{color-string},
 	basicstyle=\ttfamily\footnotesize\color{color-text}\setstretch{1},
 	identifierstyle=\color{color-identifier},
@@ -61,7 +65,9 @@ bottom=3cm]{geometry}
 	tabsize=4
 }
 
-\newcommand{\code}[1]{\lstinline|#1|}
+\newcommand{\code}[1]{
+	\lstinline{#1}
+}
 \newcommand{\snippet}[2]{
 		\lstinputlisting[language=Java, caption={#2}]{code/#1.java}
 }
