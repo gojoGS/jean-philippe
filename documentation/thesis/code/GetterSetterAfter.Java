@@ -4,13 +4,13 @@ class GetterSetterClass {
     String baz;
     int bat;
 
-public int getFoo() { return this.foo; }
+    public int getFoo() { return this.foo; }
 
-public double getBar() { return this.bar; }
+    public double getBar() { return this.bar; }
 
-public String getBaz() { return this.baz; }
+    public String getBaz() { return this.baz; }
 
-public void setBar(double bar) { this.bar = bar; }
+    public void setBar(double bar) { this.bar = bar; }
 
-protected void setBaz(String baz) { this.baz = baz; }
+    protected void setBaz(String baz) { this.baz = baz; }
 }
