@@ -1,0 +1,20 @@
+\subsection{Adapter}
+
+Az \emph{Adapter} minta felhasználásával egy osztály interfészét képesek vagyunk átalakítani valamilyen egyéb interfészre, amit a kliens definiált. Lehetővé teszi egyébként inkompatibilis interfészek és komponensek együttes használatát \cite{gamma1995elements}. \par
+
+Az alkalmazás fejlesztése során felhasználtunk egy Vaadin add-on-t, a Crud UI Add-on-t, amely egy komponenst biztosít adatbázis műveletekhez szükséges felhasználói felületek létrehozására. Az add-on definiál egy interfészt, \code{CrudListener<T>} néven, melynek egy implementációját át kell adnunk a már említett komponens konstruktorának.
+
+\snippet{CrudListener}{A CrudListener interfész metódusai}
+
+Ezek a metódusok könnyen térképezhetőek adatbázis műveletekre, nem növelné jelentősen a komplexitás mértékét az alkalmazásunk szellemi modelljében, ha erre az interfészre hagyatkozna az adatelérési, illetve szolgáltatás réteg, mint egységes interfész. Azonban ez a dizájn erős kapcsolatot hozna létre a már említett rétegek, illetve egy külső, UI könyvtár között, amelynek szerepét számos okból kifolyólag átveheti valamilyen más megoldás, más interfésszel, ami ismét nem lesz kompatibilis az általunk fejlesztett szoftverentitások interfészével. \par
+
+\snippet{EntityService}{Egységes interfész adatbázis entitásokat kezelő szolgáltatásoknak}
+
+Ahhoz, hogy a szolgáltatás réteg osztályainak állandó, más szoftveres komponensektől független interfészt tudjunk meghatározni, és mégis képesek legyünk ezen szolgáltalásokat használni a Crud UI-al, be kell vezetnünk egy közvetítő osztályt a két fél közé. \par
+
+Mivel a Java nem támogatja a több osztályból való öröklődést, ezért csupán az \code{Adapter} minta \emph{objektum adapter} variánsát tudjuk felhasználi. Ebben a verzióban létrehozunk egy osztályt, ami adapterként fog viselkedni a két interfész között, ami implementálja a célinterfészt (esetünkben a \code{CrudListener}-t), illetve rendelkezik egy mezővel, ami a kiinduló interfész egy példánya (esetünkben ez a \code{EntityService}). Ezen mezőt a konstruktor paramétereként kapott példánnyal inicializáljuk. Az adapter osztály a kiinduló interfész metódusait felhasználva implementálja a célinterfész metódusait. \par
+
+\snippet{EntityServiceAdapter}{Az adapter osztály}
+
+A későbbiekben amikor a célinterfész egy példányára van szükségünk, példányosítjuk az adapter osztályt, a kiinduló interfész valamely implementációjával.
+

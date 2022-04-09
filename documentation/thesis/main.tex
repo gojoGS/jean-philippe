@@ -37,15 +37,12 @@ bottom=3cm]{geometry}
 \definecolor{color-bg}{HTML}{f9f5d7}
 \definecolor{color-comment}{HTML}{746f60}
 \definecolor{color-keyword}{HTML}{fb4934}
-%\definecolor{color-keyword}{HTML}{9d0006}
 \definecolor{color-string}{HTML}{FABD2F}
-%\definecolor{color-text}{HTML}{FBF1C1}
 \definecolor{color-text}{HTML}{af3a03}
-
 \definecolor{color-identifier}{HTML}{076678}
 
 \lstdefinestyle{mystyle}{
-	backgroundcolor=\color{color-bg},   
+	backgroundcolor=\color{white},   
 	commentstyle=\color{color-comment},
 	keywordstyle=\color{color-keyword},
 	numberstyle=\color{color-number},
@@ -69,10 +66,10 @@ bottom=3cm]{geometry}
 	\lstinline{#1}
 }
 \newcommand{\snippet}[2]{
-		\lstinputlisting[language=Java, caption={#2}]{code/#1.java}
+		\lstinputlisting[language=Java, caption={#2}, label={snippet:#1}]{code/#1.java}
 }
 \newcommand{\image}[2]{
-	\begin{figure}
+	\begin{figure}[h]
 		\caption{#1}
 		\label{#2}
 		\includegraphics[width=\linewidth]{figures/#2.drawio.png}
