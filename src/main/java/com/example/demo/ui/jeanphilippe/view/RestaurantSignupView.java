@@ -55,7 +55,7 @@ public class RestaurantSignupView extends JeanPhilippeViewBase {
         restaurantDetails.setAlignItems(Alignment.CENTER);
         restaurantDetails.setJustifyContentMode(JustifyContentMode.CENTER);
 
-        var details = new HorizontalLayout(userDetails, restaurantDetails);
+        var details = new VerticalLayout(userDetails, restaurantDetails);
         details.setAlignItems(Alignment.CENTER);
         details.setJustifyContentMode(JustifyContentMode.AROUND);
 

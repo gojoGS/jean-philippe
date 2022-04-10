@@ -26,6 +26,19 @@ public class DemoApplication extends SpringBootServletInitializer {
                     new RestaurantUserDto(encoder.encode("asd"), "asd"),
                     new RestaurantDetailsDto("ImiTálja", "Minőségi alapanyagokból, igényes felszolgálás")
             );
+            userService.createNewRestaurantUser(
+                    new RestaurantUserDto(encoder.encode("asd2"), "asd2"),
+                    new RestaurantDetailsDto("Judit Bisztró", "Igényes ételek, minőségi felszolgálás")
+            );
+            userService.createNewRestaurantUser(
+                    new RestaurantUserDto(encoder.encode("asd3"), "asd3"),
+                    new RestaurantDetailsDto("Lili konyhája", "Otthonos ízek, otthonos hangulat.")
+            );
+            userService.createNewRestaurantUser(
+                    new RestaurantUserDto(encoder.encode("asd4"), "asd4"),
+                    new RestaurantDetailsDto("Zöldfa Étterem", "Ételben, itablan az élen vagyunk.")
+            );
+
             log.info("Started application");
         };
     }

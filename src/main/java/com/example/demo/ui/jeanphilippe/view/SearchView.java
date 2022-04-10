@@ -59,15 +59,6 @@ public class SearchView extends JeanPhilippeViewBase{
 
         searchButton.addClickListener(buttonClickEvent -> search());
 
-        itemGrid.addColumn(item -> {
-            var restaurant = itemService.getRestaurantOfItem(item);
-
-            if (restaurant.isPresent()) {
-                return restaurant.get().getName();
-            } else {
-                return "";
-            }
-        }).setHeader("Restaurant");
         itemGrid.addColumn(Item::getName).setHeader("Name");
         itemGrid.addColumn(Item::getPriceInHuf).setHeader("Price");
         itemGrid.addColumn(item ->  {

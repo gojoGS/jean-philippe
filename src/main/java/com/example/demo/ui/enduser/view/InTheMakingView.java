@@ -32,7 +32,7 @@ public class InTheMakingView extends EndUserViewBase {
 
 
         add(
-                new H1("Lili süti a tortát"),
+//                new H1("Lili süti a tortát"),
                 new H1("Your order is in the making"),
                 new H2(String.format("In about %d minutes our colleague, %s, will serve you your meal", order.getEstimatedTimeOfDoingInMinutes(), order.getServer().getName()))
         );
