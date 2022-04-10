@@ -18,6 +18,7 @@
 
 *.iml
 *.pdf
+!main.pdf
 
 # Generated files
 .idea/**/contentModel.xml
