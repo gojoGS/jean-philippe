@@ -21,3 +21,11 @@ Emellett biztosít olyan komponenseket, amelyeket nem tudunk megfeleltetni HTML 
 	\item \code{PasswordField}, az \code{<input>} elem egy specializációja
 	\item \code{NumberField}, az \code{<input>} elem egy specializációja
 \end{listing}
+
+A Vaadin lehetőség nyújt továbbá \emph{route}-ok definiálására és az ezek közötti navigációra.
+
+\snippet{Route}{a \code{app/restaurant/staff} route-hoz tartozó nézet definíciója}
+
+Ezek között a \code{UI} osztály \code{navigate} metódusával tudunk navigálni, úgy, hogy a metódusnak átadjuk paraméterként a cél route-hoz tartozó nézetet definiáló osztály referenciáját.
+
+\snippet{Navigate}{Gombnyomásra visszanavigálunk a rendelésekhez}

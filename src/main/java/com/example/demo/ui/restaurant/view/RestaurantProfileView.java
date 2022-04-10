@@ -9,6 +9,7 @@ import com.example.demo.security.user.restaurant.service.change.PasswordChangeSe
 import com.example.demo.ui.common.component.PasswordFieldBuilder;
 import com.example.demo.ui.util.NotificationUtil;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -65,6 +66,9 @@ public class RestaurantProfileView extends RestaurantViewBase {
         saveButton.addClickListener(buttonClickEvent -> onSave());
         resetButton.addClickListener(buttonClickEvent -> onReset());
 
+        var logOutButton = new Button("Log out");
+        logOutButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
+
         add(
                 restaurantName,
                 restaurantDescription,
@@ -72,7 +76,8 @@ public class RestaurantProfileView extends RestaurantViewBase {
                 currentPassword,
                 new HorizontalLayout(
                         saveButton,
-                        resetButton
+                        resetButton,
+                        logOutButton
                 )
         );
     }

@@ -24,7 +24,7 @@ public class DemoApplication extends SpringBootServletInitializer {
         return args -> {
             userService.createNewRestaurantUser(
                     new RestaurantUserDto(encoder.encode("asd"), "asd"),
-                    new RestaurantDetailsDto("asd", "asd")
+                    new RestaurantDetailsDto("ImiTálja", "Minőségi alapanyagokból, igényes felszolgálás")
             );
             log.info("Started application");
         };

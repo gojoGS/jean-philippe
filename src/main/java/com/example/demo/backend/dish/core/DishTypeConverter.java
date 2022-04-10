@@ -21,6 +21,10 @@ public class DishTypeConverter implements AttributeConverter<DishType, String> {
             return null;
         }
 
-        return DishType.valueOf(s);
+        return Stream.of(DishType.values())
+                .filter(c -> c.getName().equals(s))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.ui.enduser.view;
 
+import com.example.demo.backend.beverage.core.Beverage;
 import com.example.demo.backend.broadcast.Broadcaster;
 import com.example.demo.backend.broadcast.Event;
 import com.example.demo.backend.broadcast.EventType;
@@ -21,10 +22,12 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.tabs.PagedTabs;
 
 import java.util.ArrayList;
 
@@ -32,9 +35,12 @@ import java.util.ArrayList;
 public class OrderView extends EndUserViewBase {
     private ArrayList<Dish> dishes;
     private Grid<Dish> dishGrid;
+    private ArrayList<Beverage> beverages;
+    private Grid<Beverage> beverageGrid;
     private final long sessionId;
     private final H2 orderTotal = new H2("");
     private final EntityService<Dish> dishEntityService;
+    private final EntityService<Beverage> beverageEntityService;
     private final SessionService sessionService;
     private final OrderRepository orderRepository;
     private final EndUserDetailsService endUserDetailsService;
@@ -42,6 +48,7 @@ public class OrderView extends EndUserViewBase {
 
     @Autowired
     public OrderView(EntityServiceFactory<Dish> dishEntityServiceFactory,
+                     EntityServiceFactory<Beverage> beverageEntityServiceFactory,
                      EndUserDetailsService endUserDetailsService,
                      SessionServiceFactory sessionServiceFactory,
                      OrderRepository orderRepository) {
@@ -51,10 +58,31 @@ public class OrderView extends EndUserViewBase {
         var restaurantId = sessionTable.getRestaurant().getId();
         this.sessionId = sessionTable.getOrderSession().getId();
         this.dishEntityService = dishEntityServiceFactory.get(restaurantId);
+        this.beverageEntityService = beverageEntityServiceFactory.get(restaurantId);
         this.sessionService = sessionServiceFactory.get(sessionTable.getOrderSession().getId());
         this.orderRepository = orderRepository;
         this.dishes = new ArrayList<>();
+        this.beverages = new ArrayList<>();
         this.endUserDetailsService = endUserDetailsService;
+
+        var beverageGrid = new Grid<Beverage>(Beverage.class, false);
+
+        beverageGrid.addColumn(Beverage::getName).setHeader("Name");
+        beverageGrid.addColumn(Beverage::getPriceInHuf).setHeader("Price (HUF)");
+        beverageGrid.addColumn(Beverage::getVolumeInMililiters).setHeader("Volume (ml)");
+        beverageGrid.addColumn(Beverage::isAlcoholic).setHeader("Is alcoholic");
+        beverageGrid.addColumn(Beverage::isDiet).setHeader("Is diet");
+        beverageGrid.addComponentColumn(beverage -> {
+            var button = new Button("-");
+            button.addClickListener(buttonClickEvent -> this.removeBeverage(beverage));
+            return button;
+        });
+        beverageGrid.addColumn(this::getBeverageCount);
+        beverageGrid.addComponentColumn(beverage -> {
+            var button = new Button("+");
+            button.addClickListener(buttonClickEvent -> this.addBeverage(beverage));
+            return button;
+        });
 
         var dishGrid = new Grid<Dish>(Dish.class, false);
 
@@ -63,13 +91,13 @@ public class OrderView extends EndUserViewBase {
         dishGrid.addColumn(dish -> dish.getType().getName()).setHeader("Type");
         dishGrid.addComponentColumn(dish -> {
             var button = new Button("-");
-            button.addClickListener(buttonClickEvent -> this.removeItem(dish));
+            button.addClickListener(buttonClickEvent -> this.removeDish(dish));
             return button;
         });
-        dishGrid.addColumn(this::getItemCount);
+        dishGrid.addColumn(this::getDishCount);
         dishGrid.addComponentColumn(dish -> {
             var button = new Button("+");
-            button.addClickListener(buttonClickEvent -> this.addItem(dish));
+            button.addClickListener(buttonClickEvent -> this.addDish(dish));
             return button;
         });
 
@@ -95,11 +123,20 @@ public class OrderView extends EndUserViewBase {
         });
 
         dishGrid.setItems(dishEntityService.getAll());
+        beverageGrid.setItems(beverageEntityService.getAll());
 
         this.dishGrid = dishGrid;
+        this.beverageGrid = beverageGrid;
+
+        var container = new VerticalLayout();
+        var tabs = new PagedTabs(container);
+
+        tabs.add("Dishes", dishGrid, false);
+        tabs.add("Beverages", beverageGrid, false);
 
         add(
-                dishGrid,
+                tabs,
+                container,
                 orderTotal,
                 new HorizontalLayout(
                         new Button("Send order", buttonClickEvent -> sendOrder()),
@@ -109,45 +146,68 @@ public class OrderView extends EndUserViewBase {
 
     }
 
-    private long getItemCount(Dish dish) {
+    private long getDishCount(Dish dish) {
         return this.dishes.stream().filter(item1 -> item1.getId().equals(dish.getId())).count();
+    }
+
+    private long getBeverageCount(Beverage beverage) {
+        return this.beverages.stream().filter(beverage1 -> beverage1.getId().equals(beverage.getId())).count();
     }
 
     private void refreshGrid() {
         dishGrid.setItems(dishEntityService.getAll());
+        beverageGrid.setItems(beverageEntityService.getAll());
     }
 
     private void refreshSum() {
         this.orderTotal.setText(
                 String.format(
                         "Total: %d",
-                        this.dishes.stream().map(Item::getPriceInHuf).reduce(0L, Long::sum)
+                        this.dishes.stream().map(Item::getPriceInHuf).reduce(0L, Long::sum) +
+                                this.beverages.stream().map(Item::getPriceInHuf).reduce(0L, Long::sum)
                 )
         );
     }
 
-    private void addItem(Dish dish) {
+    private void addBeverage(Beverage beverage) {
+        this.beverages.add(beverage);
+        refreshGrid();
+        refreshSum();
+    }
+
+    private void removeBeverage(Beverage beverage) {
+        this.beverages.remove(beverage);
+        refreshGrid();
+        refreshSum();
+    }
+
+    private void addDish(Dish dish) {
         this.dishes.add(dish);
         refreshGrid();
         refreshSum();
     }
 
-    private void removeItem(Dish dish) {
+    private void removeDish(Dish dish) {
         this.dishes.remove(dish);
         refreshGrid();
         refreshSum();
     }
 
     private void sendOrder() {
-        if(this.dishes.isEmpty()) {
+        if(this.dishes.isEmpty() && this.beverages.isEmpty()) {
             NotificationUtil.showInfo("You must select at least one item");
+            return;
         }
 
         var order = new Order();
 
-            order.setItems(
-                    new ArrayList<>(this.dishes)
-            );
+        var items = new ArrayList<Item>();
+        items.addAll(this.dishes);
+        items.addAll(this.beverages);
+
+        order.setItems(
+                items
+        );
 
 
         order.setOrderStatus(OrderStatus.WAITING);
