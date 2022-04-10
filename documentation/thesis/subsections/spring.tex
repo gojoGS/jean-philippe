@@ -28,3 +28,21 @@ Amennyiben valamely szerepkör funkcióját szeretnénk bővíteni, például eg
 A Spring által biztosított dependency injection model az \code{@Autowired} annotáció segítségével érjük el. Ezzel a megoldással csak a Sprning által kezelt entitásokat tudjuk injektálni, azaz olyan osztályokat, amelyeknek van no-args-konstruktora, illetve el van látva valamilyen Spring által nyújtott \emph{stereotype annotációval}. Ezek kötül a legfontosabbak a \code{@Component}, \code{@Repository} és a \code{@Service}. Ez utóbbi kettő kiterjeszti a \code{@Component} szerepkörét. \par
 
 Egy \code{@Component}-el annotált osztályokat automatikusan detektálja a Spring, mint általa kezelt komponens. A \code{@Repository} annyiban terjeszti ki ezt a viselkedési módot, hogy az adatelérési rétegből érkező, perzisztenciához kapcsolódó, platform specifikus hibákat elkapja és a Spring egységes kivételeként dobja tovább. A \code{@Service} jelzi a Spring számára, hogy az annotált osztály a szolgáltatás rétegbe tartozik, és üzleti logikát tartalmazhat, de jelenleg ennek nincsen szemantikus jelentősége. A Spring nem kényszeríti ránk ezen annotációk szerepkörüknek megfelelő idiomatikus használatát, azonban a jövőben érkezhetnek olyan változtatások a keretrendszerben, amely feltételezi az annotációk előírt használatát. \par
+
+Az \code{@Autowired} annotációt osztályok mezőin, konstruktorokon, illetve setter metódusokon helyezhetjük el.
+
+\snippet{AutowiredField}{Mezőn elhelyezett \code{@Autowired}}
+\snippet{AutowiredSetter}{Setter-en elhelyezett \code{@Autowired}} 
+\snippet{AutowiredConstructor}{Konstruktoron elhelyezett \code{@Autowired}}
+
+A konstruktor alapú megoldás preferálandó, amennyiben szeretnénk, ha az injektált komponenshez tartozó mező \code{final} lenne, vagy ha csak az objektum létrejöttekor van szükségünk rá. \par
+
+Az \code{@Autowired} típus alapján rezolválja az inkektálásra alkalmas osztályokat. Amennyiben több osztály is alkalmas erre, valamilyen módon jeleznünk kell a Spring felé, hogy melyik implementációt kívánjuk használni. \par
+
+Ezt megtehetjük úgy, hogy a komponens deklarálásakor egy egyedi azonosítóval látjuk el, majd később erre hivatkozunk.
+
+\snippet{Qualifier}{Azonosítóval ellátott komponens}
+
+Egy alternatív megoldás ha az injektált mező neveként az injektálni kívánt implementáció nevét használjuk.
+
+\snippet{BeanName}{Osztály neve, mint azonosító}
