@@ -1,0 +1,30 @@
+\subsection{Spring}
+
+A Spring keretrendszer a Java, illetve Jakarta EE alkalmazásfejlesztés de facto sztenderdjévé vált 2002-es megjelenése óta. A framework egyik legfontosabb funkciója a \emph{dependency injection} modellje, ami segíti a gyors alkalmazásfejlesztést, továbbá átláthatóbb, tisztább kódot eredményez. A Srping modulárisan van felépítve, amelyek olyan szolgltatásokat nyújtanak, mint az adatelérés, tesztelés és web integráció. Fejlesztőként nem vagyunk kényszerítve, hogy a keretrendszer által kínált összes komponenst egyszerre használjuk. A moduláris modell lehetővé teszi, hogy csupán a szükséges elemeket tartalmazza projectünk, attól függően, hogy az éppen aktuálisan fejlesztett alkalmazás mit igényel \cite{buildingSpringRest}.\par
+
+A Spring portfólióhoz számos más project tartozik, mint például a Spring Security, Spring Data vagy a Spring Boot, melyek mindegyike a Spring framework által nyújtott infrastruktúrára épül. Ezek célja rendre az autentikáció és autorizáció, az adatelérés és a Spring alkalmazások létrehozásának egyszerűbbé, elérhetőbbé tétele. \par
+
+\subsubsection{Spring Security}
+
+Az alkalmazásban az autentikációt és autorizációt Spring Security segítségével oldottuk meg.
+
+\snippet{SecurityConfig}{Spring Security konfiguráció}
+
+Láthatjuk, hogy van lehetőségünk Java kóddal is konfigurálni a Spring Security-t, a kódcsipetben látható módon. Képesek vagyunk URL minták megadásával meghatározni, hogy milyen felhasználói jogkör szükséges az adott erőforrás eléréséhez. Az alkalmazás könnyű bővíthetőségét segíti, ha a végpontok URL-jének meghatározásakor figyelembe vesszük, hogy milyen funkcióhoz és szerepkörhöz tartoznak, ezzel szemantikus jelentőséget adva az URL-eknek és egyúttal egy réteg alapú architektúrát hozunk létre. Ebben az esetben
+
+\begin{listing}
+	\item a Vaadin framework beéső működéséhez szükséges erőforrások autentikáció nélkül elérhető
+	\item a gyökér URL, ahova az oldal felkeresése esetén először érkezünk publikusan elérhető
+	\item bármely read-only API autentikáció nélkül elérhető
+	\item az applikáció publikus funkciói autentikáció nélkül elérhetőek
+	\item az applikáció éttermekhez tartozó funkciói eléréséhez \emph{RESTAURANT} szerepkörrel kell rendelkeznie a felhasználónak
+	\item az applikáció végfelhasználókhoz tartozó funkciói eléréséhez \emph{END\_USER} szerepkörrel kell rendelkeznie a felhasználónak
+\end{listing} \par
+
+Amennyiben valamely szerepkör funkcióját szeretnénk bővíteni, például egy GraphQL alapú API-t létrehozni, vagy valamilyen új lehetőséggel augmentálni a az éttermeket, ezt könnyen és egszerűen megtehetjük ezen módszer bővíthetősége miatt. \par
+
+\subsubsection{Spring Boot}
+
+A Spring által biztosított dependency injection model az \code{@Autowired} annotáció segítségével érjük el. Ezzel a megoldással csak a Sprning által kezelt entitásokat tudjuk injektálni, azaz olyan osztályokat, amelyeknek van no-args-konstruktora, illetve el van látva valamilyen Spring által nyújtott \emph{stereotype annotációval}. Ezek kötül a legfontosabbak a \code{@Component}, \code{@Repository} és a \code{@Service}. Ez utóbbi kettő kiterjeszti a \code{@Component} szerepkörét. \par
+
+Egy \code{@Component}-el annotált osztályokat automatikusan detektálja a Spring, mint általa kezelt komponens. A \code{@Repository} annyiban terjeszti ki ezt a viselkedési módot, hogy az adatelérési rétegből érkező, perzisztenciához kapcsolódó, platform specifikus hibákat elkapja és a Spring egységes kivételeként dobja tovább. A \code{@Service} jelzi a Spring számára, hogy az annotált osztály a szolgáltatás rétegbe tartozik, és üzleti logikát tartalmazhat, de jelenleg ennek nincsen szemantikus jelentősége. A Spring nem kényszeríti ránk ezen annotációk szerepkörüknek megfelelő idiomatikus használatát, azonban a jövőben érkezhetnek olyan változtatások a keretrendszerben, amely feltételezi az annotációk előírt használatát. \par
