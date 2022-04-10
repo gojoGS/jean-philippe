@@ -65,3 +65,45 @@ Végül vegyük fel a rendszerbe a pincéreinket.
 
 \image{Személyzet}{rs-staff.png}
 \image{Új pincér}{rs-add-staff.png}
+
+Éttermünk sikeresen átállt a web alapú rendszerre, várjuk vendégeinket.
+
+Egy személy úgy dönt, hogy szeretni elkölteni egy ebédet egy kellemes étteremben. Hallott a Jean Philippe keresési funkciójáról. Egy ideig böngészi az éttermek által szervírozott ételek listáját, rákeres bizonyos ételekre, többféle minimum és maximum ár kombinációval indít keresést. Végül választása a Kis Gömböc étteremre esik.
+
+\image{Keresés}{jp-search.png}
+
+Belépve az étterembe keres egy szabad asztalt, ahol egy kijelző fogadja egy letisztult kezdőképernyővel.
+
+\image{Végfelhasználói kezdőképernyő}{eu-start.png}
+
+Helyet foglal, majd megnyomja a \emph{Start session} gombot. Egy új képernyő fogadja, ahol ételeket tud hozzáadni a rendeléshez, illetve válogathat az itallapon szereplő opciók közül. Döntése végül 1 gulyáslevesre és 3 csirkepaprikásra esik. Az tételek kijelölése után megnyomja a \emph{Send order} gombot. Ezt követően átkerül egy úk képernyőre és várja az étterem válaszát.
+
+\image{A rendelés}{eu-menu-ready.png}
+\image{Várakozó képernyő}{eu-sent.png}
+
+Az étterem, függetlenül hogy az alkalmazás mely pontján van, felugró értesítést kap az új rendelés beérkezéséről. A személyzet valamelyik tagja ezt észleli, és az \emph{Orders} fülre átlépve látja is, hogy az 1-es asztalnál új rendelés érkezett be. Megnyitva a rendelést látja a rendelés tartalmát, amit továbbít a konyha felé. A konyhai személyzet ad egy becslést a rendelés elkészítési idejére. A rendelést megnyitva hozzárendeli az egyik pincért, aki éppen nem annyira elfoglalt, és az egyeztetett becslést beírja az űrlap megfelelő mezőjébe, majd elmenti a változtatásokat. \par
+
+\image{Új rendelés érkezett}{rs-new-order.png}
+\image{Rendelések}{rs-orders.png}
+\image{Rendeléssel kapcsolatos információk}{rs-estimate.png}
+
+A vendég, asztalánál ülve változást vél felfedezni az eddigi képernyőn.
+
+\image{Az étterem elfogadta a rendelést}{eu-updated.png}
+
+Továbblépve látja rendelésének elkészítéséhez szükséges idő várható hosszát, illetve, hogy melyik pincér fogja tálalni. Várja az események további kibontakozását.
+
+\image{Várakozás a rendelés elkészülésére}{eu-waiting.png}
+
+Elkészült a rendelés, a kijelölt pincér átveszi a konyhától, a rendeléseket kezelő alkalmazott pedig lezárja a rendelést.
+
+\image{Rendelés lezárása}{rs-close-order.png}
+
+A vendég ismét változást vél felfedezni a felhasználói felületen. Egy új felületre navigált az alkalmazás, amely arról informálja, hogy rendelése készen van. Pillanatokon belül Egy pincér kihozza rendelését. A fogások elfogyasztása után úgy dönt, újabb rendelést ad le. A \emph{New order} gombra kattintva a már ismert rendelési felület fogadja. Megismétlődik ugyanez a rendelési folyamat. \par
+
+\image{Kész a rendelés}{eu-order-ready.png}
+
+Pár új rendelés után a vendég úgy dönt, hogy befejezné az étkezést, és fizetni szeretne. A \emph{Check out} opciót választva egy új felület tárul elé, ahol láthatja a végösszeget, és kiválaszthatja a fizetés módját. Egy ideig próbál választani a \emph{Készpénz}, \emph{Kártya} és \emph{Crypto} opciók között, végül a készpénzt választja. Fizetési szándéka jelezve lett az étterem felé, egy értesítést kaptak arról, hogy melyik asztal, milyen módon szeretne fizetni. Az asztalnál lévő felhasználói felület visszanavigált a session kezdő képernyőre, majd nem sokkal később egy pincér érkezett, akivel lebonyolítja a tranzakciót, majd elégedetten távozik az étteremből.
+
+\image{Fizetési szándék jelzése}{eu-check-out.png}
+\image{Az egyik asztal fizetni szeretne}{rs-ready-to-pay.png}
