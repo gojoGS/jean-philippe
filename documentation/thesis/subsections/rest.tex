@@ -24,13 +24,14 @@ Ezzekkel szemben negatívumként említhetjük a romlott hálózati teljesítmé
 Az előbb említett hátrányra válaszul vezessük be a modellünkbe gyprsítótárazhatóság fogalmát. Ez megköveteli hogy egy válaszban szereplő adat implicit vagy explicit módon meg legyen jelölve hogy gyorsítótárazható-e. Ha egy válasz gyorsítótárazható, akkor egy kliens oldali gyorsítótárnak módjában áll újra felhasználni azt az adatot későbbi, az eredeti kéréssel ekvivalens kérésekhez.
 
 \subsubsection{Egységes interfész}
+
 Azzal, hogy a REST szolgáltatások egy egységes interfészen kommunikálnka a klienssel, függetlenítjuk a klienset a szolgáltatás implementációjától. Annak érdekében, hogy egy interenet szintű REST szolgáltatásoknak egy egységes interfészt határozzunk meg, (azaz egy egyezményt kliens és a szolgáltatás között, ami definiálja kommunkációjuk formáját), ezt szabványok felhasználásával kell megtennünk.
 
 \begin{listing}
-	\item Erőforrás azonosítás: URI standard
-	\item Erőforrás manipuláció: HTTP standard
-	\item Önleíró üzenetek: MIME típusok
-	\item HATEOAS: hyperlink-ek és URI template-ek
+	\item Erőforrás azonosítás: URI standard \cite{RFC3986}
+	\item Erőforrás manipuláció: HTTP standard \cite{RFC2616}
+	\item Önleíró üzenetek: MIME típusok \cite{RFC2045}
+	\item HATEOAS: hyperlink-ek és URI template-ek \cite{RFC6570}
 \end{listing}
 
 \subsubsection{Réteg alapú rendszer}

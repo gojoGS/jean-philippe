@@ -1,0 +1,67 @@
+Az elkészült alkalmazás bemutatásához (ami a \emph{Jean Philippe} nevet kapta) vegyünk egy életszerű példát. \par
+
+Tegyük fel, hogy egy étterem üzemeltetője vagyunk, és nem vagyunk elégedettek a jelenlegi, hagyományos rendelési rendszerrel. Lassú, a pincérek hibázhatnak, nehéz kezelni és nyomonkövetni a rendeléseket, nem hatékony a kommunikáció a vendégekkel. Egy egyedi szofveres megoldás lefejlesztése túl drágának bizonyulna, nagy tőkebefektetéssel járna és túl nagy rizikót vállalnánk magunkra. Szükségünk lenne egy már meglévő szolgáltatásra. Egy hírdetés újtán rábukkanunk a Jean Philippe nevű szolgáltatásra. Weblapját felkeresve egy informatív, letisztult nyitóképernyő fogad. 
+
+\image{Nyitóképernyő}{jp-home.png}
+
+Az oldal funnkcióit böngészve rábukkanunk a már regisztrált, és a szolgáltatást aktívan használó éttermek listájára.
+
+\image{Regisztrált éttermek}{jp-restaurants.png}
+
+Mérlegeljük a szolgáltatás előnyeit
+
+\begin{listing}
+	\item minimális tőkebefektetés
+	\item letisztult felület
+	\item más éttermek is használják, így a vendégeknek már ismerős lehet a felhasználói felület
+	\item szolgáltatás, tehát amennyiben úgy döntünk, hogy nem kívánjuk a továbbiakban használni, megválhatunk tőle
+	\item web alapú, azaz platformfüggetlen, gyakoribbak a frissítések, nem szükséges hozzá setup folyamat
+\end{listing}
+
+és hátrányait
+
+\begin{listing}
+	\item az asztalokat fel kell szerelnünk valamilyen megjelenítő eszközzel
+	\item az étlapot, asztalokat és a pincéreket fel kell vinni a rendszerbe
+	\item a dolgozóinknak meg kell tanulni a felületet kezelni
+	\item vendégeink egy részének személytelen lesz a rendelési folyamat
+\end{listing}
+
+Belátjuk, hogy az ellenérvek nemcsak ennél a megoldásnál jelentkeznének, így úgy döntünk, hogy regisztráljuk az éttermünket.
+
+\image{Regisztráció}{jp-signup.png}
+
+Választunk egy tetszőleges, még nem használatban lévő felhasználónevet, egy megfelelő jelszót. A \emph{Restaurant details} mezőit kitöltjük éttermünk nevével mottójával: \emph{Kis Gömböc - Ha jól akarsz lakni}. A regisztráció gombra kattintva egy értesítés közli velünk a sikeres regisztráció hírét, majd megjelenik a bejelentkező képernyő.
+
+% TODO kurva gyorsan egy képet erről ide
+
+Az autentikációhoz szükséges adatok megadása után megtörténik a bejelentkezés, az alkalmazás átirányít minket az éttermek felhasználói felületére. A bejelentkezés utáni első képernyőn éttermünk menüjét láthatjuk, ami jelenleg üres.
+
+\image{Menü}{rs-menu.png}
+
+Megkezdjük a papír alapú étlap felvitelét a rendszerbe. Az alkalmazás egységes felületet nyújt ét-, illetve itallap kialakítására. Pár elírás került egyes termékek leírásába, de ezeket a szerkesztés funkcióval sikerül korrigálni. Rájövünk, hogy egyes ételek szervírozása nem nyereséges már az étteremnek, ezért ezeket eltávolítjuk a törlés funkcióval.
+
+\image{Étel létrehozás űrlap segítségével}{rs-add.png}
+
+Itallapunk definiálása során tudjuk jelezni, hogy az egyes termékek tartalmaznak-e alkoholt, illetve, hogy diétás termékek-e.
+
+\image{Ital létrehozása}{rs-add-beverage.png}
+
+Ét- és itallapunk megadása után felmerül, hogy nem lenne-e esedékes az étterem mottójának megváltoztatása. A profil fülre navigálva látjuk, hogy módosítani tudjuk az éttermünk nevóét és leírását, új jelszót tudunk megadni, illetve ki tudunk jelentkezni. Több ötlet is érkezett az új leírásra, egyik sem bizonyult szubsztanciálisan jobbnak a jelenleginél, ezért visszaállítjuk az űrlapot eredeti állapotába a \emph{Reset} gombbal.
+
+\image{Profil}{rs-profile.png}
+
+Az onboarding folyamatot az asztalok felvételével folytatjuk. Megadjuk az egyes asztalko számát, amit eddig de facto standar-ként használtak dolgozóink egymás között, maximum kapacitásukat, illetve egy rövid leírást, hogy hol találhatóak.
+
+\image{Asztalok}{rs-tables.png}
+\image{Új asztal}{rs-new-table.png}
+
+Az asztalokkal együtt végfelhasználók is létrejöttek. Miután felvettük a Jean Philippe-t fejlesztő csapattal a kapcsolatot, ők ajánlottak egy megjelenítési megoldást, amellyel optimális lesz a felhasználói élmény. A rendszer üzembe állítása után megkezdjük a végfelhasználók beléptetését. Az \emph{End user} fülre lépve láthatjuk az egyes asztalokhoz tartozó felhasználók azonosítóját. A \emph{New password} gombra kattintva megkapjuk az ezekhez tartozó jelszót is.
+
+\image{Végfelhasználók}{rs-end-users.png}
+\image{Új jelszó}{rs-new-password.png}
+
+Végül vegyük fel a rendszerbe a pincéreinket.
+
+\image{Személyzet}{rs-staff.png}
+\image{Új pincér}{rs-add-staff.png}

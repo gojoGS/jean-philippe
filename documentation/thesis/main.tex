@@ -17,11 +17,16 @@
 \usepackage{multirow}
 \usepackage{indentfirst}
 \usepackage{color}
+\usepackage{float}
+\usepackage[export]{adjustbox}
 
 \setstretch{1.5}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]{\bf\large}{\thechapter}{14px}{}
+\titleformat{\section}[hang]{\bf\large}{\thesection}{14px}{}
+\titleformat{\subsection}[hang]{\bf\large}{\thesubsection}{14px}{}
+\titleformat{\subsubsection}[hang]{\bf\large}{\thesubsubsection}{14px}{}
 
 
 \usepackage[a4paper,
@@ -69,10 +74,11 @@ bottom=3cm]{geometry}
 		\lstinputlisting[language=Java, caption={#2}, label={snippet:#1}]{code/#1.java}
 }
 \newcommand{\image}[2]{
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\caption{#1}
 		\label{#2}
-		\includegraphics[width=\linewidth]{figures/#2}
+		\includegraphics[width=\linewidth,frame]{figures/#2}	
+	
 	\end{figure}
 }
 
