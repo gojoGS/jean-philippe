@@ -1,17 +1,17 @@
 \subsection{Lombok}
 
-A Lombok könyvtár, aminek célja a repetatív kódrészletek (úgynevezett boilerplate kód) írásának elkerülése, a fejlesztői élmény javítása. A legtöbb esetben nem terjeszti ki a Java funkcióit, hanem már meglévő funkciók használatát teszi kényelmesebbé. \par
+A Lombok könyvtár, aminek célja a repetitív kódrészletek (úgynevezett boilerplate kód) írásának elkerülése, a fejlesztői élmény javítása. A legtöbb esetben nem terjeszti ki a Java funkcióit, hanem már meglévő funkciók használatát teszi kényelmesebbé. \par
 
-Bizonyos keretrendszerek disziplínái megkövetelik például a getter-ek és setter-ek, bizonyos contructor-ok definiálását. Ilyen esetben hasznlhatjuk a Lombok, ami a build folyamatunkba beépülve, valid Java bytecode-ot generál automatikusan azokban az osztályokban, ahol bevezettük az annotációit.\par
+Bizonyos keretrendszerek disziplínái megkövetelik például a getterek és setterek, bizonyos contructorok definiálását. Ilyen esetben használhatjuk a Lombokot, ami a build folyamatunkba beépülve, valid Java bytecode-ot generál automatikusan azokban az osztályokban, ahol bevezettük az annotációit.\par
 
-Amennyiben kíváncsiak vagyunk arra, hogy a Lombok milyen transzformációkat hajt végre a kódunkon, vagy egyszerűen csak meg akarunk válni tőle, és eltávolítani a függőségink közül, a kódbázisunkat pedig megtisztítani a Lombok annotációktól, abban az esetben erre is van lehetőség. \par
+Amennyiben kíváncsiak vagyunk arra, hogy a Lombok milyen transzformációkat hajt végre a kódunkon, vagy egyszerűen csak meg akarunk válni tőle, és eltávolítani a függőségeink közül, a kódbázisunkat pedig megtisztítani a Lombok annotációktól, abban az esetben erre is van lehetőség. \par
 
-A delombok nevű eszköz előállítja azokat az osztályok forráskódját, amikben Lombok annotációt használtunk, eltávolítva az annotációkat és helyükre a velük ekvivalens kód kerül, amelyet eddig a Lombok generált. \par
+A delombok nevű eszköz előállítja azon osztályok forráskódját, amikben Lombok annotációt használtunk, eltávolítva az annotációkat és helyükre a velük ekvivalens kód kerül, amelyet eddig a Lombok generált. \par
 
 
 \subsubsection{@NoArgsConstructor, @AllArgsConstructor}
 
-A \lstinline|@NoArgsConstructor|-t egy osztályra helyezve egy argomentumok nélküli konstruktort fog generálni. Amennyiben ez nem lehetséges, például egy \lstinline|final| mező miatt, a generálási folyamat egy fordítási hibát fog eredményezni \cite{lombokConstructorDocumentation}. Ez megkerülhető úgy, ha az annotáció \lstinline|force| paraméterének \lstinline|true| értéket adunk meg. Ezzel elérjük, hogy a \lstinline|final| mezők is inicializálva lesznek \lstinline|0|, \lstinline|false| vagy \lstinline|null| értékkel, azonban olyan mezők esetében, a \lstinline|@NonNull| annotációval végzünk null vizsgálatot, ez a vizsgálat nem fog legenerálódni, megtörténni. \par
+A \lstinline|@NoArgsConstructor|-t egy osztályra helyezve egy argumentumok nélküli konstruktort fog generálni. Amennyiben ez nem lehetséges, például egy \lstinline|final| mező miatt, a generálási folyamat egy fordítási hibát fog eredményezni \cite{lombokConstructorDocumentation}. Ez megkerülhető úgy, ha az annotáció \lstinline|force| paraméterének \lstinline|true| értéket adunk meg. Ezzel elérjük, hogy a \lstinline|final| mezők is inicializálva lesznek \lstinline|0|, \lstinline|false| vagy \lstinline|null| értékkel, azonban olyan mezők esetében a \lstinline|@NonNull| annotációval végzünk null vizsgálatot, ez a vizsgálat nem fog legenerálódni, megtörténni. \par
 
 \snippet{NoArgsConstructorBefore}{@NoArgsConstructor}
 \snippet{NoArgsConstructorAfter}{@NoArgsConstructor delombok után}
@@ -19,40 +19,40 @@ A \lstinline|@NoArgsConstructor|-t egy osztályra helyezve egy argomentumok nél
 A project elkészítése során Spring Data JPA entitás osztályokat láttunk el \lstinline|@NoArgsConstructor| annotációval, mivel a JPA megköveteli egy ilyen konstruktor létezését. \par
 
 
-A \lstinline|@AllArgsConstructor| egy konstruktort generál egy osztálynak, annak egy-egy mezőjéhez tartozó egy paraméterrel. Amennyiben egy mező el van látva a \lstinline|@NonNull| annotációval, a generált konstruktor egy null check-et fog végezni azon a mezőn.
+Az \lstinline|@AllArgsConstructor| egy konstruktort generál egy osztálynak, annak egy-egy mezőjéhez tartozó egy paraméterrel. Amennyiben egy mező el van látva a \lstinline|@NonNull| annotációval, a generált konstruktor egy null checket fog végezni azon a mezőn.
 
 \snippet{AllArgsConstructorBefore}{@AllArgsConstructor}
 \snippet{AllArgsConstructorAfter}{@AllArgsConstructor delombok után}
 
-Az \code{@AllArgsConstructor} hátránya, hogy csak azok a mezők szerepelnek a konstruktor paraméterei között, amelyeket az osztályban deklaráltunk, azaz a szülő osztály mezőihez tartozó argomentumok nem szerepelnek a gyermek osztály generált konstruktorában. Ennek ellenére használata eredményes volt a projectben, például DTO-k és adattagokkal rendelkező enumok definniálásánál.
+Az \code{@AllArgsConstructor} hátránya, hogy csak azok a mezők szerepelnek a konstruktor paraméterei között, amelyeket az osztályban deklaráltunk, azaz a szülő osztály mezőihez tartozó argumentumok nem szerepelnek a gyermek osztály generált konstruktorában. Ennek ellenére használata eredményes volt a projectben, például DTO-k és adattagokkal rendelkező enumok definiálásánál.
 
 
 \subsubsection{@Getter, @Setter}
 
 Egy osztály bármilyen mezőjét annotálhatjuk a  \lstinline|@Getter|-rel vagy \lstinline|@Setter|-rel, a Lombok automatikusan generálni fog egy alapértelmezett getter/setter metódust. \par
 
-A \code{foo} mező alapértelmezett getter-je a \code{getFoo} nevű metódus, illetve \code{boolean} típusú mező esetében \code{isFoo}, ami a \code{foo} mezőt téríti vissza. Ezen mező alapértelmezett setter-je egy \code{setFoo} nevű, egy paraméteres metódus, amely paraméter típusa azonos a mező típusával. \par
+A \code{foo} mező alapértelmezett getterje a \code{getFoo} nevű metódus, illetve \code{boolean} típusú mező esetében \code{isFoo}, ami a \code{foo} mezőt téríti vissza. Ezen mező alapértelmezett setterje egy \code{setFoo} nevű, egy paraméteres metódus, amely paraméter típusa azonos a mező típusával. \par
 
-A generált metódus publikus láthatóságú lesz, amennyiben ezt nem írjuk felül az annotációban elhelyezett \code{AccessLevel} értékkel. Ennek lehetségek értékei \code{PUBLIC}, \code{PROTECTED}, \code{PACKAGE} és \code{PRIVATE}, melyek rendre a Java nyelv láthatóságainak felelelnek meg. \par
+A generált metódus publikus láthatóságú lesz, amennyiben ezt nem írjuk felül az annotációban elhelyezett \code{AccessLevel} értékkel. Ennek lehetséges értékei \code{PUBLIC}, \code{PROTECTED}, \code{PACKAGE} és \code{PRIVATE}, melyek rendre a Java nyelv láthatóságainak felelelnek meg. \par
 
-Ezeket az annotációkat nemcsak mezőkön, hanem osztályokon is alkalmazhatjuk. Ebben az esetben az annotációhatása ekvivalens azzal, h az osztály minden, nem statikus mezőjét annotáltuk volna. Kivételt képeznek azok a mezők, amelyeket menuálisan annotálunk és láthatóságnak \code{AccessLevel.NONE}-t határozunk meg. \par
+Ezeket az annotációkat nemcsak mezőkön, hanem osztályokon is alkalmazhatjuk. Ebben az esetben az annotáció hatása ekvivalens azzal, hogy az osztály minden, nem statikus mezőjét annotáltuk volna. Kivételt képeznek azok a mezők, amelyeket manuálisan annotálunk és láthatóságnak \code{AccessLevel.NONE}-t határozunk meg. \par
 
 \snippet{GetterSetterBefore}{@Getter, @Setter}
 \snippet{GetterSetterAfter}{@Getter, @Setter delombok után}
 
 \subsubsection{@ToString}
 
-Bármely osztály annotálható \code{@ToString}-el, amely felülírja az osztály \code{toString} metódusát, egy, a Lombok által generált implementációval. Alapértelmezetten, ezen implementáció által visszaadott string tartalmazza az osztály nevét, követve a az osztály nem statikus mezőinek nevével és ezek értékeivel, a deklarálásuk sorrendjében. \par
+Bármely osztály annotálható \code{@ToString}-el, amely felülírja az osztály \code{toString} metódusát, egy, a Lombok által generált implementációval. Alapértelmezetten, ezen implementáció által visszaadott string tartalmazza az osztály nevét, követve az osztály nem statikus mezőinek nevével és ezek értékeivel, a deklarálásuk sorrendjében. \par
 
-Amenability nem akarjuk, hogy minden mező megjelenjen a metódus output-jában, jelezhetjük a nem kívánt mezőket a \code{@ToString.Exclude} annotációval, felsorolhatjuk a tartalmazni kívánt mezők nevét a \code{@ToString} metódus \code{includeFieldNames} paraméterében, vagy a \code{onlyExplicitlyIncluded} paraméternek megadott \code{true} értékkel és a tartalmazni kívánt mezőkön elhelyezett \code{@ToString.Include} annotációval. Amennyiben a \code{callSuper} praméternek \code{true} értéket adunk, a visszaadott string tartalmazni fogja a szülő osztály \code{toString} metódusának output-ját \par
+Amennyiben nem akarjuk, hogy minden mező megjelenjen a metódus outputjában, jelezhetjük a nem kívánt mezőket a \code{@ToString.Exclude} annotációval, felsorolhatjuk a tartalmazni kívánt mezők nevét a \code{@ToString} metódus \code{includeFieldNames} paraméterében, vagy az \code{onlyExplicitlyIncluded} paraméternek megadott \code{true} értékkel és a tartalmazni kívánt mezőkön elhelyezett \code{@ToString.Include} annotációval. Amennyiben a \code{callSuper} paraméternek \code{true} értéket adunk, a visszaadott string tartalmazni fogja a szülő osztály \code{toString} metódusának outputját. \par
 
 \subsubsection{@Builder}
 
 A \code{@Builder} annotációval annotált \code{Foo} osztályhoz, konstruktorhoz vagy metódushoz (a későbbiekben ez \emph{target}) generálódik egy belső, statikus, \code{FooBuilder} nevű osztály (a későbbiekben ez \emph{builder}). \par
 
-A builder osztály tartalmaz target egy-egy paraméteréhez vagy mezőjéhez tartozó, privát, nem statikus, nem \code{final} mezőt, egy package private no-args konstruktort. Builder minden mezője rendelkezik egy setter-szerű metódussal, ami a mező értékéhez a paraméterként kapott értéket rendeli, és a builder példányt adja vissza, ezzel elhetővé téve a metódushívások egymásba láncolását. Builder rendelkezik egy \code{build} metódussal, amely meghívásakor meghívódik target (amennyiben target osztály, annak egy megfelelő konstruktora), builder mezőinek értékével, és ugyanazt a típust adja vlssza, mint target (osztály esetében ez target). \par
+A builder osztály tartalmaz target egy-egy paraméteréhez vagy mezőjéhez tartozó, privát, nem statikus, nem \code{final} mezőt, egy package private no-args konstruktort. Builder minden mezője rendelkezik egy setterszerű metódussal, ami a mező értékéhez a paraméterként kapott értéket rendeli, és a builder példányt adja vissza, ezzel elérhetővé téve a metódushívások egymásba láncolását. Builder rendelkezik egy \code{build} metódussal, amely meghívásakor meghívódik target (amennyiben target osztály, annak egy megfelelő konstruktora), builder mezőinek értékével, és ugyanazt a típust adja vissza, mint target (osztály esetében ez target). \par
 
-A target-et tartalmazó osztályban (amennyiben target osztály, ez target)  generálódik egy \code{builder} metódus, ami builder egy új példányát hozza létre. \par
+A targetet tartalmazó osztályban (amennyiben target osztály, ez target)  generálódik egy \code{builder} metódus, ami builder egy új példányát hozza létre. \par
 
 \snippet{BuilderBefore}{@Builder}
 \snippet{BuilderAfter}{@Builder delombok után}

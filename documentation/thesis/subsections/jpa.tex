@@ -1,6 +1,6 @@
 \subsection{Spring Boot Starter Data JPA}
 
-A Spring Boot Starter Data JPA egyszerűbbé teszi az adatbázisokkal való kommunikációt, egyszerűbbé teszi az adatelérési réteg kialakítását, mindezt oly módon, hogy a megoldás átlátható, könnyen búvíthető legyen. Amennyiben úgy döntünk, hogy nem kívánunk mi magunk adatbázis sémákat, entitásokat, lekéréseket létrehozni, hanem ezt a feladatot a Spring Data JPA-nak delegáljuk, lehetőségünk van arra, hogy a JPA hozza létre az adattáblákat, lekérdezéseket és egyéb SQL parancsokat, és ezek eredményét kezelje.
+A Spring Boot Starter Data JPA egyszerűbbé teszi az adatbázisokkal való kommunikációt, egyszerűbbé teszi az adatelérési réteg kialakítását, mindezt oly módon, hogy a megoldás átlátható, könnyen bővíthető legyen. Amennyiben úgy döntünk, hogy nem kívánunk mi magunk adatbázis sémákat, entitásokat, lekéréseket létrehozni, hanem ezt a feladatot a Spring Data JPA-nak delegáljuk, lehetőségünk van arra, hogy a JPA hozza létre az adattáblákat, lekérdezéseket és egyéb SQL parancsokat, és ezek eredményét kezelje.
 
 \subsubsection{Perzisztens entitások}
 
@@ -9,8 +9,8 @@ Ahhoz, hogy perzisztálhassuk egy osztály egy példányát egy adatbázisban
 \begin{listing}
 	\item annotálnunk kell a \code{@Entity} annotációval
 	\item rendelkeznie kell egy argomentumok nélküli konstruktorral
-	\item minden perzisztálni kívánt mezőjének rendelkeznie kell publikus getter-el és setter-el
-	\item egy mezőt meg kell jelölnünk az \code{@Id} annotációval, ami az adatbázisbeli azonosítója lesz
+	\item minden perzisztálni kívánt mezőjének rendelkeznie kell publikus getterel és setterel
+	\item egy mezőt meg kell jelölnünk az \code{@Id} annotációval, ami az adatbázisbeli azonosítója lesz.
 \end{listing}
 
 Opcionálisan annotálhatjuk az entitás osztályt a \code{@Table} annotációval, amelynek \code{name} paramétereként megadott string lesz az entitásokat tartalmazó tábla neve. \par
@@ -40,7 +40,7 @@ Az \code{AttributeConverter<S, T>} interfésznek két definiált metódusa van:
 	\item \code{A convertToEntityAttribute(C column)}, ez konvertálja az adatbázis egy oszlopában szereplő értéket entitás attribútummá.
 \end{listing}
 
-Az interfészt implementáló osztályt annotálnunk kell a \code{@Converter} annotációval annak érdekében, hogy alkalmazható legyen az átváltás. Ammenyiben az annotáció \code{autoApply} paraméterének igaz értéket adunk, a perzisztancia ellátójának (angolul \emph{persistence provider}) muszály automatikusan alkalmazni a konvertert minden entitás minden perzisztált attribútumára, amire alkalmazható, kivéve, ahol az attribútumon elhelyezett \code{@Convert} annotáció ezt felülírja \cite{converterDocumentation}.
+Az interfészt implementáló osztályt annotálnunk kell a \code{@Converter} annotációval annak érdekében, hogy alkalmazható legyen az átváltás. Ammenyiben az annotáció \code{autoApply} paraméterének igaz értéket adunk, a perzisztencia ellátójának (angolul \emph{persistence provider}) muszáj automatikusan alkalmazni a konvertert minden entitás minden perzisztált attribútumára, amire alkalmazható, kivéve, ahol az attribútumon elhelyezett \code{@Convert} annotáció ezt felülírja \cite{converterDocumentation}.
 
 A project elkészítése során \code{enum} értékek konvertálására használtuk.
 
@@ -57,9 +57,9 @@ A JPA kapcsolatoknak két fajtája van:
 
 Két entitás közötti kapcsolat definiálásának nincs hatása az entitások adatbázisra való leképezésének, csupán azt definiálja, hogy milyen irányban tudjuk használni a kapcsolatot a domain modellünkben. \par
 
-Objektumok esetében a kétirányú kapcsolat egy definiált fogalom, szemantikája jól meghatározható, a relációs adatbázisok esetében azonban ez a fogalom nem létezik, csupán egyirányú kapcsolatok vannak (foreign key-ek formájában). Így a Hibernate, ami az objektumok relációkra való leképzést végzi, két egyirányú kapcsolattal modellezi a kétirányú kapcsolatot. A Hibernate a kapcsolat mindkét oldalának változásait követi, így például ha a kapcsolat pontosan egy résztvevője megváltozik, az az adatbázisban is meg fog változni, de ez a változás nem fog manifesztálódni a kapcsolat másik oldalán, azaz inkonzisztencia lép fel az adatbázisban. Ezt a problémát oldja meg a birtokló oldal, birtoklott oldal meghatározása. \par
+Objektumok esetében a kétirányú kapcsolat egy definiált fogalom, szemantikája jól meghatározható, a relációs adatbázisok esetében azonban ez a fogalom nem létezik, csupán egyirányú kapcsolatok vannak (foreign key-ek formájában). Így a Hibernate, ami az objektumok relációkra való leképzését végzi, két egyirányú kapcsolattal modellezi a kétirányú kapcsolatot. A Hibernate a kapcsolat mindkét oldalának változásait követi, így például ha a kapcsolat pontosan egy résztvevője megváltozik, az az adatbázisban is meg fog változni, de ez a változás nem fog manifesztálódni a kapcsolat másik oldalán, azaz inkonzisztencia lép fel az adatbázisban. Ezt a problémát oldja meg a birtokló oldal, birtoklott oldal meghatározása. \par
 
-Ha Hibernate csupán a birtokló oldal változásait követi nyomon, így ha a birtokló oldalon bármilyen változás történik a kapcsolatban, azt képes leképezni a kapcsolat másik felére, a kapcsolat birtokolt oldalán történő változtatásokat pedig nem követi. Ez a megoldás megoldja a kétirányú kapcsolatokból eredő inkonzisztenciákat. A birtokolt oldal könnyen felismerhető onnan, hogy értéket adunk a kapcsolatot jelző annotáció \code{mappedBy} paraméterének. \par
+A Hibernate csupán a birtokló oldal változásait követi nyomon, így ha a birtokló oldalon bármilyen változás történik a kapcsolatban, azt képes leképezni a kapcsolat másik felére, a kapcsolat birtokolt oldalán történő változtatásokat pedig nem követi. Ez a módszer megoldja a kétirányú kapcsolatokból eredő inkonzisztenciákat. A birtokolt oldal könnyen felismerhető onnan, hogy értéket adunk a kapcsolatot jelző annotáció \code{mappedBy} paraméterének. \par
 
 \subsubsection{@OneToOne}
 
@@ -75,16 +75,16 @@ A project elkészítése során foreign key használatával implementáltuk a ka
 
 Amennyiben a kapcsolat egyirányú, a birtokló fél egyértelműen meghatározható: az az entitás, amely a \code{@OneToOne}-nal annotált mezőt tartalmazza.\par
 
-Ha a kapcsolatot kétirányúvá szeretnénk bővíteni, a egy-az-egyhez kapcsolat másik felét képző entitásban el kell látnunk a kapcsolat másik felének mezőjét a \code{@OneToOne} annotációval, amelynek \code{mappedBy} paraméterével adjuk meg, hogy a másik oldal melyik mezője hivatkozik rá. \par
+Ha a kapcsolatot kétirányúvá szeretnénk bővíteni, az egy-az-egyhez kapcsolat másik felét képző entitásban el kell látnunk a kapcsolat másik felének mezőjét a \code{@OneToOne} annotációval, amelynek \code{mappedBy} paraméterével adjuk meg, hogy a másik oldal melyik mezője hivatkozik rá. \par
 
-\snippet{OneToOne}{RestaurantTable mint birtokló, EndUser, mint birtokolt}
+\snippet{OneToOne}{RestaurantTable mint birtokló, EndUser mint birtokolt}
 
 \subsubsection{@OneToMany, @ManyToOne}
 A \code{@OneToMany} és a \code{@ManyToOne} annotációkkal egy-a-többhöz és több-az-egyhez kapcsolatokat tudunk definiálni. Amennyiben külön-külön alkalmazzuk őket, ezek egyirányú kapcsolatokat határoznak meg, azonban ha egymással párban, két entitáson, akkor egy darab, kétirányú kapcsolatot definiál az entitások között. \par
 
-A projectben például a \code{@ManyToOne} annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
+A projektben például a \code{@ManyToOne} annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
 
-\snippet{OneToMany}{Az Order entitás több-az-egyhez kapcsolatban van a Server-rel}
+\snippet{OneToMany}{Az Order entitás több-az-egyhez kapcsolatban van a Serverrel}
 
 \subsubsection{@ManyToMany}
 
@@ -94,19 +94,19 @@ Több féle módon implementálhatjuk:
 
 \begin{listing}
 	\item \emph{join table} használatával
-	\item egy új, közvetítő entitás létrehozásával, ami enkapszulálja a kapcsolatban résztvevő feleket (például egy ItemsOfOrder entitás, ami tartalmazná hogy melyik rendelés mely termékkel van asszociálva)
+	\item egy új, közvetítő entitás létrehozásával, ami enkapszulálja a kapcsolatban résztvevő feleket (például egy ItemsOfOrder entitás, ami tartalmazná, hogy melyik rendelés mely termékkel van asszociálva)
 	\item \emph{composite key} használatával
 \end{listing}
 
-A project során \emph{join table}-t felhasználva implementáltuk. A birtokló oldalon definiálni kell a kapcsolatokat tartalmazó tábla nevét, illetve hogy a kapcsolatban résztvevő felek id-jai ennek a táblának mely oszlopaiban szerepelnek \par
+A project során \emph{join table}-t felhasználva implementáltuk. A birtokló oldalon definiálni kell a kapcsolatokat tartalmazó tábla nevét, illetve hogy a kapcsolatban résztvevő felek id-jai ennek a táblának mely oszlopaiban szerepelnek. \par
 
-\snippet{ManyToMany}{Order, mint birtokló, Item, mint birtokolt}
+\snippet{ManyToMany}{Order, mint birtokló, Item mint birtokolt}
 
 \subsubsection{JpaRepository, @Repository}
 
 A Spring Data JPA által biztosított \code{JpaRepository} egyszerű, könnyen használható és kibővíthető megoldást nyújt az adatelérési réteg létrehozására. Csupán egy interface-t kell létrehoznunk, ami kiterjeszti a \code{JpaRepository<T, ID>} generikus interfészt, ahol a T a perzisztált entitás típusa, ID pedig ezen entitás azonosító mezőjének típusa \cite{jpaRepositoryDocumentation}. A \code{JpaRepository} által definiált metódusok lehetővé teszik az alapvető  DUCS adatbázis műveletek (azaz Delete, Update, Create, Select) használatát perzisztált entitásokra. \par
 
-Amennyiben az alap műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok az \ref{tab:JpaRepository} táblázatban találhatóak. \par
+Amennyiben az alapvető műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok az \ref{tab:JpaRepository} táblázatban találhatóak. \par
 
-A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésésre. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz imlpementációi automatikusan detektálódnak \cite{repositoryDocumentation}.
+A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésére. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz implementációi automatikusan detektálódnak \cite{repositoryDocumentation}.
 
