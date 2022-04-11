@@ -9,7 +9,7 @@ Amennyiben van egy komplex objektumunk, ami több komponenst is magában foglalh
 
 létre tudunk hozni egy entitást, ami felügyeli ezen folyamatot. Ez az entitás, a \emph{Builder}, definiál egy létrehozási folyamatot, mely folyamat több, eltérő reprezentációt is létre tud hozni, és az ezt egységesítő interfészt. \par
 
-Egy példa a Java standard könyvtárából a \code{StringBuilder}. Segítségével képesek vagyunk egy stringet felépíteni kisebb szerkezeti egységek hozzáadásával, majd az így kapott karaktersorozatot megkapni. Az \code{insert} és \code{append} metódusai számos overload-dal rendelkeznek, így rugalmasabban tudjuk felépíteni a kívánt végeredményt. \par
+Egy példa a Java standard könyvtárából a \code{StringBuilder}. Segítségével képesek vagyunk egy stringet felépíteni kisebb szerkezeti egységek hozzáadásával, majd az így kapott karaktersorozatot megkapni. Az \code{insert} és \code{append} metódusai számos overloaddal rendelkeznek, így rugalmasabban tudjuk felépíteni a kívánt végeredményt. \par
 
 Egy további példa a projectből a \code{NavBar} és a \code{NavBarBuilder}. A \code{NavBar} egy egységes navigációs sáv komponens, amelyet minden felhasználói csoport felülete használ. Egy opcionális címkéből, ami valamilyen információt ad a felületről, ahol megjelenik a sáv, illetve kattintható gombok sorozatából áll, melyek az alkalmazás egy megfelelő felületére navigálják a felhasználót. A \code{NavBar} egy komplex objektum. Ez nem viselkedésében tükröződik, hanem abban, hogy a megadható navigációs opciók számát nem tudjuk egyértelműen deifniálni, igény szerint változhat.\par
 
@@ -26,12 +26,12 @@ Ezen esetek számát le tudjuk csökkenteni, ha a konstruktor \par
 
 \begin{listing}
 	\item a címkét \code{Optional<String>} típusúként kezeli, azaz függetlenül attól, hogy kell-e címke vagy sem, a konstruktor rendelkezni fog ezzel a paraméterrel
-	\item az opciókat változó hosszúságú paraméterlistaként adjuk meg, amely, abban az esetben, ha nincs navigációs opció, üres, másképp pedig az opciókat tartalmazza
+	\item az opciókat változó hosszúságú paraméterlistaként adjuk meg, amely, abban az esetben, ha nincs navigációs opció, üres, másképp pedig az opciókat tartalmazza.
 \end{listing} \par
 
 \snippet{NavBar}{A NavBar osztály implementációja}
 
-Ezzel lecsökkentettük az objektum létrehozásának módjainak számát, azonban ez a megoldás nem rugalmas. Az objektum kétrehozásához minden információra szükségünk van ami a címkét és az opciókat illeti, és lehetséges, hogy ezek nem állnak rendelkezésre egyszerre, vagy csak egy részük és ezek áthídalása jelentősen növeli a kódbázisunk komplecitását. \par
+Ezzel lecsökkentettük az objektum létrehozásának módjainak számát, azonban ez a megoldás nem rugalmas. Az objektum létrehozásához minden információra szükségünk van ami a címkét és az opciókat illeti, és lehetséges, hogy ezek nem állnak rendelkezésre egyszerre, vagy csak egy részük és ezek áthídalása jelentősen növeli a kódbázisunk komplexitását. \par
 
 A \code{NavBarBuilder} bevezetésével a létrehozási folyamat jelentősen leegyszerűsödik. Definiálunk egy egységes interfészt, amely tartalmazza a \code{NavBar} létrehozásának lépéseit.
 

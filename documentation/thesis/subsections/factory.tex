@@ -1,20 +1,20 @@
 \subsection{Factory}
 
-A \emph{single responsibility} elvéből kiindulva, minden osztálynak csak és kizátólag egy felelőséggel kel rendelkeznie \cite{martin2003agile}. Ezt figyelmebe véve el kell választanunk az objektumok példányosítását maguktól az objektumoktól. Ebben segít a \emph{Factory} minta. \par
+A \emph{single responsibility} elvéből kiindulva, minden osztálynak csak és kizárólag egy felelőséggel kell rendelkeznie \cite{martin2003agile}. Ezt figyelmebe véve el kell választanunk az objektumok példányosítását maguktól az objektumoktól. Ebben segít a \emph{Factory} minta. \par
 
-A \emph{Factory} mintának több variánsa van. Létezik olyan verziója, amiben a létrehozandó osztály egy metódusán keresztül hozzuk létre az új objektumokat \cite{gamma1995elements}. A Spring keretrendszer bizonyos megkötései miatt egy ettől eltérő dizájnt használtunk. A Spring által nyújtott \code{@Autowired} annotációval tudjuk bizonyos objektumok létrehozásának szerepkörét átruházni a Spring-re. Ehhez azonban szükséges, hogy az osztály, amit példányosítani kívánunk, rendelkezzen egy argomentum nélküli konstruktorral. Vannak azonban olyan szolgáltatások, melyek működéséhez plusz információ, bizonyos paraméterek szükségesek. \par
+A \emph{Factory} mintának több variánsa van. Létezik olyan verziója, amiben a létrehozandó osztály egy metódusán keresztül hozzuk létre az új objektumokat \cite{gamma1995elements}. A Spring keretrendszer bizonyos megkötései miatt egy ettől eltérő dizájnt használtunk. A Spring által nyújtott \code{@Autowired} annotációval tudjuk bizonyos objektumok létrehozásának szerepkörét átruházni a Springre. Ehhez azonban szükséges, hogy az osztály, amit példányosítani kívánunk, rendelkezzen egy argumentum nélküli konstruktorral. Vannak azonban olyan szolgáltatások, melyek működéséhez plusz információ, bizonyos paraméterek szükségesek. \par
 
 Vegyük példaként a \code{RestaurantDetailsSetterService}-t.
 
 \snippet{DetailsService}{RestaurantDetailsSetterService által definiált interfész}
 
-Ez a szolgáltatás felelős az egyes éttermek tulajdonságainak megváltoztatásáért, mint például az étterem neve vagy leírása. A metódusoknak nem adjuk át paraméterként, hogy melyik étterem tulajdonságait kívánjuk megváltoztatni, hiszen így minden egyes hívásnál meg kell bizonyosodnunk róla, hogy a helyes azonosítót adjuk át. Ehelyett az implementálandó osztály felelőssége lesz ennek számontartása, egy privát mező formájában, amit egy, a konstruktorban paraméterként kapott értékkel inicializálunk. Pár ezt a megoldást is lehet helytelenül használni, például találomra kitalált azonosítót megadni a konstruktor paraméterének, azonban sokkal nehezebb. Csupán egy helyen kell ügyelnünk a paraméter helyességére, továbbá, mivel ezen paraméter érétke nem változik, érdemesebb eltárolni a szolgáltatás létrehozásakor, mintsem minden metódushívásnál újra megadni. \par
+Ez a szolgáltatás felelős az egyes éttermek tulajdonságainak megváltoztatásáért, mint például az étterem neve vagy leírása. A metódusoknak nem adjuk át paraméterként, hogy melyik étterem tulajdonságait kívánjuk megváltoztatni, hiszen így minden egyes hívásnál meg kell bizonyosodnunk róla, hogy a helyes azonosítót adjuk át. Ehelyett az implementálandó osztály felelőssége lesz ennek számontartása, egy privát mező formájában, amit egy, a konstruktorban paraméterként kapott értékkel inicializálunk. Bár ezt a megoldást is lehet helytelenül használni, kevesebbszer kell figyelmet fordítanunk a helyes használatra. Csupán egy helyen kell ügyelnünk a paraméter helyességére, továbbá, mivel ezen paraméter értéke nem változik, érdemesebb eltárolni a szolgáltatás létrehozásakor, mintsem minden metódushívásnál újra megadni. \par
 
 Mivel a szolgáltatás konstruktora rendelkezik egy paraméterrel, nem tudjuk az \code{@Autowired} annotáció segítségével létrehozni. Viszont képesek vagyunk definiálni egy factory osztályt, aminek egy megfelelő metódusa felel az objektum létrehozásáért. \par
 
 \snippet{Factory}{A factory interfésze}
 
-A \code{get} metódus paraméterként megadunk minden kontextust a szolgáltatás létrehozásához. \par
+A \code{get} metódusnak paraméterként megadunk minden kontextust a szolgáltatás létrehozásához. \par
 
 \snippet{FactoryImpl}{Egy lehetséges factory implementáció}
 
