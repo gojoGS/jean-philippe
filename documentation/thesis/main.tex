@@ -7,7 +7,7 @@
 \graphicspath{{images/}}
 \usepackage{times}
 \usepackage{setspace}
-\usepackage{biblatex} 
+\usepackage[sorting=none]{biblatex} 
 \addbibresource{refs.bib}
 \usepackage{paracol}
 \usepackage{parcolumns}
@@ -75,10 +75,9 @@ bottom=3cm]{geometry}
 }
 \newcommand{\image}[2]{
 	\begin{figure}[H]
+		\includegraphics[width=\linewidth,frame]{figures/#2}	
 		\caption{#1}
 		\label{#2}
-		\includegraphics[width=\linewidth,frame]{figures/#2}	
-	
 	\end{figure}
 }
 
