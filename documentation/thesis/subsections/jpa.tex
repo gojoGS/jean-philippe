@@ -1,8 +1,8 @@
-\subsection{Spring Boot Starter Data JPA}
+\section{Spring Boot Starter Data JPA}
 
 A Spring Boot Starter Data JPA egyszerűbbé teszi az adatbázisokkal való kommunikációt, egyszerűbbé teszi az adatelérési réteg kialakítását, mindezt oly módon, hogy a megoldás átlátható, könnyen bővíthető legyen. Amennyiben úgy döntünk, hogy nem kívánunk mi magunk adatbázis sémákat, entitásokat, lekéréseket létrehozni, hanem ezt a feladatot a Spring Data JPA-nak delegáljuk, lehetőségünk van arra, hogy a JPA hozza létre az adattáblákat, lekérdezéseket és egyéb SQL parancsokat, és ezek eredményét kezelje.
 
-\subsubsection{Perzisztens entitások}
+\subsection{Perzisztens entitások}
 
 Ahhoz, hogy perzisztálhassuk egy osztály egy példányát egy adatbázisban 
 
@@ -19,7 +19,7 @@ Az entitás egy-egy mezőjéhez tartozó oszlop neve a mező nevével ekvivalens
 
 Ügyeljünk arra, hogy semmiképen sem használjunk SQL kulcsszavakat táblák vagy mezők neveként.
 
-\subsubsection{@Converter, AttributeConverter}
+\subsection{@Converter, AttributeConverter}
 
 Amennyiben egy olyan értéket akarunk perzisztálni, ami nem
 
@@ -47,7 +47,7 @@ A project elkészítése során \code{enum} értékek konvertálására használ
 \snippet{DishType}{DishType}
 \snippet{DishTypeConverter}{DishTypeConverter}
 
-\subsubsection{JPA kapcsolatok}
+\subsection{JPA kapcsolatok}
 
 A JPA kapcsolatoknak két fajtája van:
 \begin{listing}
@@ -61,7 +61,7 @@ Objektumok esetében a kétirányú kapcsolat egy definiált fogalom, szemantik�
 
 A Hibernate csupán a birtokló oldal változásait követi nyomon, így ha a birtokló oldalon bármilyen változás történik a kapcsolatban, azt képes leképezni a kapcsolat másik felére, a kapcsolat birtokolt oldalán történő változtatásokat pedig nem követi. Ez a módszer megoldja a kétirányú kapcsolatokból eredő inkonzisztenciákat. A birtokolt oldal könnyen felismerhető onnan, hogy értéket adunk a kapcsolatot jelző annotáció \code{mappedBy} paraméterének. \par
 
-\subsubsection{@OneToOne}
+\subsection{@OneToOne}
 
 Amennyiben egy mezőt a \code{@OneToOne} annotációval látunk el, egy egy-az-egyhez leképezést tudunk létrehozni két entitás között, azaz egy olyan leképezést, amelyben egy entitás egy példányához egy másik entitás legfeljebb egy példányát rendeljük. Az egy-az-egyhez leképezést több módon implementálhatjuk:
 
@@ -79,14 +79,14 @@ Ha a kapcsolatot kétirányúvá szeretnénk bővíteni, az egy-az-egyhez kapcso
 
 \snippet{OneToOne}{RestaurantTable mint birtokló, EndUser mint birtokolt}
 
-\subsubsection{@OneToMany, @ManyToOne}
+\subsection{@OneToMany, @ManyToOne}
 A \code{@OneToMany} és a \code{@ManyToOne} annotációkkal egy-a-többhöz és több-az-egyhez kapcsolatokat tudunk definiálni. Amennyiben külön-külön alkalmazzuk őket, ezek egyirányú kapcsolatokat határoznak meg, azonban ha egymással párban, két entitáson, akkor egy darab, kétirányú kapcsolatot definiál az entitások között. \par
 
 A projektben például a \code{@ManyToOne} annotációval reprezentáltuk a rendelések és a pincérek közötti kapcsolatot, azaz egy pincérnek több, hozzá rendelt rendelése lehet, míg egy rendeléshez legfeljebb egy pincér rendelhető.
 
 \snippet{OneToMany}{Az Order entitás több-az-egyhez kapcsolatban van a Serverrel}
 
-\subsubsection{@ManyToMany}
+\subsection{@ManyToMany}
 
 A project során a rendelések és a rendelésekben szereplő termékek közötti kapcsolatot több-a-többhoz kapcsolattal írtuk le, mivel egy rendeléshez több termék tartozik, illetve egy termék több rendeléshez is hozzárendelhető. \par
 
@@ -102,11 +102,11 @@ A project során \emph{join table}-t felhasználva implementáltuk. A birtokló 
 
 \snippet{ManyToMany}{Order, mint birtokló, Item mint birtokolt}
 
-\subsubsection{JpaRepository, @Repository}
+\subsection{JpaRepository, @Repository}
 
 A Spring Data JPA által biztosított \code{JpaRepository} egyszerű, könnyen használható és kibővíthető megoldást nyújt az adatelérési réteg létrehozására. Csupán egy interface-t kell létrehoznunk, ami kiterjeszti a \code{JpaRepository<T, ID>} generikus interfészt, ahol a T a perzisztált entitás típusa, ID pedig ezen entitás azonosító mezőjének típusa \cite{jpaRepositoryDocumentation}. A \code{JpaRepository} által definiált metódusok lehetővé teszik az alapvető  DUCS adatbázis műveletek (azaz Delete, Update, Create, Select) használatát perzisztált entitásokra. \par
 
-Amennyiben az alapvető műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok az \ref{tab:JpaRepository} táblázatban találhatóak. \par
+Amennyiben az alapvető műveleteken túlmutató lekérdezéseket szeretnénk definiálni, erre is van módunk. A \code{JpaRepository}-t kiterjesztő interfészben van módunk további metódusokat deklarálni, amelyek, ha nevük bizonyos szemantikai szabályokat követnek, interpretálva lesznek, mint SQL query-k. Az említett szemantikai szabályok a \ref{tab:JpaRepository} táblázatban találhatóak. \par
 
 A \code{@Repository} annotációval jelezzük a Spring keretrendszer felé, hogy az interfész egy \emph{Repository}, azaz egy mechanizmus entitások tárolásra, kinyerésésre és keresésére. A Spring 2.5-ös verzója óta a \code{@Component} annotáció egy specializációjaként is szolgál, azaz implementációi automatikusan detektálódnak \cite{repositoryDocumentation}.
 

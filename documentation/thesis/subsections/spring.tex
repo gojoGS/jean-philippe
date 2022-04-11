@@ -1,10 +1,10 @@
-\subsection{Spring}
+\section{Spring}
 
 A Spring keretrendszer a Java, illetve Jakarta EE alkalmazásfejlesztés de facto sztenderdjévé vált 2002-es megjelenése óta. A framework egyik legfontosabb funkciója a \emph{dependency injection} modellje, ami segíti a gyors alkalmazásfejlesztést, továbbá átláthatóbb, tisztább kódot eredményez. A Spring modulárisan van felépítve, amelyek olyan szolgltatásokat nyújtanak, mint az adatelérés, tesztelés és web integráció. Fejlesztőként nem vagyunk kényszerítve, hogy a keretrendszer által kínált összes komponenst egyszerre használjuk. A moduláris modell lehetővé teszi, hogy csupán a szükséges elemeket tartalmazza projektünk, attól függően, hogy az éppen aktuálisan fejlesztett alkalmazás mit igényel \cite{buildingSpringRest}.\par
 
 A Spring portfólióhoz számos más project tartozik, mint például a Spring Security, Spring Data vagy a Spring Boot, melyek mindegyike a Spring framework által nyújtott infrastruktúrára épül. Ezek célja rendre az autentikáció és autorizáció, az adatelérés és a Spring alkalmazások létrehozásának egyszerűbbé, elérhetőbbé tétele. \par
 
-\subsubsection{Spring Security}
+\subsection{Spring Security}
 
 Az alkalmazásban az autentikációt és autorizációt Spring Security segítségével oldottuk meg.
 
@@ -23,7 +23,7 @@ Láthatjuk, hogy van lehetőségünk Java kóddal is konfigurálni a Spring Secu
 
 Amennyiben valamely szerepkör funkcióját szeretnénk bővíteni, például egy GraphQL alapú API-t létrehozni, vagy valamilyen új lehetőséggel augmentálni a az éttermeket, ezt könnyen és egyszerűen megtehetjük ezen módszer bővíthetősége miatt. \par
 
-\subsubsection{Spring Boot}
+\subsection{Spring Boot}
 
 A Spring által biztosított dependency injection modell az \code{@Autowired} annotáció segítségével érjük el. Ezzel a megoldással csak a Spring által kezelt entitásokat tudjuk injektálni, azaz olyan osztályokat, amelyeknek van no-args-konstruktora, illetve el van látva valamilyen Spring által nyújtott \emph{stereotype annotációval}. Ezek közül a legfontosabbak a \code{@Component}, \code{@Repository} és a \code{@Service}. Ez utóbbi kettő kiterjeszti a \code{@Component} szerepkörét. \par
 
