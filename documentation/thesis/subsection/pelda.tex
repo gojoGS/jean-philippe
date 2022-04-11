@@ -1,14 +1,14 @@
 Az elkészült alkalmazás bemutatásához (ami a \emph{Jean Philippe} nevet kapta) vegyünk egy életszerű példát. \par
 
-Tegyük fel, hogy egy étterem üzemeltetője vagyunk, és nem vagyunk elégedettek a jelenlegi, hagyományos rendelési rendszerrel. Lassú, a pincérek hibázhatnak, nehéz kezelni és nyomonkövetni a rendeléseket, nem hatékony a kommunikáció a vendégekkel. Egy egyedi szofveres megoldás lefejlesztése túl drágának bizonyulna, nagy tőkebefektetéssel járna és túl nagy rizikót vállalnánk magunkra. Szükségünk lenne egy már meglévő szolgáltatásra. Egy hírdetés újtán rábukkanunk a Jean Philippe nevű szolgáltatásra. Weblapját felkeresve egy informatív, letisztult nyitóképernyő fogad. 
+Tegyük fel, hogy egy étterem üzemeltetője vagyunk, és nem vagyunk elégedettek a jelenlegi, hagyományos rendelési rendszerrel. Lassú, a pincérek hibázhatnak, nehéz kezelni és nyomonkövetni a rendeléseket, nem hatékony a kommunikáció a vendégekkel. Egy egyedi szoftveres megoldás lefejlesztése túl drágának bizonyulna, nagy tőkebefektetéssel járna és túl nagy rizikót vállalnánk magunkra. Szükségünk lenne egy már meglévő szolgáltatásra. Egy hirdetés útján rábukkanunk a Jean Philippe nevű szolgáltatásra. Weblapját felkeresve egy informatív, letisztult nyitóképernyő fogad. 
 
 \image{Nyitóképernyő}{jp-home.png}
 
-Az oldal funnkcióit böngészve rábukkanunk a már regisztrált, és a szolgáltatást aktívan használó éttermek listájára.
+Az oldal funkcióit böngészve rábukkanunk a már regisztrált, és a szolgáltatást aktívan használó éttermek listájára.
 
 \image{Regisztrált éttermek}{jp-restaurants.png}
 
-Mérlegeljük a szolgáltatás előnyeit
+Mérlegeljük a szolgáltatás előnyeit:
 
 \begin{listing}
 	\item minimális tőkebefektetés
@@ -18,7 +18,7 @@ Mérlegeljük a szolgáltatás előnyeit
 	\item web alapú, azaz platformfüggetlen, gyakoribbak a frissítések, nem szükséges hozzá setup folyamat
 \end{listing}
 
-és hátrányait
+és hátrányait:
 
 \begin{listing}
 	\item az asztalokat fel kell szerelnünk valamilyen megjelenítő eszközzel
@@ -27,23 +27,23 @@ Mérlegeljük a szolgáltatás előnyeit
 	\item vendégeink egy részének személytelen lesz a rendelési folyamat
 \end{listing}
 
-Belátjuk, hogy az ellenérvek nemcsak ennél a megoldásnál jelentkeznének, így úgy döntünk, hogy regisztráljuk az éttermünket a(z) \ref{jp-signup.png} ábrán láthatóü felületen.
+Belátjuk, hogy az ellenérvek nemcsak ennél a megoldásnál jelentkeznének, így úgy döntünk, hogy regisztráljuk az éttermünket a(z) \ref{jp-signup.png} ábrán látható felületen.
 
 Választunk egy tetszőleges, még nem használatban lévő felhasználónevet, egy megfelelő jelszót. A \emph{Restaurant details} mezőit kitöltjük éttermünk nevével mottójával: \emph{Kis Gömböc - Ha jól akarsz lakni}. A regisztráció gombra kattintva egy értesítés közli velünk a sikeres regisztráció hírét, majd megjelenik a bejelentkező képernyő.
 
 % TODO kurva gyorsan egy képet erről ide
 
-Az autentikációhoz szükséges adatok megadása után megtörténik a bejelentkezés a(z) \ref{jp-login.png} ábrán látahtó felületen, az alkalmazás átirányít minket az éttermek felhasználói felületére. A bejelentkezés utáni első képernyőn éttermünk menüjét láthatjuk, ami jelenleg üres, ezt a(z) \ref{rs-menu.png} ábra is szemlélteti.
+Az autentikációhoz szükséges adatok megadása után megtörténik a bejelentkezés a(z) \ref{jp-login.png} ábrán látható felületen, az alkalmazás átirányít minket az éttermek felhasználói felületére. A bejelentkezés utáni első képernyőn éttermünk menüjét láthatjuk, ami jelenleg üres, ezt a(z) \ref{rs-menu.png} ábra is szemlélteti.
 
-Megkezdjük a papír alapú étlap felvitelét a rendszerbe. Az alkalmazás egységes felületet nyújt ét-, illetve itallap kialakítására. Pár elírás került egyes termékek leírásába, de ezeket a szerkesztés funkcióval sikerül korrigálni. Rájövünk, hogy egyes ételek szervírozása nem nyereséges már az étteremnek, ezért ezeket eltávolítjuk a törlés funkcióval.
+Megkezdjük a papíralapú étlap felvitelét a rendszerbe. Az alkalmazás egységes felületet nyújt ét-, illetve itallap kialakítására. Pár elírás került egyes termékek leírásába, de ezeket a szerkesztés funkcióval sikerül korrigálni. Rájövünk, hogy egyes ételek szervírozása nem nyereséges már az étteremnek, ezért ezeket eltávolítjuk a törlés funkcióval.
 
 \image{Étel létrehozás űrlap segítségével}{rs-add.png}
 
-Itallapunk definiálása során tudjuk jelezni, hogy az egyes termékek tartalmaznak-e alkoholt, illetve, hogy diétás termékek-e, mint ahpgy azt a(z) \ref{rs-add-beverage.png} ábrán látjuk.
+Itallapunk definiálása során tudjuk jelezni, hogy az egyes termékek tartalmaznak-e alkoholt, illetve, hogy diétás termékek-e, mint ahogy azt a(z) \ref{rs-add-beverage.png} ábrán látjuk.
 
-Ét- és itallapunk megadása után felmerül, hogy nem lenne-e esedékes az étterem mottójának megváltoztatása. A profil fülre navigálva a(z) \ref{rs-profile.png} ábrán látható felület fogad minket. Látjuk, hogy módosítani tudjuk az éttermünk nevóét és leírását, új jelszót tudunk megadni, illetve ki tudunk jelentkezni. Több ötlet is érkezett az új leírásra, egyik sem bizonyult szubsztanciálisan jobbnak a jelenleginél, ezért visszaállítjuk az űrlapot eredeti állapotába a \emph{Reset} gombbal.
+Ét- és itallapunk megadása után felmerül, hogy nem lenne-e esedékes az étterem mottójának megváltoztatása. A profil fülre navigálva a(z) \ref{rs-profile.png} ábrán látható felület fogad minket. Látjuk, hogy módosítani tudjuk az éttermünk nevét és leírását, új jelszót tudunk megadni, illetve ki tudunk jelentkezni. Több ötlet is érkezett az új leírásra, egyik sem bizonyult szubsztanciálisan jobbnak a jelenleginél, ezért visszaállítjuk az űrlapot eredeti állapotába a \emph{Reset} gombbal.
 
-Az onboarding folyamatot az asztalok felvételével folytatjuk a(z) \ref{rs-tables.png} ábrán látható intefészen. Megadjuk az egyes asztalok sorszámát, amit eddig de facto ezonosítókként használtak dolgozóink egymás között, maximum kapacitásukat, illetve egy rövid leírást, hogy hol találhatóak.
+Az onboarding folyamatot az asztalok felvételével folytatjuk a(z) \ref{rs-tables.png} ábrán látható interfészen. Megadjuk az egyes asztalok sorszámát, amit eddig de facto azonosítókként használtak dolgozóink egymás között, maximum kapacitásukat, illetve egy rövid leírást, hogy hol találhatóak.
 
 \image{Új asztal}{rs-new-table.png}
 
@@ -56,15 +56,15 @@ Végül vegyük fel a rendszerbe a pincéreinket a(z) \ref{rs-staff.png} ábrán
 
 Éttermünk sikeresen átállt a web alapú rendszerre, várjuk vendégeinket.
 
-Egy személy úgy dönt, hogy szeretni elkölteni egy ebédet egy kellemes étteremben. Hallott a Jean Philippe keresési funkciójáról. Egy ideig böngészi az éttermek által szervírozott ételek listáját, rákeres bizonyos ételekre, többféle minimum és maximum ár kombinációval indít keresést. Végül választása a Kis Gömböc étteremre esik.
+Egy személy úgy dönt, hogy szeretne elkölteni egy ebédet egy kellemes étteremben. Hallott a Jean Philippe keresési funkciójáról. Egy ideig böngészi az éttermek által szervírozott ételek listáját, rákeres bizonyos ételekre, többféle minimum és maximum ár kombinációval indít keresést. Végül választása a Kis Gömböc étteremre esik.
 
 \image{Keresés}{jp-search.png}
 
 Belépve az étterembe keres egy szabad asztalt, ahol egy kijelző fogadja egy letisztult kezdőképernyővel, amit a(z) \ref{eu-start.png} ábrán láthatunk.
 
-Helyet foglal, majd megnyomja a \emph{Start session} gombot. Egy új képernyő fogadja, ahol ételeket tud hozzáadni a rendeléshez, illetve válogathat az itallapon szereplő opciók közül. Döntése végül 1 gulyáslevesre és 3 csirkepaprikásra esik, ahogy azt a(z) \ref{eu-menu-ready.png} ábrán látjuk. Az tételek kijelölése után megnyomja a \emph{Send order} gombot. Ezt követően átkerül egy új képernyőre, amit a(z) \ref{eu-sent.png} ábrán láthatunk, és várja az étterem válaszát.
+Helyet foglal, majd megnyomja a \emph{Start session} gombot. Egy új képernyő fogadja, ahol ételeket tud hozzáadni a rendeléshez, illetve válogathat az itallapon szereplő opciók közül. Döntése végül 1 gulyáslevesre és 3 csirkepaprikásra esik, ahogy azt a(z) \ref{eu-menu-ready.png} ábrán látjuk. A tételek kijelölése után megnyomja a \emph{Send order} gombot. Ezt követően átkerül egy új képernyőre, amit a(z) \ref{eu-sent.png} ábrán láthatunk, és várja az étterem válaszát.
 
-Az étterem, függetlenül hogy az alkalmazás mely pontján van, felugró értesítést kap az új rendelés beérkezéséről, ahogy azt a(z) \ref{rs-new-order.png} ábra szemlélteti. A személyzet valamelyik tagja ezt észleli, és a(z) \ref{rs-orders.png} ábrán látható fülre átlépve látja is, hogy az 1-es asztalnál új rendelés érkezett be. Megnyitva a rendelést látja a rendelés tartalmát, amit továbbít a konyha felé. A konyhai személyzet ad egy becslést a rendelés elkészítési idejére. A rendelést megnyitva hozzárendeli az egyik pincért, aki éppen nem annyira elfoglalt, és az egyeztetett becslést beírja az űrlap megfelelő mezőjébe, majd elmenti a változtatásokat. \par
+Az étterem, függetlenül, hogy az alkalmazás mely pontján van, felugró értesítést kap az új rendelés beérkezéséről, ahogy azt a(z) \ref{rs-new-order.png} ábra szemlélteti. A személyzet valamelyik tagja ezt észleli, és a(z) \ref{rs-orders.png} ábrán látható fülre átlépve látja is, hogy az 1-es asztalnál új rendelés érkezett be. Megnyitva a rendelést látja a rendelés tartalmát, amit továbbít a konyha felé. A konyhai személyzet ad egy becslést a rendelés elkészítési idejére. A rendelést megnyitva hozzárendeli az egyik pincért, aki éppen nem annyira elfoglalt, és az egyeztetett becslést beírja az űrlap megfelelő mezőjébe, majd elmenti a változtatásokat. \par
 
 \image{Rendeléssel kapcsolatos információk}{rs-estimate.png}
 
@@ -72,12 +72,12 @@ A vendég, asztalánál ülve változást vél felfedezni az eddigi képernyőn,
 
 Továbblépve látja rendelésének elkészítéséhez szükséges idő várható hosszát, illetve, hogy melyik pincér fogja tálalni, a(z) \ref{eu-waiting.png} ábrán látható módon. Várja az események további kibontakozását.
 
-Elkészült a rendelés, a kijelölt pincér átveszi a konyhától, a rendeléseket kezelő alkalmazott pedig lezárja a rendelést, a(z) \ref{rs-close-order.png} ábra által szemléltetett felületen.ó
+Elkészült a rendelés, a kijelölt pincér átveszi a konyhától, a rendeléseket kezelő alkalmazott pedig lezárja a rendelést, a(z) \ref{rs-close-order.png} ábra által szemléltetett felületen.
 
-A vendég ismét változást vél felfedezni a felhasználói felületen. Egy új felületre navigált az alkalmazás, amely arról informálja, hogy rendelése készen van. Pillanatokon belül Egy pincér kihozza rendelését. A fogások elfogyasztása után úgy dönt, újabb rendelést ad le. A \emph{New order} gombra kattintva a már ismert rendelési felület fogadja. Megismétlődik ugyanez a rendelési folyamat. \par
+A vendég ismét változást vél felfedezni a felhasználói felületen. Egy új felületre navigált az alkalmazás, amely arról informálja, hogy rendelése készen van. Pillanatokon belül egy pincér kihozza rendelését. A fogások elfogyasztása után úgy dönt, újabb rendelést ad le. A \emph{New order} gombra kattintva a már ismert rendelési felület fogadja. Megismétlődik ugyanez a rendelési folyamat. \par
 
 \image{Kész a rendelés}{eu-order-ready.png}
 
-Pár új rendelés után a vendég úgy dönt, hogy befejezné az étkezést, és fizetni szeretne. A \emph{Check out} opciót választva egy új felület tárul elé, amit a(z) \ref{eu-check-out.png} ábrán szemlélhetünk meg, ahol láthatja a végösszeget, és kiválaszthatja a fizetés módját. Egy ideig próbál választani a \emph{Készpénz}, \emph{Kártya} és \emph{Crypto} opciók között, végül a készpénzt választja. Fizetési szándéka jelezve lett az étterem felé, egy értesítést kaptak arról, hogy melyik asztal, milyen módon szeretne fizetni. Az asztalnál lévő felhasználói felület visszanavigált a session kezdő képernyőre, majd nem sokkal később egy pincér érkezett, akivel lebonyolítja a tranzakciót, majd elégedetten távozik az étteremből.
+Pár új rendelés után a vendég úgy dönt, hogy befejezné az étkezést, és fizetni szeretne. A \emph{Check out} opciót választva egy új felület tárul elé, amit a(z) \ref{eu-check-out.png} ábrán szemlélhetünk meg, ahol láthatja a végösszeget, és kiválaszthatja a fizetés módját. Egy ideig próbál választani a \emph{Készpénz}, \emph{Kártya} és \emph{Crypto} opciók között, végül a készpénzt választja. Fizetési szándéka jelezve lett az étterem felé, egy értesítést kaptak arról, hogy melyik asztal, milyen módon szeretne fizetni. Az asztalnál lévő felhasználói felület visszanavigált a session kezdőképernyőre, majd nem sokkal később egy pincér érkezett, akivel lebonyolítja a tranzakciót, majd elégedetten távozik az étteremből.
 
 \image{Az egyik asztal fizetni szeretne}{rs-ready-to-pay.png}
