@@ -7,7 +7,7 @@
 \graphicspath{{images/}}
 \usepackage{times}
 \usepackage{setspace}
-\usepackage[sorting=none]{biblatex} 
+\usepackage[sorting=none,backend=biber]{biblatex} 
 \addbibresource{refs.bib}
 \usepackage{paracol}
 \usepackage{parcolumns}
@@ -64,11 +64,16 @@ bottom=3cm]{geometry}
 	showspaces=false,                
 	showstringspaces=false,
 	showtabs=false,                 
-	tabsize=4
+	tabsize=4,
+	xleftmargin=0.05\linewidth
 }
 
+\renewcommand*{\newunitpunct}{\addcomma\space}
+
 \newcommand{\code}[1]{
-	\lstinline{#1}
+	\mbox{
+	\lstinline[language=Java]{#1}	
+}
 }
 \newcommand{\snippet}[2]{
 		\lstinputlisting[language=Java, caption={#2}, label={snippet:#1}]{code/#1.java}
