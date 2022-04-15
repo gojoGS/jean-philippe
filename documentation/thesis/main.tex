@@ -98,29 +98,36 @@ bottom=3cm]{geometry}
 
 \renewcommand*{\contentsname}{Tartalomjegyzék}
 
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
+
 \begin{document}
 	\input{chapters/outerTitle}
 	
 	\input{chapters/innerTitle}
 	
-	\chapter*{Köszönetnyilvánítás}
-	Köszönetnyilvánítás
-	
 	\tableofcontents
 	
+	\newpage
 	\chapter{Bevezetés}
-	
 	\input{chapters/bevezetes}
-
+	
+	\newpage
 	\input{chapters/targyalas}
 	
+	\newpage
 	\chapter{Összefoglaló}
-
 	\input{chapters/osszefoglalo}
 	
+	\newpage
+	\chapter*{Köszönetnyilvánítás}
+	\input{chapters/koszonet}
+	
+	\newpage
 	\printbibliography[
 	heading=bibnumbered, title={Irodalomjegyzék}]
 	
+	\newpage
 	\chapter{Függelék}
 	
 	\input{chapters/fuggelek}
